@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/Pathing-Finding/static/css/main.cbdad6da.chunk.css",
+    "main.js": "/Pathing-Finding/static/js/main.c6fed50f.chunk.js",
+    "main.js.map": "/Pathing-Finding/static/js/main.c6fed50f.chunk.js.map",
+    "runtime-main.js": "/Pathing-Finding/static/js/runtime-main.49dcecea.js",
+    "runtime-main.js.map": "/Pathing-Finding/static/js/runtime-main.49dcecea.js.map",
+    "static/css/2.20aa2d7b.chunk.css": "/Pathing-Finding/static/css/2.20aa2d7b.chunk.css",
+    "static/js/2.f5ef2af6.chunk.js": "/Pathing-Finding/static/js/2.f5ef2af6.chunk.js",
+    "static/js/2.f5ef2af6.chunk.js.map": "/Pathing-Finding/static/js/2.f5ef2af6.chunk.js.map",
+    "static/js/3.3a9f25e8.chunk.js": "/Pathing-Finding/static/js/3.3a9f25e8.chunk.js",
+    "static/js/3.3a9f25e8.chunk.js.map": "/Pathing-Finding/static/js/3.3a9f25e8.chunk.js.map",
+    "index.html": "/Pathing-Finding/index.html",
+    "static/css/2.20aa2d7b.chunk.css.map": "/Pathing-Finding/static/css/2.20aa2d7b.chunk.css.map",
+    "static/css/main.cbdad6da.chunk.css.map": "/Pathing-Finding/static/css/main.cbdad6da.chunk.css.map",
+    "static/js/2.f5ef2af6.chunk.js.LICENSE.txt": "/Pathing-Finding/static/js/2.f5ef2af6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.49dcecea.js",
+    "static/css/2.20aa2d7b.chunk.css",
+    "static/js/2.f5ef2af6.chunk.js",
+    "static/css/main.cbdad6da.chunk.css",
+    "static/js/main.c6fed50f.chunk.js"
+  ]
+}
