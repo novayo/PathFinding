@@ -2,19 +2,25 @@ import './App.css';
 import Header from './frontend/Header';
 import { useReducer } from 'react';
 import { algorithmContext, initialAlgorithm, algorithmReducer } from './Core';
-import Init from './frontend/Init';
-
+import Table from './frontend/Table';
+import { Button } from 'react-bootstrap';
+import ButtonEvent from './frontend/TableHelper/ButtonEvent';
 
 
 function App() {
   const [curAlgorithm, setCurAlgorithm] = useReducer(algorithmReducer, initialAlgorithm);
+  const buttonEvent = ButtonEvent()
 
   return (
     <div className="App">
       <algorithmContext.Provider value={{ get: curAlgorithm, set: setCurAlgorithm }}>
         <Header />
       </algorithmContext.Provider>
-      <Init row={10} col={50} size={30} />
+      <Table />
+      <Button onClick = {buttonEvent.Addbomb}>AddBomb</Button>
+      <Button onClick = {buttonEvent.RemoveBomb}>RemoveBomb</Button>
+      <Button onClick = {buttonEvent.ClearWalls}>ClearWalls</Button>
+      <Button onClick = {buttonEvent.ClearBoard}>ClearBoard</Button>
     </div>
   );
 }
