@@ -30,6 +30,7 @@ function MouseEvent() {
             setBomb(true)
             temp[Math.floor(rowSize / 2) * colSize + Math.floor(colSize / 2)] = picture.bomb
             setTableColor(temp)
+            tableVarContext.clickButton = ""
         }
     }, [tableVarContext.clickButton])
 
@@ -43,6 +44,7 @@ function MouseEvent() {
             }
             setBomb(false)
             setTableColor(temp)
+            tableVarContext.clickButton = ""
         }
     }, [tableVarContext.clickButton])
 
@@ -56,6 +58,7 @@ function MouseEvent() {
             }
             setTableColor(temp)
             setTouch(false)
+            tableVarContext.clickButton = ""
         }
     }, [tableVarContext.clickButton])
 
@@ -65,6 +68,7 @@ function MouseEvent() {
             setTableColor(initialTable)
             setBomb(false)
             setTouch(false)
+            tableVarContext.clickButton = ""
         }
     }, [tableVarContext.clickButton])
 
