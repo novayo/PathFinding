@@ -1,8 +1,22 @@
 import React from 'react'
 
-// 統一 目前的演算法, redux vs useContext&useReducer
+// 目前系統狀態
+export const sysStatusContext = React.createContext();
+export const sysStatusInit = "IDLE";
+export const sysStatusReducer = (state, action) => {
+    switch (action) {
+        case 'IDLE':
+            return 'IDLE';
+        case 'RUNNING':
+            return 'RUNNING';
+        default:
+            return sysStatusInit;
+    }
+}
+
+// 目前系統是哪種演算法
 export const algorithmContext = React.createContext();
-export const initialAlgorithm = "Algorithm_Dijkstra";
+export const initialAlgorithm = "";
 export const algorithmReducer = (state, action) => {
     switch (action) {
         case 'Algorithm_Dijkstra':

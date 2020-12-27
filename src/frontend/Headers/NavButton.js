@@ -19,10 +19,13 @@ const NavButton = () => {
     }
 
     const handler = () => {
-        setMyVariant('danger');
-        setButtonName(algoContext.get);
-
-        setTimeout(() => resetButton(), 1000);
+        if (algoContext.get === "") {
+            setButtonName("Pick an Algorithm");
+        } else {
+            setMyVariant('danger');
+            setButtonName(algoContext.get);
+            setTimeout(() => resetButton(), 1000);
+        }
     }
 
     return (
