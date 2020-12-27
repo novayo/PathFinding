@@ -1,21 +1,23 @@
 import React, { useContext } from 'react';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { NavDropdown, Nav } from 'react-bootstrap';
 import { algorithmContext } from '../../Core';
 
 function DropdownAlgorithm({ className }) {
     const algoContext = useContext(algorithmContext);
 
     return (
-        <NavDropdown xs={1} title="Algorithms" id="DropdownAlgorithm" onSelect={(eventKey) => DropdownAlgorithmHandler(eventKey, algoContext)} className={className}>
-            <NavDropdown.Item eventKey="Algorithm_Dijkstra">Dijkstra's Algorithm</NavDropdown.Item>
-            <NavDropdown.Item eventKey="Algorithm_APlus">A+ Search</NavDropdown.Item>
-            <NavDropdown.Item eventKey="Algorithm_Greedy_Best_First">Greedy Best-First Search</NavDropdown.Item>
-            <NavDropdown.Item eventKey="Algorithm_Swarm">Swarm Algorithm</NavDropdown.Item>
-            <NavDropdown.Item eventKey="Algorithm_Convergent_Swarm">Convergent Swarm Algorithm</NavDropdown.Item>
-            <NavDropdown.Item eventKey="Algorithm_Bidrectional_Swarm">Bidirectional Swarm Algorithm</NavDropdown.Item>
-            <NavDropdown.Item eventKey="Algorithm_Breadth_First">Breadth-First Search</NavDropdown.Item>
-            <NavDropdown.Item eventKey="Algorithm_Depth_First">Depth-First Search</NavDropdown.Item>
-        </NavDropdown>
+        <Nav.Item>
+            <NavDropdown xs={1} title="Algorithms" id="DropdownAlgorithm" onSelect={(eventKey) => DropdownAlgorithmHandler(eventKey, algoContext)} className={className}>
+                <NavDropdown.Item eventKey="Algorithm_Dijkstra">Dijkstra's Algorithm</NavDropdown.Item>
+                <NavDropdown.Item eventKey="Algorithm_APlus">A+ Search</NavDropdown.Item>
+                <NavDropdown.Item eventKey="Algorithm_Greedy_Best_First">Greedy Best-First Search</NavDropdown.Item>
+                <NavDropdown.Item eventKey="Algorithm_Swarm">Swarm Algorithm</NavDropdown.Item>
+                <NavDropdown.Item eventKey="Algorithm_Convergent_Swarm">Convergent Swarm Algorithm</NavDropdown.Item>
+                <NavDropdown.Item eventKey="Algorithm_Bidrectional_Swarm">Bidirectional Swarm Algorithm</NavDropdown.Item>
+                <NavDropdown.Item eventKey="Algorithm_Breadth_First">Breadth-First Search</NavDropdown.Item>
+                <NavDropdown.Item eventKey="Algorithm_Depth_First">Depth-First Search</NavDropdown.Item>
+            </NavDropdown>
+        </Nav.Item>
     )
 }
 

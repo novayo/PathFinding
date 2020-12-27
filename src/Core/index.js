@@ -2,7 +2,7 @@ import React from 'react'
 
 // 目前系統狀態
 export const sysStatusContext = React.createContext();
-export const sysStatusInit = "IDLE";
+export const initialsysStatus = "IDLE";
 export const sysStatusReducer = (state, action) => {
     switch (action) {
         case 'IDLE':
@@ -10,9 +10,15 @@ export const sysStatusReducer = (state, action) => {
         case 'RUNNING':
             return 'RUNNING';
         default:
-            return sysStatusInit;
+            return initialsysStatus;
     }
 }
+
+// Bomb status
+export const bombContext = React.createContext({ status: false });
+
+// Speed
+export const speedContext = React.createContext({ status: "average" });
 
 // 目前系統是哪種演算法
 export const algorithmContext = React.createContext();

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
-import { algorithmContext } from '../../Core';
+import { algorithmContext, bombContext } from '../../Core';
 
 const NavButton = () => {
 
     const [buttonName, setButtonName] = useState("Visualize !");
     const [myVariant, setMyVariant] = useState("");
     const algoContext = useContext(algorithmContext);
+    const bomb = useContext(bombContext);
 
     useEffect(() => {
         setMyVariant('success');
@@ -19,6 +20,7 @@ const NavButton = () => {
     }
 
     const handler = () => {
+        console.log(bomb.status);
         if (algoContext.get === "") {
             setButtonName("Pick an Algorithm");
         } else {
