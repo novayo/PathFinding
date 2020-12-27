@@ -14,7 +14,7 @@ function Header() {
     const buttonEvent = ButtonEvent()
 
     return (
-        <Navbar expand="xl" bg='dark' variant='dark'>
+        <Navbar collapseOnSelect expand="xl" bg='dark' variant='dark'>
             <Logo />
             <Navbar.Toggle aria-controls="Collapse" />
             <Navbar.Collapse id="Collapse" className='nvbar-collapse'>
@@ -29,7 +29,6 @@ function Header() {
                     <DropdownSpeed />
                 </Nav>
             </Navbar.Collapse>
-
         </Navbar>
     )
 }

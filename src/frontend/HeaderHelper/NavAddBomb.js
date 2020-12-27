@@ -1,14 +1,33 @@
 /* Links inteface */
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
-import { bombContext } from '../../Core';
+import { bombContext, sysStatusContext } from '../../Core';
 
 function NavAddBomb({ names, handlers, className }) {
     const [whichHandler, setWhichHandler] = useState(0);
     const bomb = useContext(bombContext);
+    const sysStatus = useContext(sysStatusContext);
+
+    // 為何不能這樣？
+    // useEffect(() => {
+    //     console.log(bomb.status)
+
+    //     if (bomb.status === true) {
+    //         setWhichHandler(1);
+    //     } else {
+    //         setWhichHandler(0);
+    //     }
+
+    //     handlers[whichHandler]();
+    // }, [bomb.status])
 
     const localHandler = () => {
+
+        if (sysStatus.get !== "IDLE") {
+            return;
+        }
+
         if (bomb.status === true) {
             setWhichHandler(0);
             bomb.status = false;
@@ -17,7 +36,6 @@ function NavAddBomb({ names, handlers, className }) {
             bomb.status = true;
         }
         handlers[whichHandler]();
-        console.log('123123123' + bomb.status)
     }
 
     return (
