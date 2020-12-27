@@ -28,7 +28,7 @@ function TableUI() {
       
     return (
         <div>
-            <table id = "board" border="1" cellSpacing="0" >
+            <table id = "board" align="center" border="1" cellSpacing="0" >
                 <tbody>
                     {createTable}
                 </tbody>

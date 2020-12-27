@@ -4,12 +4,12 @@ import { tableContext } from './TableIndex'
 
 function MouseEvent() {
     const tableVarContext = useContext(tableContext)
-    const [rowSize, colSize, size] = [tableVarContext.rowSize, tableVarContext.colSize, tableVarContext.size]
+    const [rowSize, colSize] = [tableVarContext.rowSize, tableVarContext.colSize]
     const picture = tableVarContext.picture
 
     const [wall, setWall] = useState(false)
     const [bomb, setBomb] = useState(false)
-    const [touch, setTouch] = useState(false)
+    const [touch, setTouch] = useState({bombComponent: false, startComponent: false, endComponent: false})
     const [move, setMove] = useState({bombComponent: false, startComponent: false, endComponent: false})
 
     const initialTable = Array.from(Array(rowSize * colSize).keys(), index => {
@@ -25,18 +25,15 @@ function MouseEvent() {
     var temp = tableColor.slice()
 
     useEffect(() => {
-        console.log("AddBombHanlder")
+        console.log("ButtonHanlder")
         if(bomb === false && tableVarContext.clickButton === tableVarContext.buttonKind.AddBomb){
+            console.log("AddBomb")
             setBomb(true)
             temp[Math.floor(rowSize / 2) * colSize + Math.floor(colSize / 2)] = picture.bomb
             setTableColor(temp)
             tableVarContext.clickButton = ""
-        }
-    }, [tableVarContext.clickButton])
-
-    useEffect(() => {
-        console.log("RemoveBombHanlder")
-        if(bomb && tableVarContext.clickButton === tableVarContext.buttonKind.RemoveBomb){
+        }else if(bomb && tableVarContext.clickButton === tableVarContext.buttonKind.RemoveBomb){
+            console.log("RemoveBomb")
             for(var i = 0; i < rowSize * colSize;i++){
                 if(temp[i] === picture.bomb){
                     temp[i] = picture.background
@@ -45,12 +42,8 @@ function MouseEvent() {
             setBomb(false)
             setTableColor(temp)
             tableVarContext.clickButton = ""
-        }
-    }, [tableVarContext.clickButton])
-
-    useEffect(() => {
-        console.log("ClearWallHanlder")
-        if(tableVarContext.clickButton === tableVarContext.buttonKind.ClearWalls){
+        }else if(tableVarContext.clickButton === tableVarContext.buttonKind.ClearWalls){
+            console.log("ClearWall")
             for(var i = 0; i < rowSize * colSize;i++){
                 if(temp[i] === picture.wall){
                     temp[i] = picture.background
@@ -59,12 +52,8 @@ function MouseEvent() {
             setTableColor(temp)
             setTouch(false)
             tableVarContext.clickButton = ""
-        }
-    }, [tableVarContext.clickButton])
-
-    useEffect(() => {
-        console.log("ClearBoardHanlder")
-        if(tableVarContext.clickButton === tableVarContext.buttonKind.ClearBoard){
+        }else if(tableVarContext.clickButton === tableVarContext.buttonKind.ClearBoard){
+            console.log("ClearBoard")
             setTableColor(initialTable)
             setBomb(false)
             setTouch(false)
@@ -121,25 +110,25 @@ function MouseEvent() {
         }else{
             if(move.bombComponent && temp[parseInt(e.target.id)] !== picture.start && temp[parseInt(e.target.id)] !== picture.end){
                 if(temp[parseInt(e.target.id)] === picture.wall){
-                    setTouch(true)
+                    setTouch({...touch, bombComponent: true})
                 }else{
-                    setTouch(false)
+                    setTouch({...touch, bombComponent: false})
                 }
                 temp[parseInt(e.target.id)] = picture.bomb
                 setTableColor(temp)
             }else if(move.startComponent && temp[parseInt(e.target.id)] !== picture.bomb && temp[parseInt(e.target.id)] !== picture.end){
                 if(temp[parseInt(e.target.id)] === picture.wall){
-                    setTouch(true)
+                    setTouch({...touch, startComponent: true})
                 }else{
-                    setTouch(false)
+                    setTouch({...touch, startComponent: false})
                 }
                 temp[parseInt(e.target.id)] = picture.start
                 setTableColor(temp)
             }else if(move.endComponent && temp[parseInt(e.target.id)] !== picture.bomb && temp[parseInt(e.target.id)] !== picture.start){
                 if(temp[parseInt(e.target.id)] === picture.wall){
-                    setTouch(true)
+                    setTouch({...touch, endComponent: true})
                 }else{
-                    setTouch(false)
+                    setTouch({...touch, endComponent: false})
                 }
                 temp[parseInt(e.target.id)] = picture.end
                 setTableColor(temp)
@@ -151,21 +140,21 @@ function MouseEvent() {
         console.log("OnMouseOutHanlder " + e.target.id)
         if(wall === false){
             if(move.bombComponent && temp[parseInt(e.target.id)] !== picture.start && temp[parseInt(e.target.id)] !== picture.end){
-                if(touch){
+                if(touch.bombComponent){
                     temp[parseInt(e.target.id)] = picture.wall
                 }else{
                     temp[parseInt(e.target.id)] = picture.background
                 }
                 setTableColor(temp)
             }else if(move.startComponent && temp[parseInt(e.target.id)] !== picture.bomb && temp[parseInt(e.target.id)] !== picture.end){
-                if(touch){
+                if(touch.startComponent){
                     temp[parseInt(e.target.id)] = picture.wall
                 }else{
                     temp[parseInt(e.target.id)] = picture.background
                 }
                 setTableColor(temp)
             }else if(move.endComponent && temp[parseInt(e.target.id)] !== picture.bomb && temp[parseInt(e.target.id)] !== picture.start){
-                if(touch){
+                if(touch.endComponent){
                     temp[parseInt(e.target.id)] = picture.wall
                 }else{
                     temp[parseInt(e.target.id)] = picture.background
