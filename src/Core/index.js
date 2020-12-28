@@ -15,7 +15,18 @@ export const sysStatusReducer = (state, action) => {
 }
 
 // Bomb status
-export const bombContext = React.createContext({ status: false });
+export const bombContext = React.createContext();
+export const bombInitial = false;
+export const bombReducer = (state, action) => {
+    switch (action) {
+        case 'True':
+            return true;
+        case 'False':
+            return false;
+        default:
+            return bombInitial
+    }
+}
 
 // Speed
 export const speedContext = React.createContext({ status: "average" });

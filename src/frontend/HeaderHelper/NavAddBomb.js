@@ -9,18 +9,16 @@ function NavAddBomb({ names, handlers, className }) {
     const bomb = useContext(bombContext);
     const sysStatus = useContext(sysStatusContext);
 
-    // 為何不能這樣？
-    // useEffect(() => {
-    //     console.log(bomb.status)
+    useEffect(() => {
 
-    //     if (bomb.status === true) {
-    //         setWhichHandler(1);
-    //     } else {
-    //         setWhichHandler(0);
-    //     }
+        if (bomb.get === true) {
+            setWhichHandler(1);
+        } else {
+            setWhichHandler(0);
+        }
 
-    //     handlers[whichHandler]();
-    // }, [bomb.status])
+        handlers[whichHandler]();
+    }, [bomb])
 
     const localHandler = () => {
 
@@ -28,14 +26,18 @@ function NavAddBomb({ names, handlers, className }) {
             return;
         }
 
-        if (bomb.status === true) {
-            setWhichHandler(0);
-            bomb.status = false;
+        console.log(bomb.get)
+
+        if (bomb.get === true) {
+            // setWhichHandler(0);
+            bomb.set("False");
+            // bomb.status = false;
         } else {
-            setWhichHandler(1);
-            bomb.status = true;
+            // setWhichHandler(1);
+            bomb.set("True");
+            // bomb.status = true;
         }
-        handlers[whichHandler]();
+        // handlers[whichHandler]();
     }
 
     return (
