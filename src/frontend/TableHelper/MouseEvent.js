@@ -1,5 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
 import { tableContext } from './TableIndex'
+import ReactDOM from 'react-dom'
+import TableUI from './TableUI';
 
 
 function MouseEvent() {
@@ -58,6 +60,12 @@ function MouseEvent() {
             setBomb(false)
             setTouch(false)
             tableVarContext.clickButton = ""
+        }else if(tableVarContext.clickButton === tableVarContext.buttonKind.Init){
+            tableVarContext.clickButton = ""
+            ReactDOM.render(
+                <TableUI />,
+                document.getElementById('UI')
+            )
         }
     }, [tableVarContext.clickButton])
 
