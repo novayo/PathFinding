@@ -28,7 +28,6 @@ function MouseEvent() {
 
     function SearchAnimation(search, speed, count) { 
         const SearchAnimation = setInterval(() => {
-            console.log(count)
             if(count === search.length){
                 clearInterval(SearchAnimation)
             }else{
@@ -47,12 +46,10 @@ function MouseEvent() {
 
     function PathAnimation(path, speed, count) {         
         const PathAnimation = setInterval(() => {
-            console.log(count)
             if(count === path.length){
                 clearInterval(PathAnimation)
             }else{
                 temp[path[count][0] * tableVarContext.colSize + path[count][1]] = picture.path
-                console.log(path[count][0] * tableVarContext.colSize + path[count][1])
                 setTableColor(temp)
             }
             count += 1
