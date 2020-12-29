@@ -44,7 +44,8 @@ function DropdownAlgorithm({ className }) {
 
     return (
         <Nav.Item>
-            <NavDropdown xs={1} title="Algorithms" id="DropdownAlgorithm" onSelect={(eventKey) => DropdownAlgorithmHandler(eventKey)} className={className}>
+            <NavDropdown xs={1} title="Algorithms" id="DropdownAlgorithm" onSelect={(eventKey) => DropdownAlgorithmHandler(eventKey)} className={className}
+            >
                 <NavDropdown.Item eventKey="Algorithm_Dijkstra">Dijkstra's Algorithm</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Algorithm_APlus">A+ Search</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Algorithm_Greedy_Best_First">Greedy Best-First Search</NavDropdown.Item>

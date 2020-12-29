@@ -25,9 +25,10 @@ code {
   font-size:larger;
 }
 
-/* .nav-link{
+/* #DropdownAlgorithm{
+  background-color: green;
+}
+
+#DropdownAlgorithm:hover{
   color: green !important;
-} */
-/* .nav-item:hover{
-  color: 
 } */

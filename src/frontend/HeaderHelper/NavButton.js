@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
-import { algorithmContext, sysStatusContext, bombContext } from '../../Core';
+import { algorithmContext, sysStatusContext } from '../../Core';
 
 const NavButton = () => {
 
@@ -9,7 +9,6 @@ const NavButton = () => {
     const [myVariant, setMyVariant] = useState("");
     const algoContext = useContext(algorithmContext);
     const sysStatus = useContext(sysStatusContext);
-    const bomb = useContext(bombContext);
 
     useEffect(() => {
         setMyVariant('success');
@@ -60,7 +59,6 @@ const NavButton = () => {
             return;
         }
 
-        bomb.set(bomb.get ? "False" : "True"); // For showing listening to Context
         if (algoContext.get === "") {
             setButtonName("Pick an Algorithm");
         } else {

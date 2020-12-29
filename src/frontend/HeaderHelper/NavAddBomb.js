@@ -3,11 +3,14 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { bombContext, sysStatusContext } from '../../Core';
+import Colored from '../../HOC/Colored';
 
-function NavAddBomb({ names, handlers, className }) {
+function NavAddBomb({ names, handlers }) {
     const [whichHandler, setWhichHandler] = useState(0);
     const bomb = useContext(bombContext);
     const sysStatus = useContext(sysStatusContext);
+    const [className, toggleHandler] = Colored();
+
 
     useEffect(() => {
 
@@ -18,7 +21,7 @@ function NavAddBomb({ names, handlers, className }) {
         }
 
         handlers[whichHandler]();
-    }, [bomb])
+    }, [bomb, handlers, whichHandler])
 
     const localHandler = () => {
 
@@ -26,23 +29,16 @@ function NavAddBomb({ names, handlers, className }) {
             return;
         }
 
-        console.log(bomb.get)
-
         if (bomb.get === true) {
-            // setWhichHandler(0);
             bomb.set("False");
-            // bomb.status = false;
         } else {
-            // setWhichHandler(1);
             bomb.set("True");
-            // bomb.status = true;
         }
-        // handlers[whichHandler]();
     }
 
     return (
         <Nav.Item xs={1}>
-            <Nav.Link onClick={localHandler} className={className}>{names[whichHandler]}</Nav.Link>
+            <Nav.Link onClick={localHandler} className={className} onMouseEnter={toggleHandler} onMouseLeave={toggleHandler}>{names[whichHandler]}</Nav.Link>
         </Nav.Item>
     )
 }
