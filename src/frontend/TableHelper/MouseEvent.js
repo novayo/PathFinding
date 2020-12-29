@@ -26,6 +26,43 @@ function MouseEvent() {
     const [tableColor, setTableColor] = useState(initialTable)
     var temp = tableColor.slice()
 
+    function SearchAnimation(search, speed, count) { 
+        const SearchAnimation = setInterval(() => {
+            console.log(count)
+            if(count === search.length){
+                clearInterval(SearchAnimation)
+            }else{
+                for(var i = 0;i < search[count].length;i++){
+                    temp[search[count][i][0] * tableVarContext.colSize + search[count][i][1]] = picture.search
+                }
+                setTableColor(temp)
+            }
+            count += 1
+            ReactDOM.render(
+                <TableUI />,
+                document.getElementById('UI')
+            )
+        }, speed)
+    }
+
+    function PathAnimation(path, speed, count) {         
+        const PathAnimation = setInterval(() => {
+            console.log(count)
+            if(count === path.length){
+                clearInterval(PathAnimation)
+            }else{
+                temp[path[count][0] * tableVarContext.colSize + path[count][1]] = picture.path
+                console.log(path[count][0] * tableVarContext.colSize + path[count][1])
+                setTableColor(temp)
+            }
+            count += 1
+            ReactDOM.render(
+                <TableUI />,
+                document.getElementById('UI')
+            )
+        }, speed)
+    }
+
     useEffect(() => {
         console.log("ButtonHanlder")
         if(bomb === false && tableVarContext.clickButton === tableVarContext.buttonKind.AddBomb){
@@ -34,6 +71,7 @@ function MouseEvent() {
             temp[Math.floor(rowSize / 2) * colSize + Math.floor(colSize / 2)] = picture.bomb
             setTableColor(temp)
             tableVarContext.clickButton = ""
+
         }else if(bomb && tableVarContext.clickButton === tableVarContext.buttonKind.RemoveBomb){
             console.log("RemoveBomb")
             for(var i = 0; i < rowSize * colSize;i++){
@@ -44,6 +82,7 @@ function MouseEvent() {
             setBomb(false)
             setTableColor(temp)
             tableVarContext.clickButton = ""
+
         }else if(tableVarContext.clickButton === tableVarContext.buttonKind.ClearWalls){
             console.log("ClearWall")
             for(var i = 0; i < rowSize * colSize;i++){
@@ -54,12 +93,28 @@ function MouseEvent() {
             setTableColor(temp)
             setTouch(false)
             tableVarContext.clickButton = ""
+
         }else if(tableVarContext.clickButton === tableVarContext.buttonKind.ClearBoard){
             console.log("ClearBoard")
             setTableColor(initialTable)
             setBomb(false)
             setTouch(false)
             tableVarContext.clickButton = ""
+
+        }else if(tableVarContext.clickButton === tableVarContext.buttonKind.start){
+            console.log("Start")
+            const [search, path, speed] = [tableVarContext.search, tableVarContext.path, tableVarContext.speed]
+            tableVarContext.startInit = temp.slice()
+            var count = 0
+            SearchAnimation(search, speed, count)
+            setTimeout(() => {PathAnimation(path, speed, count)}, speed * (search.length + 1))
+            tableVarContext.clickButton = ""
+
+        }else if(tableVarContext.clickButton === tableVarContext.buttonKind.ClearPath){
+            console.log("ClearPath")
+            setTableColor(tableVarContext.startInit)
+            tableVarContext.clickButton = ""
+
         }else if(tableVarContext.clickButton === tableVarContext.buttonKind.Init){
             tableVarContext.clickButton = ""
             ReactDOM.render(
@@ -109,10 +164,10 @@ function MouseEvent() {
     const OnMouseEnterHanlder = (e) => {
         console.log("OnMouseEnterHanlder " + e.target.id)
         if(wall && temp[parseInt(e.target.id)] !== picture.bomb && temp[parseInt(e.target.id)] !== picture.start && temp[parseInt(e.target.id)] !== picture.end){
-            if(temp[parseInt(e.target.id)] === picture.background){
-                temp[parseInt(e.target.id)] = picture.wall
-            }else{
+            if(temp[parseInt(e.target.id)] === picture.wall){
                 temp[parseInt(e.target.id)] = picture.background
+            }else{
+                temp[parseInt(e.target.id)] = picture.wall
             }
             setTableColor(temp)
         }else{

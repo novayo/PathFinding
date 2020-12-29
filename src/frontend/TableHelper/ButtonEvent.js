@@ -39,7 +39,26 @@ function ButtonEvent() {
         )
     }
 
-    return {Addbomb, RemoveBomb, ClearWalls, ClearBoard}
+    const Start = (search, path, speed) => (e) => {
+        tableVarContext.search = search
+        tableVarContext.path = path
+        tableVarContext.speed = speed
+        tableVarContext.clickButton = tableVarContext.buttonKind.start
+        ReactDOM.render(
+            <TableUI />,
+            document.getElementById('UI')
+        )
+    }
+
+    const ClearPath = () => {
+        tableVarContext.clickButton = tableVarContext.buttonKind.ClearPath
+        ReactDOM.render(
+            <TableUI />,
+            document.getElementById('UI')
+        )
+    }
+
+    return {Addbomb, RemoveBomb, ClearWalls, ClearBoard, Start, ClearPath}
 }
 
 export default ButtonEvent
