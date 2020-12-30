@@ -25,7 +25,7 @@ function Header() {
                     <NavButton />
                     <NavLink names={["Clear Board"]} handlers={[buttonEvent.ClearBoard]} />
                     <NavLink names={["Clear Walls & Weights"]} handlers={[buttonEvent.ClearWalls]} />
-                    <NavLink names={["Clear Path"]} handlers={[() => alert('Clear Path !')]} />
+                    <NavLink names={["Clear Path"]} handlers={[buttonEvent.ClearPath]} />
                     <DropdownSpeed />
                 </Nav>
             </Navbar.Collapse>

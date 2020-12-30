@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { NavDropdown, Nav } from 'react-bootstrap';
 import { algorithmContext, sysStatusContext } from '../../Core';
+import Colored from '../../HOC/Colored';
 
-function DropdownAlgorithm({ className }) {
+function DropdownAlgorithm() {
     const algoContext = useContext(algorithmContext);
     const sysStatus = useContext(sysStatusContext);
+    const [className, toggleHandler] = Colored();
 
     const DropdownAlgorithmHandler = (eventKey) => {
 
@@ -44,7 +46,8 @@ function DropdownAlgorithm({ className }) {
 
     return (
         <Nav.Item>
-            <NavDropdown xs={1} title="Algorithms" id="DropdownAlgorithm" onSelect={(eventKey) => DropdownAlgorithmHandler(eventKey)} className={className}
+            <NavDropdown xs={1} title={<span className={className}>Algorithms</span>} id="DropdownAlgorithm" onSelect={(eventKey) => DropdownAlgorithmHandler(eventKey)}
+                onMouseEnter={toggleHandler} onMouseLeave={toggleHandler}
             >
                 <NavDropdown.Item eventKey="Algorithm_Dijkstra">Dijkstra's Algorithm</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Algorithm_APlus">A+ Search</NavDropdown.Item>

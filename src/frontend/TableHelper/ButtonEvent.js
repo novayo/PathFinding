@@ -22,7 +22,7 @@ function ButtonEvent() {
             document.getElementById('UI')
         )
     }
-    
+
     const ClearWalls = () => {
         tableVarContext.clickButton = tableVarContext.buttonKind.ClearWalls
         ReactDOM.render(
@@ -30,7 +30,7 @@ function ButtonEvent() {
             document.getElementById('UI')
         )
     }
-    
+
     const ClearBoard = () => {
         tableVarContext.clickButton = tableVarContext.buttonKind.ClearBoard
         ReactDOM.render(
@@ -58,7 +58,7 @@ function ButtonEvent() {
         )
     }
 
-    return {Addbomb, RemoveBomb, ClearWalls, ClearBoard, Start, ClearPath}
+    return { Addbomb, RemoveBomb, ClearWalls, ClearBoard, Start, ClearPath }
 }
 
 export default ButtonEvent

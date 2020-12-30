@@ -1,10 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { sysStatusContext } from '../../Core';
+import { speedContext } from '../../Core';
+import Colored from '../../HOC/Colored';
 
-function DropdownSpeed({ className }) {
+function DropdownSpeed() {
     const [title, setTitle] = useState('Average');
     const sysStatus = useContext(sysStatusContext);
+    const speed = useContext(speedContext);
+    const [className, toggleHandler] = Colored();
+
+    useEffect(() => {
+        setTitle(speed.get);
+    }, [speed.get])
 
     const DropdownSpeedHandler = (eventKey) => {
         if (sysStatus.get !== "IDLE") {
@@ -13,16 +21,13 @@ function DropdownSpeed({ className }) {
 
         switch (eventKey) {
             case "Fast":
-                setTitle("Fast");
-                alert("Speed Fast!");
+                speed.set("Fast");
                 break;
             case "Average":
-                setTitle("Average");
-                alert("Speed Average!");
+                speed.set("Average");
                 break;
             case "Slow":
-                setTitle("Slow");
-                alert("Speed Slow!");
+                speed.set("Slow");
                 break;
             default:
                 break;
@@ -30,7 +35,9 @@ function DropdownSpeed({ className }) {
     }
 
     return (
-        <NavDropdown xs={1} title={`Speed: ${title}`} id="DropdownSpeed" onSelect={DropdownSpeedHandler} className={className}>
+        <NavDropdown xs={1} title={<span className={className}>Speed: {title}</span>} id="DropdownSpeed" onSelect={DropdownSpeedHandler}
+            onMouseEnter={toggleHandler} onMouseLeave={toggleHandler}
+        >
             <NavDropdown.Item eventKey="Fast">Fast</NavDropdown.Item>
             <NavDropdown.Item eventKey="Average">Average</NavDropdown.Item>
             <NavDropdown.Item eventKey="Slow">Slow</NavDropdown.Item>

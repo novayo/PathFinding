@@ -1,9 +1,11 @@
 import React, { useContext } from 'react'
 import { NavDropdown, Nav } from 'react-bootstrap';
 import { sysStatusContext } from '../../Core';
+import Colored from '../../HOC/Colored';
 
-function DropdownMaze({ className }) {
+function DropdownMaze() {
     const sysStatus = useContext(sysStatusContext);
+    const [className, toggleHandler] = Colored();
 
     const DropdownMazeHandler = (eventKey) => {
         if (sysStatus.get !== "IDLE") {
@@ -36,7 +38,9 @@ function DropdownMaze({ className }) {
 
     return (
         <Nav.Item>
-            <NavDropdown xs={1} title="Mazes & Patterns" id="DropdownMaze" onSelect={DropdownMazeHandler} className={className}>
+            <NavDropdown xs={1} title={<span className={className}>Mazes & Patterns</span>} id="DropdownMaze" onSelect={DropdownMazeHandler}
+                onMouseEnter={toggleHandler} onMouseLeave={toggleHandler}
+            >
                 <NavDropdown.Item eventKey="Maze_Recursive_Division">Recursive Division</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Maze_Recursive_Division_vertical">Recursive Division(vertical skew)</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Maze_Recursive_Division_horizontal">Recursive Division(horizontal skew)</NavDropdown.Item>

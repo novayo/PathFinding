@@ -29,7 +29,20 @@ export const bombReducer = (state, action) => {
 }
 
 // Speed
-export const speedContext = React.createContext({ status: "average" });
+export const speedContext = React.createContext();
+export const speedInitial = "average";
+export const speedReducer = (state, action) => {
+    switch (action) {
+        case 'Fast':
+            return "Fast";
+        case 'Average':
+            return "Average";
+        case 'Slow':
+            return "Slow";
+        default:
+            return bombInitial
+    }
+}
 
 // 目前系統是哪種演算法
 export const algorithmContext = React.createContext();

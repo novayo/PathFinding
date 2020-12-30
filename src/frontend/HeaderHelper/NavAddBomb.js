@@ -1,5 +1,3 @@
-/* Links inteface */
-
 import React, { useState, useContext, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { bombContext, sysStatusContext } from '../../Core';

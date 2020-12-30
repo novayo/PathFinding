@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import { algorithmContext, sysStatusContext } from '../../Core';
+import ButtonEvent from '../TableHelper/ButtonEvent';
+import { TestAlgorithm } from '../../Backend/TestAlgorithm';
 
 const NavButton = () => {
 
@@ -9,6 +11,8 @@ const NavButton = () => {
     const [myVariant, setMyVariant] = useState("");
     const algoContext = useContext(algorithmContext);
     const sysStatus = useContext(sysStatusContext);
+    const buttonEvent = ButtonEvent();
+    const [search, path, speed] = TestAlgorithm();
 
     useEffect(() => {
         setMyVariant('success');
@@ -64,6 +68,7 @@ const NavButton = () => {
         } else {
             sysStatus.set("RUNNING");
             setMyVariant('danger');
+            buttonEvent.Start(search, path, speed);
             setTimeout(() => resetButton(), 10000);
         }
     }
