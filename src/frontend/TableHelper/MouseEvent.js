@@ -104,8 +104,7 @@ function MouseEvent() {
             tableVarContext.startInit = temp.slice()
             var count = 0
             SearchAnimation(search, speed, count)
-            setTimeout(() => {PathAnimation(path, speed, count)}, speed * (search.length + 1))
-            tableVarContext.clickButton = ""
+            setTimeout(() => {PathAnimation(path, speed, count);tableVarContext.clickButton = ""}, speed * (search.length + 1))
 
         }else if(tableVarContext.clickButton === tableVarContext.buttonKind.ClearPath){
             console.log("ClearPath")

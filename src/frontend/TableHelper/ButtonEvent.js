@@ -39,7 +39,7 @@ function ButtonEvent() {
         )
     }
 
-    const Start = (search, path, speed) => (e) => {
+    const Start = (search, path, speed) => {
         tableVarContext.search = search
         tableVarContext.path = path
         tableVarContext.speed = speed
