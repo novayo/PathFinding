@@ -7,6 +7,7 @@ import DropdownMaze from './HeaderHelper/DropdownMaze';
 import NavLink from './HeaderHelper/NavLink';
 import NavAddBomb from './HeaderHelper/NavAddBomb';
 import NavButton from './HeaderHelper/NavButton';
+import NavClearBoard from './HeaderHelper/NavClearBoard';
 import DropdownSpeed from './HeaderHelper/DropdownSpeed';
 import ButtonEvent from './TableHelper/ButtonEvent';
 
@@ -23,7 +24,7 @@ function Header() {
                     <DropdownMaze />
                     <NavAddBomb names={["Add Bomb", "Remove Bomb"]} handlers={[buttonEvent.Addbomb, buttonEvent.RemoveBomb]} />
                     <NavButton />
-                    <NavLink names={["Clear Board"]} handlers={[buttonEvent.ClearBoard]} />
+                    <NavClearBoard names={["Clear Board"]} handlers={[buttonEvent.ClearBoard]} />
                     <NavLink names={["Clear Walls & Weights"]} handlers={[buttonEvent.ClearWalls]} />
                     <NavLink names={["Clear Path"]} handlers={[buttonEvent.ClearPath]} />
                     <DropdownSpeed />

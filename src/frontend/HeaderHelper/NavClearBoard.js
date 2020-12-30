@@ -1,40 +1,23 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
-import { bombContext, sysStatusContext } from '../../Core';
+import { sysStatusContext } from '../../Core';
+import { bombContext } from '../../Core';
 import Colored from '../../HOC/Colored';
 
-function NavAddBomb({ names, handlers }) {
+function NavClearBoard({ names, handlers }) {
     const [whichHandler, setWhichHandler] = useState(0);
-    const bomb = useContext(bombContext);
     const sysStatus = useContext(sysStatusContext);
+    const bomb = useContext(bombContext);
     const [className, toggleHandler] = Colored();
 
-
-    useEffect(() => {
-
-        if (bomb.get === true) {
-            setWhichHandler(1);
-        } else {
-            setWhichHandler(0);
-        }
-
-    }, [bomb])
-
     const localHandler = () => {
-
         if (sysStatus.get !== "IDLE") {
             return;
         }
 
-        if (bomb.get === true) {
-            bomb.set("False");
-            setWhichHandler(1);
-        } else {
-            bomb.set("True");
-            setWhichHandler(0);
-        }
-
+        setWhichHandler(preWhichHandler => (preWhichHandler + 1) % handlers.length);
         handlers[whichHandler]();
+        bomb.set("False");
     }
 
     return (
@@ -44,4 +27,4 @@ function NavAddBomb({ names, handlers }) {
     )
 }
 
-export default NavAddBomb
+export default NavClearBoard
