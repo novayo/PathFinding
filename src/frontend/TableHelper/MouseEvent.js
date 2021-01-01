@@ -108,7 +108,9 @@ function MouseEvent() {
 
         }else if(tableVarContext.clickButton === tableVarContext.buttonKind.ClearPath){
             console.log("ClearPath")
-            setTableColor(tableVarContext.startInit)
+            if(Array.isArray(tableVarContext.startInit)){
+                setTableColor(tableVarContext.startInit)
+            }
             tableVarContext.clickButton = ""
 
         }else if(tableVarContext.clickButton === tableVarContext.buttonKind.Init){
