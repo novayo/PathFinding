@@ -1,11 +1,14 @@
 import { useContext } from 'react'
 import TableUI from './TableUI';
 import { tableContext } from './TableIndex'
+import { sysStatusContext } from '../../Core'
 import ReactDOM from 'react-dom'
 
 
 function ButtonEvent() {
-    const tableVarContext = useContext(tableContext)
+    // const tableVarContext = useContext(tableContext)
+    const tableVarContext = tableContext
+    const sysStatus = useContext(sysStatusContext)
 
     const Addbomb = () => {
         tableVarContext.clickButton = tableVarContext.buttonKind.AddBomb
