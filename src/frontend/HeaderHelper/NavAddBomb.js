@@ -12,21 +12,22 @@ function NavAddBomb({ names, handlers }) {
     const isMount = IsMount();
 
     useEffect(() => {
-        if (isMount) return;
-        console.log(bomb)
-        console.log('1')
+        if (isMount) return; // 防止第一次render也會跑進來執行
+
         if (bomb.get === true) {
             setWhichHandler(1);
         } else {
             setWhichHandler(0);
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [bomb])
 
     useEffect(() => {
         if (isMount) return;
 
-        console.log('2')
         handlers[whichHandler]();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [whichHandler])
 
     const localHandler = () => {
