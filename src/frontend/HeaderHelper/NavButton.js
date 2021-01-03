@@ -66,9 +66,8 @@ const NavButton = () => {
         if (algoContext.get === "") {
             setButtonName("Pick an Algorithm");
         } else {
-            sysStatus.set("RUNNING");
+            sysStatus.set("RUNNING", buttonEvent.Start(search, path, speed));
             setMyVariant('danger');
-            buttonEvent.Start(search, path, speed);
             setTimeout(() => resetButton(), 10000);
         }
     }
