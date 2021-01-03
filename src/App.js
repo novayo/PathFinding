@@ -3,9 +3,9 @@ import { algorithmReducer, initialAlgorithm, algorithmContext } from './Core';
 import { sysStatusReducer, initialsysStatus, sysStatusContext } from './Core';
 import { bombContext, bombInitial, bombReducer } from './Core';
 import { speedContext, speedInitial, speedReducer } from './Core';
-import Header from './frontend/Header';
+import Header from './Frontend/Header';
 import { useReducer } from 'react';
-import Table from './frontend/Table';
+import Table from './Frontend/Table';
 
 function App() {
   const [curAlgorithm, setCurAlgorithm] = useReducer(algorithmReducer, initialAlgorithm);

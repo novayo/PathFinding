@@ -8,6 +8,7 @@ function ButtonEvent() {
     const tableVarContext = useContext(tableContext)
 
     const Addbomb = () => {
+        console.log('Add Bombingggggg')
         tableVarContext.clickButton = tableVarContext.buttonKind.AddBomb
         ReactDOM.render(
             <TableUI />,
@@ -16,6 +17,7 @@ function ButtonEvent() {
     }
 
     const RemoveBomb = () => {
+        console.log('Remove Bombingggggg')
         tableVarContext.clickButton = tableVarContext.buttonKind.RemoveBomb
         ReactDOM.render(
             <TableUI />,

@@ -22,7 +22,7 @@ function Header() {
                 <Nav className="nav-bar">
                     <DropdownAlgorithm />
                     <DropdownMaze />
-                    <NavAddBomb names={["Add Bomb", "Remove Bomb"]} handlers={[buttonEvent.Addbomb, buttonEvent.RemoveBomb]} />
+                    <NavAddBomb names={["Add Bomb", "Remove Bomb"]} handlers={[buttonEvent.RemoveBomb, buttonEvent.Addbomb]} />
                     <NavButton />
                     <NavClearBoard names={["Clear Board"]} handlers={[buttonEvent.ClearBoard]} />
                     <NavLink names={["Clear Walls & Weights"]} handlers={[buttonEvent.ClearWalls]} />
