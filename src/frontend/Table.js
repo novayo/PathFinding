@@ -1,6 +1,6 @@
 import TableUI from './TableHelper/TableUI'
 
-function Table() {    
+function Table() {  
     return (
         <div id = "UI">
             <TableUI/>
