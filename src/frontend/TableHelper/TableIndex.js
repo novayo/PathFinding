@@ -8,7 +8,7 @@ export const tableVar = {
 }
 
 export const picture =  {wall: "#0000E6", bomb: "red", start: "#E69500", end: "#E000E0", background: "white", search: "#26FFFF", path: "#F0F000"}
-export const componentKind = {start: 0, end: 1, bomb: 2, wall: 4}
+export const componentKind = {start: "start", end: "end", bomb: "bomb", wall: "wall"}
 
 export const initialTable = Array.from(Array(tableVar.rowSize * tableVar.colSize).keys(), index => {
     if(index === Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 4)){
