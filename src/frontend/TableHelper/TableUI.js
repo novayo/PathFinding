@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react'
 import MouseEvent from './MouseEvent'
 import { tableVar } from './TableIndex'
-import ReactDOM from 'react-dom'
 
 
 function TableUI() {
@@ -11,7 +9,7 @@ function TableUI() {
     const col = Array.from(Array(colSize).keys())
 
     const mouesEvent = MouseEvent()
-    const [MouseDownHandler, MouseUpHandler, OnMouseEnterHanlder, OnMouseOutHanlder, table] = [mouesEvent.MouseDownHandler, mouesEvent.MouseUpHandler, mouesEvent.OnMouseEnterHanlder, mouesEvent.OnMouseOutHanlder, mouesEvent.table.get]
+    const [MouseDownHandler, MouseUpHandler, OnMouseEnterHanlder] = [mouesEvent.MouseDownHandler, mouesEvent.MouseUpHandler, mouesEvent.OnMouseEnterHanlder]
 
     const createTable = row.map((rowIndex, index) => {
         return ( 
@@ -19,7 +17,7 @@ function TableUI() {
                 {col.map((colIndex, index) => {
                     // console.log(rowIndex + " " + colIndex)
                     return (
-                        <td id = {rowIndex * colSize + colIndex} key = {index} bgcolor = {table[rowIndex * colSize + colIndex]} width={size} onMouseUp = {MouseUpHandler} onMouseDown = {MouseDownHandler} onMouseEnter = {OnMouseEnterHanlder} onMouseOut = {OnMouseOutHanlder}>
+                        <td id = {rowIndex * colSize + colIndex} key = {index} bgcolor = {tableVar.table[rowIndex * colSize + colIndex]} width={size} onMouseUp = {MouseUpHandler} onMouseDown = {MouseDownHandler} onMouseEnter = {OnMouseEnterHanlder}>
                             {}
                         </td>)}
                     )}

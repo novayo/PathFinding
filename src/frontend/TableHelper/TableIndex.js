@@ -1,16 +1,15 @@
 import { createContext } from 'react'
 
+
 export const tableVar = {
     rowSize: Math.floor(window.screen.availHeight / 30) - 7, // Math.floor((window.screen.height - document.getElementById("navbar").clientHeight) / 30)
     colSize: Math.floor(window.screen.width / 30), 
     size: 30,
 }
 
-export const componentKind = {start: "start", end: "end", bomb: "bomb", wall: "wall"}
 export const picture =  {wall: "#0000E6", bomb: "red", start: "#E69500", end: "#E000E0", background: "white", search: "#26FFFF", path: "#F0F000"}
+export const componentKind = {start: 0, end: 1, bomb: 2, wall: 4}
 
-// table status
-export const tableContext = createContext()
 export const initialTable = Array.from(Array(tableVar.rowSize * tableVar.colSize).keys(), index => {
     if(index === Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 4)){
         return picture.start
@@ -20,26 +19,20 @@ export const initialTable = Array.from(Array(tableVar.rowSize * tableVar.colSize
         return picture.background
     }
 })
-export const tableReducer = (state, action, target) => {
-    switch (action, target) {
-        case target:
-            return action;
-        default:
-            return initialTable;
-    }
-}
+
+tableVar.table = initialTable
 
 // touch status
 export const touchContext = createContext()
-export const touchInitial = ""
+export const touchInitial = {start: picture.background, end: picture.background, bomb: picture.background}
 export const touchReducer = (state, action) => {
-    switch (action) {
+    switch (action.componentKind) {
         case componentKind.start:
-            return componentKind.start
+            return {...state, start: action.picture}
         case componentKind.end:
-            return componentKind.end
+            return {...state, end: action.picture}
         case componentKind.bomb:
-            return componentKind.bomb
+            return {...state, bomb: action.picture}
         default:
             return touchInitial
     }
@@ -61,4 +54,9 @@ export const moveReducer = (state, action) => {
         default:
             return moveInitial
     }
+}
+
+export function setTable(index, picture){
+    tableVar.table[index] = picture
+    document.getElementById(index).bgColor = picture
 }

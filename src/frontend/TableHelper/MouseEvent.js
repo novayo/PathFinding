@@ -1,119 +1,81 @@
 import { useContext } from 'react'
-import { tableVar, tableContext, touchContext, moveContext, componentKind, picture } from './TableIndex'
+import { sysStatusContext } from '../../Core/index'
+import { tableVar, touchContext, moveContext, componentKind, picture, setTable } from './TableIndex'
 
 
 function MouseEvent() {
-    const [table, touch, move] = [useContext(tableContext), useContext(touchContext), useContext(moveContext)]
-    var temp = table.get.slice()
+    const [touch, move, sysStatus] = [useContext(touchContext), useContext(moveContext), useContext(sysStatusContext)]
 
-    const MouseUpHandler = (e) => {
-        console.log("MouseUpHandler " + e.target.id)
-        if(move.get === componentKind.wall){
-            move.set()
+    function WhichComponent(element){
+        if(element === picture.start){
+            return {kind: componentKind.start, picture: picture.start, touch: touch.get.start, type: 0}
+        }else if(element === picture.end){
+            return {kind: componentKind.end, picture: picture.end, touch: touch.get.end, type: 0}
+        }else if(element === picture.bomb){
+            return {kind: componentKind.bomb, picture: picture.bomb, touch: touch.get.bomb, type: 0}
+        }else if(element === picture.wall){
+            return {kind: componentKind.wall, rKind: componentKind.background, picture: picture.wall, rPicture: picture.background, type: 1}
         }else{
-            if(temp[parseInt(e.target.id)] === picture.bomb){
-                move.set()
-            }else if(temp[parseInt(e.target.id)] === picture.start){
-                move.set()
-            }else{
-                move.set()
-            }
+            return {kind: componentKind.background, rKind: componentKind.wall, picture: picture.background, rPicture: picture.wall, type: 1}
         }
-        tableVar.init = temp
     }
 
     const MouseDownHandler = (e) => {
-        e.preventDefault()
-        console.log("ClickDownHandler " + e.target.id)
-        if(temp[parseInt(e.target.id)] !== picture.bomb && temp[parseInt(e.target.id)] !== picture.start && temp[parseInt(e.target.id)] !== picture.end){
-            move.set(componentKind.wall)
-            if(temp[parseInt(e.target.id)] === picture.background){
-                temp[parseInt(e.target.id)] = picture.wall
-            }else{
-                temp[parseInt(e.target.id)] = picture.background
-            }
-            table.set(temp, true)
-        }else{
-            if(temp[parseInt(e.target.id)] === picture.bomb){
-                move.set(componentKind.bomb)
-            }else if(temp[parseInt(e.target.id)] === picture.start){
-                move.set(componentKind.start)
-            }else{
-                move.set(componentKind.end)
-            }
+        // console.log("MouseDownHandler " + e.target.id)
+
+        if (sysStatus.get !== "IDLE") {
+            return
         }
+
+        e.preventDefault()
+
+        tableVar.id = parseInt(e.target.id)
+        const whichComponent = WhichComponent(tableVar.table[tableVar.id])
+
+        if(whichComponent.type){
+            setTable(tableVar.id, whichComponent.rPicture)
+            move.set(whichComponent.rKind)
+        }else{
+            move.set(whichComponent.kind)
+        }
+    }
+
+    const MouseUpHandler = (e) => {
+        // console.log("MouseUpHandler " + e.target.id)
+
+        if (sysStatus.get !== "IDLE") {
+            return
+        }
+
+        move.set("")
     }
 
     const OnMouseEnterHanlder = (e) => {
-        console.log("OnMouseEnterHanlder " + e.target.id)
-        if(move.get === componentKind.wall && temp[parseInt(e.target.id)] !== picture.bomb && temp[parseInt(e.target.id)] !== picture.start && temp[parseInt(e.target.id)] !== picture.end){
-            if(temp[parseInt(e.target.id)] === picture.wall){
-                temp[parseInt(e.target.id)] = picture.background
-            }else{
-                temp[parseInt(e.target.id)] = picture.wall
-            }
-            table.set(temp, true)
-        }else{
-            if(move.get === componentKind.bomb && temp[parseInt(e.target.id)] !== picture.start && temp[parseInt(e.target.id)] !== picture.end){
-                if(temp[parseInt(e.target.id)] === picture.wall){
-                    touch.set(componentKind.bomb)
-                }else{
-                    touch.set()
-                }
-                temp[parseInt(e.target.id)] = picture.bomb
-                table.set(temp, true)
-            }else if(move.get === componentKind.start && temp[parseInt(e.target.id)] !== picture.bomb && temp[parseInt(e.target.id)] !== picture.end){
-                if(temp[parseInt(e.target.id)] === picture.wall){
-                    touch.set(componentKind.start)
-                }else{
-                    touch.set()
-                }
-                temp[parseInt(e.target.id)] = picture.start
-                table.set(temp, true)
-            }else if(move.get === componentKind.end && temp[parseInt(e.target.id)] !== picture.bomb && temp[parseInt(e.target.id)] !== picture.start){
-                if(temp[parseInt(e.target.id)] === picture.wall){
-                    touch.set(componentKind.end)
-                }else{
-                    touch.set()
-                }
-                temp[parseInt(e.target.id)] = picture.end
-                table.set(temp, true)
+        // console.log("OnMouseEnterHanlder " + e.target.id)
+
+        if (sysStatus.get !== "IDLE") {
+            return
+        }
+
+        tableVar.newId = parseInt(e.target.id)
+        const whichOldComponent = WhichComponent(tableVar.table[tableVar.id])
+        const whichNewComponent = WhichComponent(tableVar.table[tableVar.newId])
+
+        if(move.get === componentKind.wall && whichNewComponent.type){
+            setTable(tableVar.newId, whichNewComponent.rPicture)
+            tableVar.id = tableVar.newId
+        }else if(move.get !== componentKind.wall && move.get !== ""){
+            if(whichNewComponent.type){
+                setTable(tableVar.id, whichOldComponent.touch)
+                touch.set({componentKind: whichOldComponent.kind, picture: whichNewComponent.picture})
+                setTable(tableVar.newId, whichOldComponent.picture)
+                tableVar.id = tableVar.newId
             }
         }
     }
 
-    const OnMouseOutHanlder = (e) => {
-        console.log("OnMouseOutHanlder " + e.target.id)
-        if(move.get !== componentKind.wall){
-            if(move.get === componentKind.bomb && temp[parseInt(e.target.id)] !== picture.start && temp[parseInt(e.target.id)] !== picture.end){
-                if(touch.get === componentKind.bomb){
-                    temp[parseInt(e.target.id)] = picture.wall
-                }else{
-                    temp[parseInt(e.target.id)] = picture.background
-                }
-                table.set(temp, true)
-            }else if(move.get === componentKind.start && temp[parseInt(e.target.id)] !== picture.bomb && temp[parseInt(e.target.id)] !== picture.end){
-                if(touch.get === componentKind.start){
-                    temp[parseInt(e.target.id)] = picture.wall
-                }else{
-                    temp[parseInt(e.target.id)] = picture.background
-                }
-                table.set(temp, true)
-            }else if(move.get === componentKind.end && temp[parseInt(e.target.id)] !== picture.bomb && temp[parseInt(e.target.id)] !== picture.start){
-                if(touch.get === componentKind.end){
-                    temp[parseInt(e.target.id)] = picture.wall
-                }else{
-                    temp[parseInt(e.target.id)] = picture.background
-                }
-                table.set(temp, true)
-            }
-        }
-    }
-
-    return {MouseDownHandler, MouseUpHandler, OnMouseEnterHanlder, OnMouseOutHanlder, table}
+    return {MouseDownHandler, MouseUpHandler, OnMouseEnterHanlder}
 
 }
 
 export default MouseEvent
-
-
