@@ -44,6 +44,7 @@ function NavAddBomb({ names, handlers }) {
         }
     }
 
+
     return (
         <Nav.Item xs={1}>
             <Nav.Link onClick={localHandler} className={className} onMouseEnter={toggleHandler} onMouseLeave={toggleHandler}>{names[whichHandler]}</Nav.Link>

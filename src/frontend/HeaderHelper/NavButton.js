@@ -54,6 +54,7 @@ const NavButton = () => {
     }, [algoContext.get])
 
     useEffect(()=>{
+        console.log(sysStatus.get);
         if (sysStatus.get === 'RUNNING'){
             setMyVariant('danger');
         } else{

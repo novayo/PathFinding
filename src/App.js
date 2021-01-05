@@ -25,15 +25,14 @@ function App() {
             <bombContext.Provider value={{ get: curBomb, set: setCurBomb }}>
               <sysStatusContext.Provider value={{ get: curSysStatus, set: setCurSysStatus }}>
                 <algorithmContext.Provider value={{ get: curAlgorithm, set: setCurAlgorithm }}>
-                <Header />
-                <Table />
+                  <Header />
+                  <Table />
                 </algorithmContext.Provider>
               </sysStatusContext.Provider>
             </bombContext.Provider>
           </speedContext.Provider>
         </touchContext.Provider>
       </moveContext.Provider>
-
     </div>
   );
 }

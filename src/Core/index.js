@@ -12,13 +12,15 @@ export var position = {
 
 // 目前系統狀態
 export const sysStatusContext = React.createContext();
-export const initialsysStatus = "IDLE";
+export const initialsysStatus = "LOADING";
 export const sysStatusReducer = (state, action) => {
     switch (action) {
         case 'IDLE':
             return 'IDLE';
         case 'RUNNING':
             return 'RUNNING';
+        case 'LOADING':
+            return 'LOADING';
         default:
             return initialsysStatus;
     }

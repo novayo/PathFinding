@@ -1,13 +1,11 @@
 import React, { useState, useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { sysStatusContext } from '../../Core';
-import { bombContext } from '../../Core';
 import Colored from '../../HOC/Colored';
 
 function NavClearBoard({ names, handlers }) {
     const [whichHandler, setWhichHandler] = useState(0);
     const sysStatus = useContext(sysStatusContext);
-    const bomb = useContext(bombContext);
     const [className, toggleHandler] = Colored();
 
     const localHandler = () => {
