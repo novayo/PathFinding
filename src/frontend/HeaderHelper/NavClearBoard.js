@@ -17,7 +17,6 @@ function NavClearBoard({ names, handlers }) {
 
         setWhichHandler(preWhichHandler => (preWhichHandler + 1) % handlers.length);
         handlers[whichHandler]();
-        bomb.set("False");
     }
 
     return (

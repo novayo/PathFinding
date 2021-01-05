@@ -1,10 +1,13 @@
 import { tableVar, picture, setTable } from './TableIndex'
 
 
-export function Animation(arr, speed, count, picture) { 
+export function Animation(arr, speed, count, picture, myCallbackFunction=null) { 
     const arrAnimation = setInterval(() => {
         if(count === arr.length){
-            clearInterval(arrAnimation)
+            if (myCallbackFunction !== null){
+                myCallbackFunction();
+            }
+            clearInterval(arrAnimation);
         }else{
             setTable(arr[count][0] * tableVar.colSize + arr[count][1], picture)
         }
@@ -23,6 +26,6 @@ export function SearchAnimation(search, speed, count) {
     
 }
 
-export function PathAnimation(path, speed, count) { 
-    Animation(path, speed, count, picture.path)
+export function PathAnimation(path, speed, count, myCallbackFunction=null) { 
+    Animation(path, speed, count, picture.path, myCallbackFunction)
 }

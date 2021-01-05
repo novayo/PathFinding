@@ -38,9 +38,9 @@ function NavAddBomb({ names, handlers }) {
         }
 
         if (bomb.get === true) {
-            bomb.set("False");
+            setWhichHandler(0);
         } else {
-            bomb.set("True");
+            setWhichHandler(1);
         }
     }
 

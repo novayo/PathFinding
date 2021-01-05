@@ -13,14 +13,13 @@ function ButtonEvent() {
         sysStatus.set("RUNNING")
         console.log("Start")
         SearchAnimation(search, speed, 0)
-        setTimeout(() => {PathAnimation(path, speed, 0); sysStatus.set("IDLE")}, speed * (search.length + 1))
+        setTimeout(() => PathAnimation(path, speed, 0, ()=>sysStatus.set("IDLE")), speed * (search.length + 1))
     }
 
     const Addbomb = () => {
         bomb.set("True")
         console.log("AddBomb")
         setTable(Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 2), picture.bomb)
-        bomb.set("False")
     }
 
     const RemoveBomb = () => {
@@ -31,6 +30,7 @@ function ButtonEvent() {
                 break
             }
         }
+        bomb.set("False")
     }
 
     const ClearWalls = () => {

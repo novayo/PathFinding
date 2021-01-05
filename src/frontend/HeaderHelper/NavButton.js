@@ -53,10 +53,14 @@ const NavButton = () => {
         setButtonName(`Visualize ${algoName}!`);
     }, [algoContext.get])
 
-    const resetButton = () => {
-        setMyVariant('success');
-        sysStatus.set("IDLE");
-    }
+    useEffect(()=>{
+        if (sysStatus.get === 'RUNNING'){
+            setMyVariant('danger');
+        } else{
+            setMyVariant('success');
+        }
+    }, [sysStatus.get])
+
 
     const handler = () => {
         if (sysStatus.get !== "IDLE") {
@@ -66,9 +70,7 @@ const NavButton = () => {
         if (algoContext.get === "") {
             setButtonName("Pick an Algorithm");
         } else {
-            sysStatus.set("RUNNING", buttonEvent.Start(search, path, speed));
-            setMyVariant('danger');
-            setTimeout(() => resetButton(), 10000);
+            buttonEvent.Start(search, path, speed);
         }
     }
 
