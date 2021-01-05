@@ -1,24 +1,10 @@
 import { useContext } from 'react'
 import { sysStatusContext } from '../../Core/index'
-import { tableVar, touchContext, moveContext, componentKind, picture, setTable } from './TableIndex'
-
+import { tableVar, touchContext, moveContext, componentKind, setTable } from './TableIndex'
+import { WhichComponent } from './WhichComp'
 
 function MouseEvent() {
     const [touch, move, sysStatus] = [useContext(touchContext), useContext(moveContext), useContext(sysStatusContext)]
-
-    function WhichComponent(element){
-        if(element === picture.start){
-            return {kind: componentKind.start, picture: picture.start, touch: touch.get.start, type: 0}
-        }else if(element === picture.end){
-            return {kind: componentKind.end, picture: picture.end, touch: touch.get.end, type: 0}
-        }else if(element === picture.bomb){
-            return {kind: componentKind.bomb, picture: picture.bomb, touch: touch.get.bomb, type: 0}
-        }else if(element === picture.wall){
-            return {kind: componentKind.wall, rKind: componentKind.background, picture: picture.wall, rPicture: picture.background, type: 1}
-        }else{
-            return {kind: componentKind.background, rKind: componentKind.wall, picture: picture.background, rPicture: picture.wall, type: 1}
-        }
-    }
 
     const MouseDownHandler = (e) => {
         // console.log("MouseDownHandler " + e.target.id)
@@ -30,7 +16,7 @@ function MouseEvent() {
         e.preventDefault()
 
         tableVar.id = parseInt(e.target.id)
-        const whichComponent = WhichComponent(tableVar.table[tableVar.id])
+        const whichComponent = WhichComponent(tableVar.table[tableVar.id], touch)
 
         if(whichComponent.type){
             setTable(tableVar.id, whichComponent.rPicture)
@@ -58,8 +44,8 @@ function MouseEvent() {
         }
 
         tableVar.newId = parseInt(e.target.id)
-        const whichOldComponent = WhichComponent(tableVar.table[tableVar.id])
-        const whichNewComponent = WhichComponent(tableVar.table[tableVar.newId])
+        const whichOldComponent = WhichComponent(tableVar.table[tableVar.id], touch)
+        const whichNewComponent = WhichComponent(tableVar.table[tableVar.newId], touch)
 
         if(move.get === componentKind.wall && whichNewComponent.type){
             setTable(tableVar.newId, whichNewComponent.rPicture)
