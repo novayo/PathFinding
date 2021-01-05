@@ -21,6 +21,7 @@ function MouseEvent() {
         if(whichComponent.type){
             setTable(tableVar.id, whichComponent.rPicture)
             move.set(whichComponent.rKind)
+
         }else{
             move.set(whichComponent.kind)
         }
@@ -50,13 +51,12 @@ function MouseEvent() {
         if(move.get === componentKind.wall && whichNewComponent.type){
             setTable(tableVar.newId, whichNewComponent.rPicture)
             tableVar.id = tableVar.newId
-        }else if(move.get !== componentKind.wall && move.get !== ""){
-            if(whichNewComponent.type){
-                setTable(tableVar.id, whichOldComponent.touch)
-                touch.set({componentKind: whichOldComponent.kind, picture: whichNewComponent.picture})
-                setTable(tableVar.newId, whichOldComponent.picture)
-                tableVar.id = tableVar.newId
-            }
+
+        }else if(move.get !== componentKind.wall && move.get !== "" && whichNewComponent.type){
+            setTable(tableVar.id, whichOldComponent.touch)
+            touch.set({componentKind: whichOldComponent.kind, picture: whichNewComponent.picture})
+            setTable(tableVar.newId, whichOldComponent.picture)
+            tableVar.id = tableVar.newId
         }
     }
 
