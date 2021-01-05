@@ -15,11 +15,11 @@ function MouseEvent() {
 
         e.preventDefault()
 
-        tableVar.id = parseInt(e.target.id)
-        const whichComponent = WhichComponent(tableVar.table[tableVar.id], touch)
+        tableVar.id = e.target.id
+        const whichComponent = WhichComponent(tableVar.id, touch)
 
         if(whichComponent.type){
-            setTable(tableVar.id, whichComponent.rPicture)
+            setTable(tableVar.id, whichComponent.rKind)
             move.set(whichComponent.rKind)
 
         }else{
@@ -44,18 +44,18 @@ function MouseEvent() {
             return
         }
 
-        tableVar.newId = parseInt(e.target.id)
-        const whichOldComponent = WhichComponent(tableVar.table[tableVar.id], touch)
-        const whichNewComponent = WhichComponent(tableVar.table[tableVar.newId], touch)
+        tableVar.newId = e.target.id
+        const whichOldComponent = WhichComponent(tableVar.id, touch)
+        const whichNewComponent = WhichComponent(tableVar.newId, touch)
 
         if(move.get === componentKind.wall && whichNewComponent.type){
-            setTable(tableVar.newId, whichNewComponent.rPicture)
+            setTable(tableVar.newId, whichNewComponent.rKind)
             tableVar.id = tableVar.newId
 
         }else if(move.get !== componentKind.wall && move.get !== "" && whichNewComponent.type){
             setTable(tableVar.id, whichOldComponent.touch)
-            touch.set({componentKind: whichOldComponent.kind, picture: whichNewComponent.picture})
-            setTable(tableVar.newId, whichOldComponent.picture)
+            touch.set({componentKind: whichOldComponent.kind, under: whichNewComponent.kind})
+            setTable(tableVar.newId, whichOldComponent.kind)
             tableVar.id = tableVar.newId
         }
     }

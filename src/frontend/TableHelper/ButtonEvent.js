@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { tableVar, touchContext, picture, setTable } from './TableIndex'
+import { tableVar, touchContext, componentKind, setTable } from './TableIndex'
 import { SearchAnimation, PathAnimation } from './Animation'
 import { sysStatusContext, bombContext } from '../../Core';
 
@@ -19,14 +19,14 @@ function ButtonEvent() {
     const Addbomb = () => {
         bomb.set("True")
         console.log("AddBomb")
-        setTable(Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 2), picture.bomb)
+        setTable(Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 2), componentKind.bomb)
     }
 
     const RemoveBomb = () => {
         console.log("RemoveBomb")
         for(var i = 0; i < tableVar.rowSize * tableVar.colSize;i++){
-            if(tableVar.table[i] === picture.bomb){
-                setTable(i, picture.background)
+            if(document.getElementById(i.toString()).className === componentKind.bomb){
+                setTable(i, componentKind.background)
                 break
             }
         }
@@ -36,18 +36,18 @@ function ButtonEvent() {
     const ClearWalls = () => {
         console.log("ClearWall")
         for(var i = 0; i < tableVar.rowSize * tableVar.colSize;i++){
-            if(tableVar.table[i] === picture.wall){
-                setTable(i, picture.background)
+            if(document.getElementById(i.toString()).className === componentKind.wall){
+                setTable(i, componentKind.background)
             }
         }
-        touch.set({componentKind: "", picture: ""})
+        touch.set("")
     }
 
     const ClearPath = () => {
         console.log("ClearPath")
         for(var i = 0; i < tableVar.rowSize * tableVar.colSize;i++){
-            if(tableVar.table[i] === picture.search || tableVar.table[i] === picture.path){
-                setTable(i, picture.background)
+            if(document.getElementById(i.toString()).className === componentKind.search || document.getElementById(i.toString()).className === componentKind.path){
+                setTable(i, componentKind.background)
             }
         }
     }
@@ -55,11 +55,11 @@ function ButtonEvent() {
     const ClearBoard = () => {
         console.log("ClearBoard")
         for(var i = 0; i < tableVar.rowSize * tableVar.colSize;i++){
-            setTable(i, picture.background)
+            setTable(i, componentKind.background)
         }
-        setTable(Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 4), picture.start)
-        setTable(Math.floor(tableVar.rowSize / 2 + 1) * tableVar.colSize - Math.floor(tableVar.colSize / 4), picture.end)
-        touch.set({componentKind: "", picture: ""})
+        setTable(Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 4), componentKind.start)
+        setTable(Math.floor(tableVar.rowSize / 2 + 1) * tableVar.colSize - Math.floor(tableVar.colSize / 4), componentKind.end)
+        touch.set("")
         bomb.set("False")
     }
 

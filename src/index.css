@@ -25,6 +25,93 @@ code {
   font-size:larger;
 }
 
+.start {
+  width: 30px;
+  height: 30px;
+  background: black;
+  border-radius: 50%;
+  position: relative;
+  border: 2px solid black;
+}
+.start:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 50%;
+  border: 5px solid white;
+}
+
+.end {
+  width: 30px;
+  height: 30px;
+  background: #008000;
+  border-radius: 50%;
+  position: relative;
+  border: 2px solid #008000;
+}
+.end:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 50%;
+  border: 5px solid white;
+}
+
+.bomb {
+  background-color:red;
+  border-radius: 80%;
+}
+
+.background {
+  background-color:white;
+}
+
+.wall {
+  background-color:blue;
+  animation-name: wallAnimation;
+  animation-duration: 0.5s;
+}
+
+@keyframes wallAnimation {
+  0%   {background-color: blue; transform: scale(0, 0);}
+  25%  {background-color: blue; transform: scale(0.5, 0.5);}
+  50%  {background-color: blue; transform: scale(1.2, 1.2);}
+  100% {background-color: blue; transform: scale(1, 1);}
+}
+
+.search {
+  background-color:#26FFFF;
+  animation-name: searchAnimation;
+  animation-duration: 0.5s;
+}
+
+@keyframes searchAnimation {
+  0%   {background-color: #6E6EFF; border-radius: 50%;}
+  25%  {background-color: #8CFF8C; border-radius: 80%;}
+  50%  {background-color: #8CFF8C; border-radius: 90%;}
+  100% {background-color: #26FFFF; border-radius: 100%;}
+}
+
+.path {
+  background-color:#F0F000;
+  animation-name: pathAnimation;
+  animation-duration: 0.5s;
+}
+
+@keyframes pathAnimation {
+  0%   {background-color: #26FFFF; transform: scale(0.8, 0.8);}
+  25%  {background-color: #26FFFF; transform: scale(0.3, 0.3);}
+  50%  {background-color: #F0F000; transform: scale(1.2, 1.2);}
+  100% {background-color: #F0F000; transform: scale(1, 1);}
+}
+
+
 /* #DropdownAlgorithm{
   background-color: green;
 }

@@ -1,5 +1,6 @@
+import { useEffect } from 'react'
 import MouseEvent from './MouseEvent'
-import { tableVar } from './TableIndex'
+import { tableVar, componentKind } from './TableIndex'
 
 
 function TableUI() {
@@ -17,16 +18,23 @@ function TableUI() {
                 {col.map((colIndex, index) => {
                     // console.log(rowIndex + " " + colIndex)
                     return (
-                        <td id = {rowIndex * colSize + colIndex} key = {index} bgcolor = {tableVar.table[rowIndex * colSize + colIndex]} width={size} onMouseUp = {MouseUpHandler} onMouseDown = {MouseDownHandler} onMouseEnter = {OnMouseEnterHanlder}>
+                        <td id = {rowIndex * colSize + colIndex} key = {index} className = {componentKind.background} width={size} onMouseUp = {MouseUpHandler} onMouseDown = {MouseDownHandler} onMouseEnter = {OnMouseEnterHanlder}>
                             {}
                         </td>)}
                     )}
             </tr>)}
         )
+
+    useEffect(() => {
+        document.getElementById((Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 4)).toString()).className = "start"
+        document.getElementById((Math.floor(tableVar.rowSize / 2 + 1) * tableVar.colSize - Math.floor(tableVar.colSize / 4)).toString()).className = "end"
+    }, [])
+    
+    
       
     return (
-        <div id = "change">
-            <table id = "board" align="center" border="1" cellSpacing="0" >
+        <div>
+            <table id = "board" align="center" border="1" cellSpacing="0">
                 <tbody>
                     {createTable}
                 </tbody>

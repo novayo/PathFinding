@@ -5,34 +5,23 @@ export const tableVar = {
     rowSize: Math.floor(window.screen.height / 30) - 7, // Math.floor((window.screen.height - document.getElementById("navbar").clientHeight) / 30)
     colSize: Math.floor(window.screen.width / 30), 
     size: 30,
+    id: "0",
+    newId: "0"
 }
 
-export const picture =  {wall: "#0000E6", bomb: "red", start: "#E69500", end: "#E000E0", background: "white", search: "#26FFFF", path: "#F0F000"}
-export const componentKind = {start: "start", end: "end", bomb: "bomb", wall: "wall"}
-
-export const initialTable = Array.from(Array(tableVar.rowSize * tableVar.colSize).keys(), index => {
-    if(index === Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 4)){
-        return picture.start
-    }else if(index === Math.floor(tableVar.rowSize / 2 + 1) * tableVar.colSize - Math.floor(tableVar.colSize / 4)){
-        return picture.end
-    }else{
-        return picture.background
-    }
-})
-
-tableVar.table = initialTable
+export const componentKind =  {wall: "wall", bomb: "bomb", start: "start", end: "end", background: "background", search: "search", path: "path"}
 
 // touch status
 export const touchContext = createContext()
-export const touchInitial = {start: picture.background, end: picture.background, bomb: picture.background}
+export const touchInitial = {start: componentKind.background, end: componentKind.background, bomb: componentKind.background}
 export const touchReducer = (state, action) => {
     switch (action.componentKind) {
         case componentKind.start:
-            return {...state, start: action.picture}
+            return {...state, start: action.under}
         case componentKind.end:
-            return {...state, end: action.picture}
+            return {...state, end: action.under}
         case componentKind.bomb:
-            return {...state, bomb: action.picture}
+            return {...state, bomb: action.under}
         default:
             return touchInitial
     }
@@ -44,19 +33,18 @@ export const moveInitial = ""
 export const moveReducer = (state, action) => {
     switch (action) {
         case componentKind.start:
-            return componentKind.start
+            return action
         case componentKind.end:
-            return componentKind.end
+            return action
         case componentKind.bomb:
-            return componentKind.bomb
+            return action
         case componentKind.wall:
-            return componentKind.wall
+            return action
         default:
             return moveInitial
     }
 }
 
-export function setTable(index, picture){
-    tableVar.table[index] = picture
-    document.getElementById(index).bgColor = picture
+export function setTable(index, componentKind){
+    document.getElementById(index.toString()).className = componentKind
 }

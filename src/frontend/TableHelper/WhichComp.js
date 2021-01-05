@@ -1,23 +1,21 @@
-import { componentKind, picture } from './TableIndex'
+import { componentKind } from './TableIndex'
 
 
-export function WhichComponent(element, touch){
+export function WhichComponent(id, touch){
 
-    if(element === picture.start){
-        return {kind: componentKind.start, picture: picture.start, touch: touch.get.start, type: 0}
+    const element = document.getElementById(id).className
 
-    }else if(element === picture.end){
-        return {kind: componentKind.end, picture: picture.end, touch: touch.get.end, type: 0}
-
-    }else if(element === picture.bomb){
-        return {kind: componentKind.bomb, picture: picture.bomb, touch: touch.get.bomb, type: 0}
-
-    }else if(element === picture.wall){
-        return {kind: componentKind.wall, rKind: componentKind.background, picture: picture.wall, rPicture: picture.background, type: 1}
-    
-    }else{
-        return {kind: componentKind.background, rKind: componentKind.wall, picture: picture.background, rPicture: picture.wall, type: 1}
-    
+    switch (element) {
+        case componentKind.start:
+            return {kind: componentKind.start, touch: touch.get.start, type: 0}
+        case componentKind.end:
+            return {kind: componentKind.end, touch: touch.get.end, type: 0}
+        case componentKind.bomb:
+            return {kind: componentKind.bomb, touch: touch.get.bomb, type: 0}
+        case componentKind.wall:
+            return {kind: componentKind.wall, rKind: componentKind.background, type: 1}
+        default:
+            return {kind: componentKind.background, rKind: componentKind.wall, type: 1}
     }
 
 }
