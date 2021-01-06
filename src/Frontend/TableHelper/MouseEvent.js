@@ -20,7 +20,7 @@ function MouseEvent() {
 
         if(whichComponent.type){
             setTable(tableVar.id, whichComponent.rKind)
-            move.set(whichComponent.rKind)
+            move.set(componentKind.wall)
 
         }else{
             move.set(whichComponent.kind)
