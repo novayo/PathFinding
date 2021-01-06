@@ -25,6 +25,10 @@ code {
   font-size:larger;
 }
 
+.tablePadding {
+  padding: 10px 10px;
+}
+
 .start {
   width: 30px;
   height: 30px;

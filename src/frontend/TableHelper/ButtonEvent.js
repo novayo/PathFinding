@@ -1,7 +1,8 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, componentKind, setTable } from './TableIndex'
 import { SearchAnimation, PathAnimation } from './Animation'
-import { sysStatusContext, bombContext } from '../../Core';
+import { sysStatusContext, bombContext } from '../../Core'
+import { WhichComponent } from './WhichComp'
 
 
 function ButtonEvent() {
@@ -17,9 +18,15 @@ function ButtonEvent() {
     }
 
     const Addbomb = () => {
-        bomb.set("True")
         console.log("AddBomb")
-        setTable(Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 2), componentKind.bomb)
+        const index = Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 2)
+
+        if(WhichComponent(index.toString(), touch).type == 0){
+            return
+        }
+
+        bomb.set("True")
+        setTable(index.toString(), componentKind.bomb)
     }
 
     const RemoveBomb = () => {

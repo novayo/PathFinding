@@ -33,7 +33,7 @@ function TableUI() {
     
       
     return (
-        <div>
+        <div className = "tablePadding">
             <table id = "board" align="center" border="1" cellSpacing="0">
                 <tbody>
                     {createTable}
