@@ -40,6 +40,8 @@ export const moveReducer = (state, action) => {
             return action
         case componentKind.wall:
             return action
+        case componentKind.background:
+            return action
         default:
             return moveInitial
     }
