@@ -6,8 +6,10 @@ import { sysStatusReducer, initialsysStatus, sysStatusContext } from './Core';
 import { bombContext, bombInitial, bombReducer } from './Core';
 import { speedContext, speedInitial, speedReducer } from './Core';
 import Table from './Frontend/Table';
-import { touchReducer, touchInitial, touchContext } from './Frontend/TableHelper/TableIndex'
-import { moveReducer, moveInitial, moveContext } from './Frontend/TableHelper/TableIndex'
+import { touchReducer, touchInitial, touchContext } from './Frontend/TableHelper/TableIndex';
+import { moveReducer, moveInitial, moveContext } from './Frontend/TableHelper/TableIndex';
+import Info from './Frontend/HeaderHelper/Info';
+import AlgorithmDescriptor from './Frontend/HeaderHelper/AlgorithmDescriptor';
 
 function App() {
   const [curAlgorithm, setCurAlgorithm] = useReducer(algorithmReducer, initialAlgorithm);
@@ -26,6 +28,8 @@ function App() {
               <sysStatusContext.Provider value={{ get: curSysStatus, set: setCurSysStatus }}>
                 <algorithmContext.Provider value={{ get: curAlgorithm, set: setCurAlgorithm }}>
                   <Header />
+                  <Info />
+                  <AlgorithmDescriptor />
                   <Table />
                 </algorithmContext.Provider>
               </sysStatusContext.Provider>

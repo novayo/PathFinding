@@ -51,10 +51,10 @@ const NavButton = () => {
         }
 
         setButtonName(`Visualize ${algoName}!`);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [algoContext.get])
 
     useEffect(()=>{
-        console.log(sysStatus.get);
         if (sysStatus.get === 'RUNNING'){
             setMyVariant('danger');
         } else{

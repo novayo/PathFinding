@@ -26,7 +26,7 @@ function NavAddBomb({ names, handlers }) {
     useEffect(() => {
         if (isMount) return;
 
-        handlers[whichHandler]();
+        // handlers[whichHandler]();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [whichHandler])
 
@@ -37,11 +37,7 @@ function NavAddBomb({ names, handlers }) {
             return;
         }
 
-        if (bomb.get === true) {
-            setWhichHandler(0);
-        } else {
-            setWhichHandler(1);
-        }
+        handlers[whichHandler]();
     }
 
 

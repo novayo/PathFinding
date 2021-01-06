@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Righteous', cursive, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -13,16 +13,83 @@ code {
 }
 
 .Navbar-logo{
+  font-family: 'Righteous', cursive;
   font-size: 30px !important;
 }
 
 .nav-bar{
   width: 100%;
+  font-family: 'Righteous', cursive;
 }
 
 .nav-item{
   margin: auto;
   font-size:larger;
+}
+
+
+#mainInfo > ul li{
+  font-family: 'Righteous', cursive;
+  display: inline-block;  /*把li點點去掉*/
+  list-style: none; /*不要用任何style*/
+  font-size: 20px; /*字的大小*/
+  margin-top: 0.5em; /*置中在mainInfo的div中間*/
+  padding: 0 28px 0 0; /*左右padding*/
+}
+
+#mainInfo > ul li > div{
+  width: 30px; /*圖片寬度*/
+  height: 30px; /*圖片高度*/
+  display: inline-block; /*流動式的自動排版，才能使用width跟height*/
+  position: relative; /*能改變相對位置*/
+  top: 0.3em; /*高度置中*/
+  margin: 0 0.1em; /*圖片跟文字之間有距離*/
+  background-position: center; /*圖片置中*/
+  background-repeat: no-repeat; /*圖片若太小不重複*/
+  background-size: contain; /*讓圖片能scale*/
+}
+
+.Info-Start-Node{
+   background-image: url("./Resources/Images/Info/StartNode.png");
+}
+
+.Info-End-Node{
+	 background-image: url("./Resources/Images/Info/EndNode.png");
+}
+
+.Info-Bomb-Node{
+	 background-image: url("./Resources/Images/Info/BombNode.png");	
+}
+
+.Info-Unvisited-Node{
+	 background-image: url("./Resources/Images/Info/UnvisitedNode.png");	
+}
+
+.Info-Visited-Node{
+	 background-image: url("./Resources/Images/Info/VisitedNode.png");	
+}
+
+.Info-ShortestPathNode-Node{
+	 background-image: url("./Resources/Images/Info/ShortestPathNode.png");	
+}
+
+.Info-WallNode-Node{
+	 background-image: url("./Resources/Images/Info/WallNode.png");	
+}
+
+#algorithmDescriptor {
+    font-family: 'Righteous', cursive;
+    text-align: center;
+    color: rgb(52, 73, 94);
+    font-size: 30px;
+}
+
+#algorithmDescriptor > i {
+    font-style: italic;
+}
+
+#algorithmDescriptor > b {
+    font-weight: 700;
 }
 
 .tablePadding {
@@ -114,12 +181,3 @@ code {
   50%  {background-color: #F0F000; transform: scale(1.2, 1.2);}
   100% {background-color: #F0F000; transform: scale(1, 1);}
 }
-
-
-/* #DropdownAlgorithm{
-  background-color: green;
-}
-
-#DropdownAlgorithm:hover{
-  color: green !important;
-} */

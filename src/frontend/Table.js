@@ -8,6 +8,7 @@ function Table() {
 
 	useEffect(()=>{
 		setTimeout(()=>{sysStatus.set("IDLE");}, 1000);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	if (sysStatus.get === "LOADING"){

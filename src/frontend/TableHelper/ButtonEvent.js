@@ -21,7 +21,7 @@ function ButtonEvent() {
         console.log("AddBomb")
         const index = Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 2)
 
-        if(WhichComponent(index.toString(), touch).type == 0){
+        if(WhichComponent(index.toString(), touch).type === 0){
             return
         }
 
