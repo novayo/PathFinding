@@ -6,7 +6,9 @@ export var position = {
     start: [Math.floor(tableVar.rowSize / 2), Math.floor(tableVar.colSize / 4)],
     end: [Math.floor(tableVar.rowSize / 2), tableVar.colSize - Math.floor(tableVar.colSize / 4)],
     bomb: false,
-    wall: []
+    wall: [],
+    rowSize: tableVar.rowSize,
+    colSize: tableVar.colSize
 }
 
 
