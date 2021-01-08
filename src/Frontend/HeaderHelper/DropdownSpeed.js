@@ -11,8 +11,9 @@ function DropdownSpeed() {
     const [className, toggleHandler] = Colored();
 
     useEffect(() => {
-        setTitle(speed.get);
+        setTitle(speed.get[0]);
     }, [speed.get])
+
 
     const DropdownSpeedHandler = (eventKey) => {
         if (sysStatus.get !== "IDLE") {

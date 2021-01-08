@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
-import { algorithmContext, sysStatusContext } from '../../Core';
+import { algorithmContext, sysStatusContext, speedContext } from '../../Core';
 import ButtonEvent from '../TableHelper/ButtonEvent';
 import { TestAlgorithm } from '../../Backend/TestAlgorithm';
 
@@ -11,8 +11,9 @@ const NavButton = () => {
     const [myVariant, setMyVariant] = useState("");
     const algoContext = useContext(algorithmContext);
     const sysStatus = useContext(sysStatusContext);
+    const speed = useContext(speedContext);
     const buttonEvent = ButtonEvent();
-    const [search, path, speed] = TestAlgorithm();
+    const [search, path] = TestAlgorithm();
 
     useEffect(() => {
         setMyVariant('success');
@@ -71,7 +72,7 @@ const NavButton = () => {
         if (algoContext.get === "") {
             setButtonName("Pick an Algorithm");
         } else {
-            buttonEvent.Start(search, path, speed);
+            buttonEvent.Start(search, path, speed.get[1]);
         }
     }
 

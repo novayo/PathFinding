@@ -42,15 +42,15 @@ export const bombReducer = (state, action) => {
 
 // Speed
 export const speedContext = React.createContext();
-export const speedInitial = "average";
+export const speedInitial = ["average", 1000];
 export const speedReducer = (state, action) => {
     switch (action) {
         case 'Fast':
-            return "Fast";
+            return ["Fast", 500];
         case 'Average':
-            return "Average";
+            return ["Average", 1000];
         case 'Slow':
-            return "Slow";
+            return ["Slow", 2000];
         default:
             return bombInitial
     }
