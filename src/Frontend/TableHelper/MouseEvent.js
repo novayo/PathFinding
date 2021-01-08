@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { sysStatusContext } from '../../Core/index'
-import { tableVar, touchContext, moveContext, componentKind, setTable } from './TableIndex'
+import { tableVar, touchContext, moveContext, componentKind } from './TableIndex'
+import { setTable } from './SetTable'
 import { WhichComponent } from './WhichComp'
 
 function MouseEvent() {

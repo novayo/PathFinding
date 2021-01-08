@@ -1,4 +1,5 @@
-import { tableVar, componentKind, setTable } from './TableIndex'
+import { tableVar, componentKind } from './TableIndex'
+import { setTable } from './SetTable'
 
 
 export function Animation(arr, speed, count, componentKind, myCallbackFunction = null) { 

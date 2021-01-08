@@ -1,7 +1,8 @@
 import { useContext } from 'react'
-import { tableVar, touchContext, componentKind, setTable } from './TableIndex'
+import { tableVar, touchContext, componentKind } from './TableIndex'
 import { SearchAnimation, PathAnimation } from './Animation'
 import { sysStatusContext, bombContext } from '../../Core'
+import { setTable } from './SetTable'
 import { WhichComponent } from './WhichComp'
 
 

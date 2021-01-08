@@ -44,7 +44,3 @@ export const moveReducer = (state, action) => {
             return moveInitial
     }
 }
-
-export function setTable(index, componentKind){
-    document.getElementById(index.toString()).className = componentKind
-}
