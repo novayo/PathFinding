@@ -21,6 +21,8 @@ class Distance {
 
     // 從end開始找尋附近四周圍，第一個 "有被找過的" 且 "距離最小的"的點，並回傳一個array
     getShortestPath(endPos) {
+        if (!(endPos in this.dict)) return []; // 若終點沒被找過，就回傳空值
+
         var shortest = [endPos];
         var x = endPos[0];
         var y = endPos[1];
