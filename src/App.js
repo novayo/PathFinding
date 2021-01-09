@@ -10,6 +10,7 @@ import { touchReducer, touchInitial, touchContext } from './Frontend/TableHelper
 import { moveReducer, moveInitial, moveContext } from './Frontend/TableHelper/TableIndex';
 import Info from './Frontend/HeaderHelper/Info';
 import AlgorithmDescriptor from './Frontend/HeaderHelper/AlgorithmDescriptor';
+import IntroductionModal from './Frontend/HeaderHelper/IntroductionModal';
 
 function App() {
   const [curAlgorithm, setCurAlgorithm] = useReducer(algorithmReducer, initialAlgorithm);
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <div className="App">
+      <IntroductionModal />
       <moveContext.Provider value={{ get: move, set: setMove }}>
         <touchContext.Provider value={{ get: touch, set: setTouch }}>
           <speedContext.Provider value={{ get: curSpeed, set: setCurSpeed }}>

@@ -12,6 +12,24 @@ code {
     monospace;
 }
 
+.test{
+  border: 2px solid black;
+}
+
+.Modal-Title{
+  font-family: 'Righteous', cursive;
+  text-align: center;
+  font-weight: 900;
+  font-size: 50px;
+  color:rgb(52, 73, 94);
+}
+
+.Modal-Page{
+  font-family: 'Righteous', cursive;
+  margin-right: 20px;
+  font-size: 25px;
+}
+
 .Navbar-logo{
   font-family: 'Righteous', cursive;
   font-size: 30px !important;
