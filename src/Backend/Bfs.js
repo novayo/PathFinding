@@ -2,15 +2,15 @@ import { position } from '../Core';
 import Queue from '../Core/Queue';
 import Distance from '../Core/Distance';
 
-// 卡在seatch應該要三層array，不應該只有兩層，第三層要是用level分類
-async function BFS(callback) {
+function BFS(start, speed) {
     var searchPath = [];
     const visited = new Set();
     const queue = new Queue();
     var distance = new Distance();
 
+    distance.set(position.start, 0); // 加入自己
     queue.append([position.start, 0]); // [pos, 距離]
-    visited.add(position.start.toString());
+    visited.add(position.start.toString()); // 防止重複找尋
     while (queue.getLength() > 0) {
         var node = queue.popleft();
         var x = node[0][0];
@@ -20,6 +20,14 @@ async function BFS(callback) {
         if (nextD > searchPath.length) searchPath.push([]);
 
         if ([x, y].toString() === position.end.toString()) break;
+
+        // left
+        if (y - 1 >= 0 && !([x, y - 1] in position.wall) && !(visited.has([x, y - 1].toString()))) {
+            queue.append([[x, y - 1], nextD]);
+            searchPath[nextD - 1].push([x, y - 1]);
+            distance.set([x, y - 1], nextD);
+            visited.add([x, y - 1].toString());
+        }
 
         // up
         if (x - 1 >= 0 && !([x - 1, y] in position.wall) && !(visited.has([x - 1, y].toString()))) {
@@ -47,15 +55,17 @@ async function BFS(callback) {
             visited.add([x + 1, y].toString());
         }
 
-        // left
-        if (y - 1 >= 0 && !([x, y - 1] in position.wall) && !(visited.has([x, y - 1].toString()))) {
-            queue.append([[x, y - 1], nextD]);
-            searchPath[nextD - 1].push([x, y - 1]);
-            distance.set([x, y - 1], nextD);
-            visited.add([x, y - 1].toString());
-        }
     }
 
-    callback(searchPath, [[1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2]], 1000);
+    // 去除多找的一圈
+    while (distance.get(position.end) !== -1 && searchPath.length > distance.get(position.end)) {
+        searchPath.pop();
+    }
+
+    // 取得最短路徑
+    var shortest = distance.getShortestPath(position.end);
+
+    // 執行 start 動畫
+    start(searchPath, shortest, speed);
 }
 export default BFS;

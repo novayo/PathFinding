@@ -12,7 +12,6 @@ function ButtonEvent() {
     const bomb = useContext(bombContext)
 
     const Start = (search, path, speed) => {
-        console.log(search, path)
         sysStatus.set("RUNNING")
         console.log("Start")
         SearchAnimation(search, speed, 0)

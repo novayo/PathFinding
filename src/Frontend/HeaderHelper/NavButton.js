@@ -3,7 +3,6 @@ import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import { algorithmContext, sysStatusContext, speedContext } from '../../Core';
 import ButtonEvent from '../TableHelper/ButtonEvent';
-// import { TestAlgorithm } from '../../Backend/Algorithms';
 import BFS from '../../Backend/Bfs';
 
 const NavButton = () => {
@@ -14,7 +13,6 @@ const NavButton = () => {
     const sysStatus = useContext(sysStatusContext);
     const speed = useContext(speedContext);
     const buttonEvent = ButtonEvent();
-    // const [search, path] = TestAlgorithm();
 
     useEffect(() => {
         setMyVariant('success');
@@ -72,9 +70,7 @@ const NavButton = () => {
         if (algoContext.get === "") {
             setButtonName("Pick an Algorithm");
         } else {
-            var search = [];
-            var shortest = [];
-
+            buttonEvent.ClearPath();
             switch (algoContext.get) {
                 case "Algorithm_Dijkstra":
                     break;
@@ -89,16 +85,13 @@ const NavButton = () => {
                 case "Algorithm_Bidrectional_Swarm":
                     break;
                 case "Algorithm_Breadth_First":
-                    BFS(buttonEvent.Start);
-                    // console.log(tmp);
+                    BFS(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Depth_First":
                     break;
                 default:
                     break;
             }
-
-            // buttonEvent.Start(search, shortest, speed.get[1]);
         }
     }
 
