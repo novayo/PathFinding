@@ -3,7 +3,8 @@ import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import { algorithmContext, sysStatusContext, speedContext } from '../../Core';
 import ButtonEvent from '../TableHelper/ButtonEvent';
-import { TestAlgorithm } from '../../Backend/TestAlgorithm';
+// import { TestAlgorithm } from '../../Backend/Algorithms';
+import BFS from '../../Backend/Bfs';
 
 const NavButton = () => {
 
@@ -13,7 +14,7 @@ const NavButton = () => {
     const sysStatus = useContext(sysStatusContext);
     const speed = useContext(speedContext);
     const buttonEvent = ButtonEvent();
-    const [search, path] = TestAlgorithm();
+    // const [search, path] = TestAlgorithm();
 
     useEffect(() => {
         setMyVariant('success');
@@ -50,15 +51,14 @@ const NavButton = () => {
                 algoName = "";
                 break;
         }
-
         setButtonName(`Visualize ${algoName}!`);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [algoContext.get])
 
-    useEffect(()=>{
-        if (sysStatus.get === 'RUNNING'){
+    useEffect(() => {
+        if (sysStatus.get === 'RUNNING') {
             setMyVariant('danger');
-        } else{
+        } else {
             setMyVariant('success');
         }
     }, [sysStatus.get])
@@ -72,7 +72,33 @@ const NavButton = () => {
         if (algoContext.get === "") {
             setButtonName("Pick an Algorithm");
         } else {
-            buttonEvent.Start(search, path, speed.get[1]);
+            var search = [];
+            var shortest = [];
+
+            switch (algoContext.get) {
+                case "Algorithm_Dijkstra":
+                    break;
+                case 'Algorithm_APlus':
+                    break;
+                case "Algorithm_Greedy_Best_First":
+                    break;
+                case "Algorithm_Swarm":
+                    break;
+                case "Algorithm_Convergent_Swarm":
+                    break;
+                case "Algorithm_Bidrectional_Swarm":
+                    break;
+                case "Algorithm_Breadth_First":
+                    BFS(buttonEvent.Start);
+                    // console.log(tmp);
+                    break;
+                case "Algorithm_Depth_First":
+                    break;
+                default:
+                    break;
+            }
+
+            // buttonEvent.Start(search, shortest, speed.get[1]);
         }
     }
 
