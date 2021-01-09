@@ -31,7 +31,7 @@ async function BFS(callback) {
 
         // right
         // 這裡的position.rowSize怪怪的
-        if (y + 1 < position.rowSize && !([x, y + 1] in position.wall) && !(visited.has([x, y + 1].toString()))) {
+        if (y + 1 < position.colSize && !([x, y + 1] in position.wall) && !(visited.has([x, y + 1].toString()))) {
             queue.append([[x, y + 1], nextD]);
             searchPath[nextD - 1].push([x, y + 1]);
             distance.set([x, y + 1], nextD);
@@ -40,7 +40,7 @@ async function BFS(callback) {
 
         // down
         // 這裡的position.colSize怪怪的
-        if (x + 1 < position.colSize && !([x + 1, y] in position.wall) && !(visited.has([x + 1, y].toString()))) {
+        if (x + 1 < position.rowSize && !([x + 1, y] in position.wall) && !(visited.has([x + 1, y].toString()))) {
             queue.append([[x + 1, y], nextD]);
             searchPath[nextD - 1].push([x + 1, y]);
             distance.set([x + 1, y], nextD);
