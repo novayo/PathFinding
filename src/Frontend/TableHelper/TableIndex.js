@@ -11,7 +11,7 @@ export const tableVar = {
     newId: "0"
 }
 
-export const componentKind =  {wall: "wall", bomb: "bomb", start: "start", end: "end", background: "background", search: "search", searchFinal: "searchFinal", path: "path", pathFinal: "pathFinal"}
+export const componentKind =  {wall: "wall", bomb: "bomb", start: "start", end: "end", background: "background", search: "search", searchFinal: "searchFinal", searchBomb: "searchBomb", searchBombFinal: "searchBombFinal", path: "path", pathFinal: "pathFinal"}
 
 // touch status
 export const touchContext = createContext()

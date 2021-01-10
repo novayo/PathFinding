@@ -12,9 +12,9 @@ export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
         }else{
             const index = arr[count][0] * tableVar.colSize + arr[count][1]
             const name = document.getElementById(index.toString()).className
-            if(name === componentKind.background || name === componentKind.search){
+            if(name === componentKind.background || name === componentKind.search || name === componentKind.searchBomb){
                 setTable(index, kind)
-            } 
+            }
         }
         count += 1
     }, speed / arr.length)
