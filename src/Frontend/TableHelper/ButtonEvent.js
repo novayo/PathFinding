@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind } from './TableIndex'
-import { SearchAnimation, PathAnimation } from './Animation'
+import { SearchAnimation, PathAnimation, MazeAnimation } from './Animation'
 import { sysStatusContext, bombContext } from '../../Core'
 import { setTable } from './SetTable'
 import { WhichComponent } from './WhichComp'
@@ -36,6 +36,10 @@ function ButtonEvent() {
             SearchAnimation(search, speed, 0)
             setTimeout(() => PathAnimation(path, speed, 0, () => sysStatus.set("IDLE")), speed * (search.length + 1))
         }
+    }
+
+    const CreateMaze = (maze, speed) {
+        MazeAnimation(maze, speed, 0)
     }
 
     const Addbomb = () => {
