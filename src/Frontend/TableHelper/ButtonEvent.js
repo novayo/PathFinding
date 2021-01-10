@@ -17,16 +17,14 @@ function ButtonEvent() {
             for(var i = 0;i < search.length;i++){
                 for(var j = 0;j < search[i].length;j++){
                     const index = search[i][j][0] * tableVar.colSize + search[i][j][1]
-                    const name = document.getElementById(index.toString()).className
-                    if(name !== componentKind.start && name !== componentKind.end){
+                    if(WhichComponent(index.toString(), touch).type){
                         setTable(index, componentKind.searchFinal)
                     }
                 }
             }
             for(i = 0;i < path.length;i++){
                 const index = path[i][0] * tableVar.colSize + path[i][1]
-                const name = document.getElementById(index.toString()).className
-                if(name !== componentKind.start && name !== componentKind.end){
+                if(WhichComponent(index.toString(), touch).type){
                     setTable(index, componentKind.pathFinal)
                 }
             }
