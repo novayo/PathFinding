@@ -13,7 +13,9 @@ code {
 }
 
 .test{
-  border: 2px solid black;
+  /* border: 2px solid black; */
+  color: red;
+  text-decoration:line-through;
 }
 
 .Modal-Title{
@@ -77,6 +79,10 @@ code {
 
 .Info-Bomb-Node{
 	 background-image: url("./Resources/Images/Info/BombNode.png");	
+}
+
+.Info-Weight-Node{
+  background-image: url("./Resources/Images/Info/BombNode.png");	
 }
 
 .Info-Unvisited-Node{
