@@ -115,8 +115,6 @@ code {
 }
 
 .start {
-  width: 30px;
-  height: 30px;
   background: black;
   border-radius: 50%;
   position: relative;
@@ -134,8 +132,6 @@ code {
 }
 
 .end {
-  width: 30px;
-  height: 30px;
   background: #008000;
   border-radius: 50%;
   position: relative;
