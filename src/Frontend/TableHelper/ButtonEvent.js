@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { tableVar, touchContext, componentKind } from './TableIndex'
-import { SearchAnimation, PathAnimation } from './Animation'
+import { tableVar, touchContext, updateContext, componentKind } from './TableIndex'
+import { SearchAnimation, PathAnimation, MazeAnimation } from './Animation'
 import { sysStatusContext, bombContext } from '../../Core'
 import { setTable } from './SetTable'
 import { WhichComponent } from './WhichComp'
@@ -10,12 +10,36 @@ function ButtonEvent() {
     const touch = useContext(touchContext)
     const sysStatus = useContext(sysStatusContext)
     const bomb = useContext(bombContext)
+    const update = useContext(updateContext)
 
     const Start = (search, path, speed) => {
-        sysStatus.set("RUNNING")
-        console.log("Start")
-        SearchAnimation(search, speed, 0)
-        setTimeout(() => PathAnimation(path, speed, 0, () => sysStatus.set("IDLE")), speed * (search.length + 1))
+        if(update.get){
+            for(var i = 0;i < search.length;i++){
+                for(var j = 0;j < search[i].length;j++){
+                    const index = search[i][j][0] * tableVar.colSize + search[i][j][1]
+                    if(WhichComponent(index.toString(), touch).type){
+                        setTable(index, componentKind.searchFinal)
+                    }
+                }
+            }
+            for(i = 0;i < path.length;i++){
+                const index = path[i][0] * tableVar.colSize + path[i][1]
+                if(WhichComponent(index.toString(), touch).type){
+                    setTable(index, componentKind.pathFinal)
+                }
+            }
+
+        }else{
+            sysStatus.set("RUNNING")
+            update.set("True")
+            console.log("Start")
+            SearchAnimation(search, speed, 0)
+            setTimeout(() => PathAnimation(path, speed, 0, () => sysStatus.set("IDLE")), speed * (search.length + 1))
+        }
+    }
+
+    const CreateMaze = (maze, speed) {
+        MazeAnimation(maze, speed, 0)
     }
 
     const Addbomb = () => {
@@ -51,17 +75,23 @@ function ButtonEvent() {
         touch.set("")
     }
 
-    const ClearPath = () => {
-        console.log("ClearPath")
+    const ClearPathMouseEvent = () => {
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
-            if (document.getElementById(i.toString()).className === componentKind.search || document.getElementById(i.toString()).className === componentKind.path) {
+            const name = document.getElementById(i.toString()).className
+            if (name === componentKind.search || name === componentKind.searchFinal || name === componentKind.searchBomb || name === componentKind.path || name === componentKind.pathFinal) {
                 setTable(i, componentKind.background)
             }
         }
     }
 
+    const ClearPath = () => {
+        console.log("ClearPath")
+        ClearPathMouseEvent()
+    }
+
     const ClearBoard = () => {
         console.log("ClearBoard")
+        update.set("False")
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
             setTable(i, componentKind.background)
         }

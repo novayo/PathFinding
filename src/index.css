@@ -121,8 +121,6 @@ code {
 }
 
 .start {
-  width: 30px;
-  height: 30px;
   background: black;
   border-radius: 50%;
   position: relative;
@@ -140,8 +138,6 @@ code {
 }
 
 .end {
-  width: 30px;
-  height: 30px;
   background: #008000;
   border-radius: 50%;
   position: relative;
@@ -193,6 +189,27 @@ code {
   100% {background-color: #26FFFF; border-radius: 100%;}
 }
 
+.searchBomb {
+  background-color:#e403e4;
+  animation-name: searchBombAnimation;
+  animation-duration: 0.5s;
+}
+
+@keyframes searchBombAnimation {
+  0%   {background-color: #f87b07; transform: scale(0.8, 0.8);}
+  25%  {background-color: #ff2692; transform: scale(0.3, 0.3);}
+  50%  {background-color: #f000bc; transform: scale(1.2, 1.2);}
+  100% {background-color: #e403e4; transform: scale(1, 1);}
+}
+
+.searchFinal {
+  background-color:#26FFFF;
+}
+
+.searchBombFinal {
+  background-color:#e403e4;
+}
+
 .path {
   background-color:#F0F000;
   animation-name: pathAnimation;
@@ -204,4 +221,8 @@ code {
   25%  {background-color: #26FFFF; transform: scale(0.3, 0.3);}
   50%  {background-color: #F0F000; transform: scale(1.2, 1.2);}
   100% {background-color: #F0F000; transform: scale(1, 1);}
+}
+
+.pathFinal {
+  background-color:#F0F000;
 }

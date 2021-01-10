@@ -1,15 +1,17 @@
 import { createContext } from 'react'
 
 
+const size = 25
+
 export const tableVar = {
-    rowSize: Math.floor(window.screen.height / 30) - 12, // Math.floor((window.screen.height - document.getElementById("navbar").clientHeight) / 30)
-    colSize: Math.floor(window.screen.width / 30), 
-    size: 30,
+    rowSize: Math.floor(window.screen.availHeight / size) - 12, // Math.floor((window.screen.height - document.getElementById("navbar").clientHeight) / 30)
+    colSize: Math.floor(window.screen.availWidth / size), 
+    size: size,
     id: "0",
     newId: "0"
 }
 
-export const componentKind =  {wall: "wall", bomb: "bomb", start: "start", end: "end", background: "background", search: "search", path: "path"}
+export const componentKind =  {wall: "wall", bomb: "bomb", start: "start", end: "end", background: "background", search: "search", searchFinal: "searchFinal", searchBomb: "searchBomb", searchBombFinal: "searchBombFinal", path: "path", pathFinal: "pathFinal"}
 
 // touch status
 export const touchContext = createContext()
@@ -44,3 +46,18 @@ export const moveReducer = (state, action) => {
             return moveInitial
     }
 }
+
+// result update status
+export const updateContext = createContext()
+export const updateInitial = false
+export const updateReducer = (state, action) => {
+    switch (action) {
+        case "True":
+            return true
+        case "False":
+            return false
+        default:
+            return updateInitial
+    }
+} 
+
