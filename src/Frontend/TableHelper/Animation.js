@@ -2,7 +2,7 @@ import { tableVar, componentKind } from './TableIndex'
 import { setTable } from './SetTable'
 
 
-export function Animation(arr, speed, count, componentKind, myCallbackFunction = null) { 
+export function Animation(arr, speed, count, kind, myCallbackFunction = null) { 
     const arrAnimation = setInterval(() => {
         if(count === arr.length){
             if (myCallbackFunction !== null){
@@ -10,7 +10,11 @@ export function Animation(arr, speed, count, componentKind, myCallbackFunction =
             }
             clearInterval(arrAnimation);
         }else{
-            setTable(arr[count][0] * tableVar.colSize + arr[count][1], componentKind)
+            const index = arr[count][0] * tableVar.colSize + arr[count][1]
+            const name = document.getElementById(index.toString()).className
+            if(name === componentKind.background || name === componentKind.search){
+                setTable(index, kind)
+            } 
         }
         count += 1
     }, speed / arr.length)

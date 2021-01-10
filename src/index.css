@@ -187,6 +187,10 @@ code {
   100% {background-color: #26FFFF; border-radius: 100%;}
 }
 
+.searchFinal {
+  background-color:#26FFFF;
+}
+
 .path {
   background-color:#F0F000;
   animation-name: pathAnimation;
@@ -198,4 +202,8 @@ code {
   25%  {background-color: #26FFFF; transform: scale(0.3, 0.3);}
   50%  {background-color: #F0F000; transform: scale(1.2, 1.2);}
   100% {background-color: #F0F000; transform: scale(1, 1);}
+}
+
+.pathFinal {
+  background-color:#F0F000;
 }

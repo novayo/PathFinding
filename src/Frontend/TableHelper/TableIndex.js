@@ -9,7 +9,7 @@ export const tableVar = {
     newId: "0"
 }
 
-export const componentKind =  {wall: "wall", bomb: "bomb", start: "start", end: "end", background: "background", search: "search", path: "path"}
+export const componentKind =  {wall: "wall", bomb: "bomb", start: "start", end: "end", background: "background", search: "search", searchFinal: "searchFinal", path: "path", pathFinal: "pathFinal"}
 
 // touch status
 export const touchContext = createContext()
@@ -44,3 +44,18 @@ export const moveReducer = (state, action) => {
             return moveInitial
     }
 }
+
+// result update status
+export const updateContext = createContext()
+export const updateInitial = false
+export const updateReducer = (state, action) => {
+    switch (action) {
+        case "True":
+            return true
+        case "False":
+            return false
+        default:
+            return updateInitial
+    }
+} 
+
