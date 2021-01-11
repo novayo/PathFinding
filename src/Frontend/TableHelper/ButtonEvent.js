@@ -1,16 +1,15 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind } from './TableIndex'
 import { SearchAnimation, PathAnimation, MazeAnimation } from './Animation'
-import { sysStatusContext, bombContext } from '../../Core'
+import { sysStatusContext, algorithmContext, bombContext, speedContext } from '../../Core'
 import { setTable } from './SetTable'
+import { UpdateTable } from './UpdateTable'
 import { WhichComponent } from './WhichComp'
 
 
 function ButtonEvent() {
-    const touch = useContext(touchContext)
-    const sysStatus = useContext(sysStatusContext)
-    const bomb = useContext(bombContext)
-    const update = useContext(updateContext)
+    const [touch, update] = [useContext(touchContext), useContext(updateContext)]
+    const [algorithm, bomb, speed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
 
     const Start = (search, path, speed) => {
         if(update.get){
@@ -38,7 +37,7 @@ function ButtonEvent() {
         }
     }
 
-    const CreateMaze = (maze, speed) {
+    const CreateMaze = (maze, speed) => {
         MazeAnimation(maze, speed, 0)
     }
 
@@ -52,6 +51,10 @@ function ButtonEvent() {
 
         bomb.set("True")
         setTable(index.toString(), componentKind.bomb)
+
+        if(update.get){
+            UpdateTable(Start, ClearPath, algorithm, speed)
+        }
     }
 
     const RemoveBomb = () => {
@@ -75,18 +78,17 @@ function ButtonEvent() {
         touch.set("")
     }
 
-    const ClearPathMouseEvent = () => {
+    const ClearPath = (event = true) => {
+        console.log("ClearPath")
+        if(event){
+            update.set("False")
+        }
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
             const name = document.getElementById(i.toString()).className
             if (name === componentKind.search || name === componentKind.searchFinal || name === componentKind.searchBomb || name === componentKind.path || name === componentKind.pathFinal) {
                 setTable(i, componentKind.background)
             }
         }
-    }
-
-    const ClearPath = () => {
-        console.log("ClearPath")
-        ClearPathMouseEvent()
     }
 
     const ClearBoard = () => {
