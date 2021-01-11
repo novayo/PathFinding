@@ -38,7 +38,8 @@ function ButtonEvent() {
     }
 
     const CreateMaze = (maze, speed) => {
-        MazeAnimation(maze, speed, 0)
+        sysStatus.set("RUNNING");
+        MazeAnimation(maze, speed, 0, () => sysStatus.set("IDLE"));
     }
 
     const Addbomb = () => {
