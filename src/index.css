@@ -12,9 +12,9 @@ code {
     monospace;
 }
 
-.test{
+.banned{
   /* border: 2px solid black; */
-  color: red;
+  color: #800000;
   text-decoration:line-through;
 }
 

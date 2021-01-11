@@ -12,23 +12,23 @@ function ButtonEvent() {
     const [algorithm, bomb, speed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
 
     const Start = (search, path, speed) => {
-        if(update.get){
-            for(var i = 0;i < search.length;i++){
-                for(var j = 0;j < search[i].length;j++){
+        if (update.get) {
+            for (var i = 0; i < search.length; i++) {
+                for (var j = 0; j < search[i].length; j++) {
                     const index = search[i][j][0] * tableVar.colSize + search[i][j][1]
-                    if(WhichComponent(index.toString(), touch).type){
+                    if (WhichComponent(index.toString(), touch).type) {
                         setTable(index, componentKind.searchFinal)
                     }
                 }
             }
-            for(i = 0;i < path.length;i++){
+            for (i = 0; i < path.length; i++) {
                 const index = path[i][0] * tableVar.colSize + path[i][1]
-                if(WhichComponent(index.toString(), touch).type){
+                if (WhichComponent(index.toString(), touch).type) {
                     setTable(index, componentKind.pathFinal)
                 }
             }
 
-        }else{
+        } else {
             sysStatus.set("RUNNING")
             update.set("True")
             console.log("Start")
@@ -52,7 +52,7 @@ function ButtonEvent() {
         bomb.set("True")
         setTable(index.toString(), componentKind.bomb)
 
-        if(update.get){
+        if (update.get) {
             UpdateTable(Start, ClearPath, algorithm, speed)
         }
     }
@@ -80,7 +80,7 @@ function ButtonEvent() {
 
     const ClearPath = (event = true) => {
         console.log("ClearPath")
-        if(event){
+        if (event) {
             update.set("False")
         }
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
@@ -103,7 +103,7 @@ function ButtonEvent() {
         bomb.set("False")
     }
 
-    return { Start, Addbomb, RemoveBomb, ClearWalls, ClearPath, ClearBoard }
+    return { Start, Addbomb, RemoveBomb, ClearWalls, ClearPath, ClearBoard, CreateMaze }
 }
 
 export default ButtonEvent

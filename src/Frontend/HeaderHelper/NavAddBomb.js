@@ -1,13 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
-import { bombContext, sysStatusContext } from '../../Core';
-import Colored from '../../HOC/Colored';
+import { bombContext, sysStatusContext, algorithmContext } from '../../Core';
+import Colored from '../../HOC/Colored_AddButton';
 import { IsMount } from '../../Core/IsMount.js'
 
 function NavAddBomb({ names, handlers }) {
     const [whichHandler, setWhichHandler] = useState(0);
     const bomb = useContext(bombContext);
     const sysStatus = useContext(sysStatusContext);
+    const algoContext = useContext(algorithmContext);
     const [className, toggleHandler] = Colored();
     const isMount = IsMount();
 
@@ -26,14 +27,13 @@ function NavAddBomb({ names, handlers }) {
     useEffect(() => {
         if (isMount) return;
 
-        // handlers[whichHandler]();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [whichHandler])
 
     const localHandler = () => {
         if (isMount) return;
 
-        if (sysStatus.get !== "IDLE") {
+        if (sysStatus.get !== "IDLE" || algoContext.get === "" || algoContext.get === "Algorithm_Bidrectional_Swarm") {
             return;
         }
 

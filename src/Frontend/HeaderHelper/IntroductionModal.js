@@ -34,7 +34,7 @@ function IntroductionModal() {
     return (
         <Modal show={show} size='lg' backdrop="static" centered>
             <div className="ml-auto Modal-Page">{text[pages][0]}</div>
-            <div className="test Modal-Title">{text[pages][1]}</div>
+            <div className="Modal-Title">{text[pages][1]}</div>
 
             <Modal.Body>
                 <p>{text[pages][2]}</p>

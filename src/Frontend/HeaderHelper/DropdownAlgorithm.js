@@ -2,11 +2,13 @@ import React, { useContext } from 'react';
 import { NavDropdown, Nav } from 'react-bootstrap';
 import { algorithmContext, sysStatusContext } from '../../Core';
 import Colored from '../../HOC/Colored';
+import ButtonEvent from '../TableHelper/ButtonEvent';
 
 function DropdownAlgorithm() {
     const algoContext = useContext(algorithmContext);
     const sysStatus = useContext(sysStatusContext);
     const [className, toggleHandler] = Colored();
+    const buttonEvent = ButtonEvent()
 
     const DropdownAlgorithmHandler = (eventKey) => {
 
@@ -31,6 +33,7 @@ function DropdownAlgorithm() {
                 algoContext.set('Algorithm_Convergent_Swarm');
                 break;
             case "Algorithm_Bidrectional_Swarm":
+                buttonEvent.RemoveBomb(); // 按下去後要清空bomb
                 algoContext.set('Algorithm_Bidrectional_Swarm');
                 break;
             case "Algorithm_Breadth_First":
