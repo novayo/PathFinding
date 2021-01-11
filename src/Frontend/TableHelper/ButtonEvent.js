@@ -11,7 +11,7 @@ function ButtonEvent() {
     const [touch, update] = [useContext(touchContext), useContext(updateContext)]
     const [algorithm, bomb, speed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
 
-    const Start = (search, path, speed) => {
+    const Start = (search, path, speed, bomb = []) => {
         if (update.get) {
             for (var i = 0; i < search.length; i++) {
                 for (var j = 0; j < search[i].length; j++) {
