@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind } from './TableIndex'
-import { SearchAnimation, PathAnimation, MazeAnimation } from './Animation'
+import { SearchAnimation, SearchBombAnimation, MazeAnimation } from './Animation'
 import { sysStatusContext, algorithmContext, bombContext, speedContext } from '../../Core'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
@@ -11,11 +11,24 @@ function ButtonEvent() {
     const [touch, update] = [useContext(touchContext), useContext(updateContext)]
     const [algorithm, bomb, speed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
 
+
     const Start = (search, path, speed, bomb = []) => {
         if (update.get) {
             for (var i = 0; i < search.length; i++) {
                 for (var j = 0; j < search[i].length; j++) {
                     const index = search[i][j][0] * tableVar.colSize + search[i][j][1]
+                    if (WhichComponent(index.toString(), touch).type) {
+                        if(bomb.length === 0){
+                            setTable(index, componentKind.searchFinal)
+                        }else{
+                            setTable(index, componentKind.searchBombFinal)
+                        }
+                    }
+                }
+            }
+            for (i = 0; i < bomb.length; i++) {
+                for (j = 0; j < bomb[i].length; j++) {
+                    const index = bomb[i][j][0] * tableVar.colSize + bomb[i][j][1]
                     if (WhichComponent(index.toString(), touch).type) {
                         setTable(index, componentKind.searchFinal)
                     }
@@ -32,8 +45,7 @@ function ButtonEvent() {
             sysStatus.set("RUNNING")
             update.set("True")
             console.log("Start")
-            SearchAnimation(search, speed, 0)
-            setTimeout(() => PathAnimation(path, speed, 0, () => sysStatus.set("IDLE")), speed * (search.length + 1))
+            SearchBombAnimation(search, bomb, path, speed, 0, SearchAnimation, () => sysStatus.set("IDLE"))
         }
     }
 
