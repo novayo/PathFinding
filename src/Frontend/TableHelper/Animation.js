@@ -17,7 +17,7 @@ export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
             }
         }
         count += 1
-    }, speed / arr.length)
+    }, speed / 3)
 }
 
 export function SearchBombAnimation(search, bomb, path, speed, count, myCallbackFunction, sysStatusFunction) {

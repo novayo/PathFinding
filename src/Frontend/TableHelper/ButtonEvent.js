@@ -98,7 +98,7 @@ function ButtonEvent() {
         }
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
             const name = document.getElementById(i.toString()).className
-            if (name === componentKind.search || name === componentKind.searchFinal || name === componentKind.searchBomb || name === componentKind.path || name === componentKind.pathFinal) {
+            if (name === componentKind.search || name === componentKind.searchFinal || name === componentKind.searchBomb || name === componentKind.searchBombFinal || name === componentKind.path || name === componentKind.pathFinal) {
                 setTable(i, componentKind.background)
             }
         }

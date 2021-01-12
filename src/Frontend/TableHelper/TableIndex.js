@@ -1,10 +1,10 @@
 import { createContext } from 'react'
 
 
-const size = 25
+const size = 23
 
 export const tableVar = {
-    rowSize: Math.floor(window.screen.availHeight / size) - 12, // Math.floor((window.screen.height - document.getElementById("navbar").clientHeight) / 30)
+    rowSize: Math.floor(window.screen.availHeight / size) - 16, // Math.floor((window.screen.height - document.getElementById("navbar").clientHeight) / 30)
     colSize: Math.floor(window.screen.availWidth / size), 
     size: size,
     id: "0",
