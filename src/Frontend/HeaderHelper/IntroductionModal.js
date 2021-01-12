@@ -16,21 +16,24 @@ function IntroductionModal() {
     }
 
     const HandleNext = () => {
+        if (pages + 1 > maxPages) {
+            setShow(false);
+            return;
+        }
         setPages(prePage => prePage + 1 <= maxPages ? prePage + 1 : prePage);
     }
 
     return (
-        <Modal show={show} size='xl' backdrop="static" centered>
+        <Modal show={show} size='xl' backdrop="static" centered dialogClassName="Modal">
             <div className="ml-auto Modal-Page">{`${pages}/${maxPages}`}</div>
             <div className="Modal-Title">{data[pages - 1]["Title"][language]}</div>
 
-            <Modal.Body>
-                <p className="Modal-Body">{data[pages - 1]["Dialog"][language]}</p>
-                <p className="Modal-Body1">{data[pages - 1]["Body"][language]}</p>
+            <Modal.Body className="Modal-Body">
+                <p className="Modal-BodyText">{data[pages - 1]["Dialog"][language]}</p>
+                <p className="Modal-BodyText1">{data[pages - 1]["Body"][language]}</p>
+                {pages === 1 ? <div className="Logo"></div> : null}
             </Modal.Body>
-            <Modal.Body>
-                <div className="Logo"></div>
-            </Modal.Body>
+
             <Modal.Footer>
                 <Button className="mr-auto Button" variant='outline-success' size="md" onClick={() => setShow(false)}>Skip Tutorial</Button>
                 <BootstrapSwitchButton
@@ -39,8 +42,8 @@ function IntroductionModal() {
                     onstyle='outline-info'
                     offlabel='Ch'
                     offstyle='outline-success'
-                    size="md"
-                    style="mr-auto"
+                    size="md" // eslint-disable-next-line 
+                    style='mr-auto' // 這裡會有怪怪的warning，所以加上上面的註解去除warning
                     onChange={(checked) => {
                         if (checked) {
                             setLanguage(0);
