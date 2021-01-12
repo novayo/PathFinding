@@ -170,7 +170,7 @@ code {
 .start {
   background: white url('./Resources/Images/Info/StartNode.png');
   background-position: center center;
-  background-size: cover;
+  background-size: cover; /*填滿*/
 }
 
 .end {
