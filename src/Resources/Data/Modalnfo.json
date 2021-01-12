@@ -1,0 +1,44 @@
+[
+    {
+        "Title": [
+            "Welcome to Our Path-Finding Project!",
+            "歡迎來到我們的Path-Finding!"
+        ],
+        "Dialog": [
+            "Please follow this tutorial to figure out the features of this application.",
+            "點擊Next了解更多。"
+        ],
+        "Body": [
+            "Be free to click the button below in order to switch the preferred language.",
+            "點擊以下按鈕切換語言。"
+        ]
+    },
+    {
+        "Title": [
+            "Title2",
+            "標題2"
+        ],
+        "Dialog": [
+            "Dialog2",
+            "文章2"
+        ],
+        "Body": [
+            "Body2",
+            "文章2-Body"
+        ]
+    },
+    {
+        "Title": [
+            "Title3",
+            "標題3"
+        ],
+        "Dialog": [
+            "Dialog3",
+            "文章3"
+        ],
+        "Body": [
+            "Body3",
+            "文章3-Body"
+        ]
+    }
+]

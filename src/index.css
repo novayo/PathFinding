@@ -12,6 +12,14 @@ code {
     monospace;
 }
 
+.test{
+  border: 2px solid black;
+}
+
+.BootstrapSwitchButton{
+  margin: auto;
+}
+
 .banned{
   /* border: 2px solid black; */
   color: #800000;
@@ -30,6 +38,22 @@ code {
   font-family: 'Righteous', cursive;
   margin-right: 20px;
   font-size: 25px;
+}
+
+.Modal-Body{
+  font-family: 'Righteous', cursive;
+  text-align: center;
+  font-size: 25px;
+}
+
+.Modal-Body1{
+  font-family: 'Righteous', cursive;
+  text-align: center;
+  font-size: 20px;
+}
+
+.Button{
+  font-family: 'Righteous', cursive;
 }
 
 .Navbar-logo{
@@ -93,12 +117,26 @@ code {
 	 background-image: url("./Resources/Images/Info/VisitedNode.png");	
 }
 
+.Info-Visited1-Node{
+  background-image: url("./Resources/Images/Info/VisitedNode1.png");	
+}
+
 .Info-ShortestPathNode-Node{
 	 background-image: url("./Resources/Images/Info/ShortestPathNode.png");	
 }
 
 .Info-WallNode-Node{
 	 background-image: url("./Resources/Images/Info/WallNode.png");	
+}
+
+.Logo{
+  width: 300px; /*圖片寬度*/
+  height: 300px; /*圖片高度*/
+  margin: auto;
+  background-position: center; /*圖片置中*/
+  background-repeat: no-repeat; /*圖片若太小不重複*/
+  background-size: contain; /*讓圖片能scale*/
+  background-image: url("./Resources/Images/logo.png");	
 }
 
 #algorithmDescriptor {

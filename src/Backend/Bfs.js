@@ -5,6 +5,7 @@ import Distance from '../Core/Distance';
 function BFS(start, speed) {
     var times = 1 + (position.bomb === false ? 0 : 1); // 如果有bomb要執行2次
     var retSearchPath = []; // 目前是把兩次search放在同一個array，但應該要分開做顏色的區隔
+    var retBombPath = [];
     var retShortestPath = [];
 
     for (var i = 0; i < times; i++) {
@@ -72,13 +73,18 @@ function BFS(start, speed) {
         // 取得最短路徑
         var shortest = distance.getShortestPath(endPos);
 
-        retSearchPath = retSearchPath.concat(searchPath);
+        if (i === 0) {
+            console.log(searchPath)
+            retSearchPath = retSearchPath.concat(searchPath);
+        } else {
+            console.log(searchPath)
+            retBombPath = retBombPath.concat(searchPath);
+        }
         retShortestPath = retShortestPath.concat(shortest);
 
         if (distance.get(endPos) === -1) break; // 如果第一次沒找到終點，直接跳出
     }
-
     // 執行 start 動畫
-    start(retSearchPath, retShortestPath, speed);
+    start(retSearchPath, retShortestPath, speed, retBombPath);
 }
 export default BFS;
