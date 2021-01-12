@@ -26,8 +26,8 @@ function TableUI() {
         )
 
     useEffect(() => {
-        document.getElementById((Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 4)).toString()).className = "start"
-        document.getElementById((Math.floor(tableVar.rowSize / 2 + 1) * tableVar.colSize - Math.floor(tableVar.colSize / 4)).toString()).className = "end"
+        document.getElementById((Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 4)).toString()).className = componentKind.start
+        document.getElementById((Math.floor(tableVar.rowSize / 2 + 1) * tableVar.colSize - Math.floor(tableVar.colSize / 4)).toString()).className = componentKind.end
     }, [])
     
     

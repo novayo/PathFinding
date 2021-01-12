@@ -159,42 +159,21 @@ code {
 }
 
 .start {
-  background: black;
-  border-radius: 50%;
-  position: relative;
-  border: 2px solid black;
-}
-.start:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-radius: 50%;
-  border: 5px solid white;
+  background: white url('./Resources/Images/Info/StartNode.png');
+  background-position: center center;
+  background-size: cover;
 }
 
 .end {
-  background: #008000;
-  border-radius: 50%;
-  position: relative;
-  border: 2px solid #008000;
-}
-.end:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-radius: 50%;
-  border: 5px solid white;
+  background: white url('./Resources/Images/Info/EndNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
 }
 
 .bomb {
-  background-color:red;
-  border-radius: 80%;
+  background: white url('./Resources/Images/Info/BombNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
 }
 
 .background {
