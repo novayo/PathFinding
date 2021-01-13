@@ -79,6 +79,10 @@ function ButtonEvent() {
             }
         }
         bomb.set("False")
+
+        if (update.get) {
+            UpdateTable(Start, ClearPath, algorithm, speed)
+        }
     }
 
     const ClearWalls = () => {
