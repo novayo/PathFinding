@@ -104,7 +104,7 @@
         ],
         "Dialog": [
             "You can visualize, clear the entire board, clear walls and weights, clear the current path and adjust the visualization speed, all from the navbar.",
-            "你可以開始，重置網格，重置牆壁跟權重，重置找尋路徑，更改速度。"
+            "你可以開始、重置網格、重置牆壁跟權重、重置找尋路徑、更改速度。"
         ],
         "Body": [
             "",

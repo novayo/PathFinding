@@ -3,7 +3,8 @@ import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import { algorithmContext, sysStatusContext, speedContext } from '../../Core';
 import ButtonEvent from '../TableHelper/ButtonEvent';
-import BFS from '../../Backend/Bfs';
+import BFS from '../../Backend/Algorithms/BFS';
+import DFS from '../../Backend/Algorithms/DFS';
 
 const NavButton = () => {
 
@@ -88,6 +89,7 @@ const NavButton = () => {
                     BFS(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Depth_First":
+                    DFS(buttonEvent.Start, speed.get[1]);
                     break;
                 default:
                     break;

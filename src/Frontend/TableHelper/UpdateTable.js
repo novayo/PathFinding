@@ -1,4 +1,5 @@
-import BFS from '../../Backend/Bfs'
+import BFS from '../../Backend/Algorithms/BFS';
+import DFS from '../../Backend/Algorithms/DFS';
 
 
 export function UpdateTable(Start, ClearPath, algorithm, speed) {
@@ -20,6 +21,7 @@ export function UpdateTable(Start, ClearPath, algorithm, speed) {
             BFS(Start, speed.get[1]);
             break;
         case "Algorithm_Depth_First":
+            DFS(Start, speed.get[1]);
             break;
         default:
             break;

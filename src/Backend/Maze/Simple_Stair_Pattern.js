@@ -1,4 +1,4 @@
-import { position } from '../Core';
+import { position } from '../../Core';
 
 function Simple_Stair_Pattern() {
     var walls = [];

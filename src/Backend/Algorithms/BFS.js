@@ -1,10 +1,10 @@
-import { position } from '../Core';
-import Queue from '../Core/Queue';
-import Distance from '../Core/Distance';
+import { position } from '../../Core';
+import Queue from '../../Core/Queue';
+import Distance from '../../Core/Distance';
 
-function BFS(start, speed) {
+function BFS(startCallback, speed) {
     var times = 1 + (position.bomb === false ? 0 : 1); // 如果有bomb要執行2次
-    var retSearchPath = []; // 目前是把兩次search放在同一個array，但應該要分開做顏色的區隔
+    var retSearchPath = [];
     var retBombPath = [];
     var retShortestPath = [];
 
@@ -74,10 +74,8 @@ function BFS(start, speed) {
         var shortest = distance.getShortestPath(endPos);
 
         if (i === 0) {
-            console.log(searchPath)
             retSearchPath = retSearchPath.concat(searchPath);
         } else {
-            console.log(searchPath)
             retBombPath = retBombPath.concat(searchPath);
         }
         retShortestPath = retShortestPath.concat(shortest);
@@ -85,6 +83,6 @@ function BFS(start, speed) {
         if (distance.get(endPos) === -1) break; // 如果第一次沒找到終點，直接跳出
     }
     // 執行 start 動畫
-    start(retSearchPath, retShortestPath, speed, retBombPath);
+    startCallback(retSearchPath, retShortestPath, speed, retBombPath);
 }
 export default BFS;

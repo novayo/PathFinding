@@ -19,6 +19,10 @@ class Queue {
     getLength() {
         return this.queue.length;
     }
+
+    getArray() {
+        return this.queue;
+    }
 }
 
 export default Queue;

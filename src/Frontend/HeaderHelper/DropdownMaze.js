@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { NavDropdown, Nav } from 'react-bootstrap';
 import { sysStatusContext, speedContext } from '../../Core';
 import Colored from '../../HOC/Colored';
-import Simple_Stair_Pattern from '../../Backend/Simple_Stair_Pattern';
+import Simple_Stair_Pattern from '../../Backend/Maze/Simple_Stair_Pattern';
 import ButtonEvent from '../TableHelper/ButtonEvent';
 
 function DropdownMaze() {
