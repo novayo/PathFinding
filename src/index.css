@@ -145,7 +145,78 @@ code {
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
   background-size: contain; /*讓圖片能scale*/
-  background-image: url("./Resources/Images/logo.png");	
+  background-image: url("./Resources/Images/Modal/Logo.png");	
+}
+
+.ShortestPath{
+  width: 300px; /*圖片寬度*/
+  height: 300px; /*圖片高度*/
+  margin: auto;
+  background-position: center; /*圖片置中*/
+  background-repeat: no-repeat; /*圖片若太小不重複*/
+  background-size: contain; /*讓圖片能scale*/
+  background-image: url("./Resources/Images/Modal/ShortestPath.png");	
+}
+
+
+.Algorithm{
+  width: 300px; /*圖片寬度*/
+  height: 300px; /*圖片高度*/
+  margin: auto;
+  background-position: center; /*圖片置中*/
+  background-repeat: no-repeat; /*圖片若太小不重複*/
+  background-size: contain; /*讓圖片能scale*/
+  background-image: url("./Resources/Images/Modal/Algorithms.png");	
+}
+
+.Maze{
+  width: 300px; /*圖片寬度*/
+  height: 300px; /*圖片高度*/
+  margin: auto;
+  background-position: center; /*圖片置中*/
+  background-repeat: no-repeat; /*圖片若太小不重複*/
+  background-size: contain; /*讓圖片能scale*/
+  background-image: url("./Resources/Images/Modal/Mazes.png");	
+}
+
+.WallWeight{
+  width: 300px; /*圖片寬度*/
+  height: 300px; /*圖片高度*/
+  margin: auto;
+  background-position: center; /*圖片置中*/
+  background-repeat: no-repeat; /*圖片若太小不重複*/
+  background-size: contain; /*讓圖片能scale*/
+  background-image: url("./Resources/Images/Modal/WallWeight.gif");	
+}
+
+.AddBomb{
+  width: 300px; /*圖片寬度*/
+  height: 300px; /*圖片高度*/
+  margin: auto;
+  background-position: center; /*圖片置中*/
+  background-repeat: no-repeat; /*圖片若太小不重複*/
+  background-size: contain; /*讓圖片能scale*/
+  background-image: url("./Resources/Images/Modal/AddBomb.gif");	
+}
+
+.StartDrag{
+  width: 300px; /*圖片寬度*/
+  height: 300px; /*圖片高度*/
+  margin: auto;
+  background-position: center; /*圖片置中*/
+  background-repeat: no-repeat; /*圖片若太小不重複*/
+  background-size: contain; /*讓圖片能scale*/
+  background-image: url("./Resources/Images/Modal/StartDrag.gif");	
+}
+
+.Other{
+  width: 900px; /*圖片寬度*/
+  height: 300px; /*圖片高度*/
+  margin: auto;
+  background-position: center; /*圖片置中*/
+  background-repeat: no-repeat; /*圖片若太小不重複*/
+  background-size: contain; /*讓圖片能scale*/
+  background-image: url("./Resources/Images/Modal/Other.png");	
 }
 
 #algorithmDescriptor {

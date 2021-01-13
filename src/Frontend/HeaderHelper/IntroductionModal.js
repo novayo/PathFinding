@@ -9,7 +9,7 @@ function IntroductionModal() {
     const [show, setShow] = useState(true);
     const [language, setLanguage] = useState(0);
     const [checked, setChecked] = useState(true);
-    const maxPages = 3;
+    const maxPages = data.length;
 
     const HandlePrevious = () => {
         setPages(prePage => prePage - 1 >= 1 ? prePage - 1 : prePage);
@@ -32,6 +32,14 @@ function IntroductionModal() {
                 <p className="Modal-BodyText">{data[pages - 1]["Dialog"][language]}</p>
                 <p className="Modal-BodyText1">{data[pages - 1]["Body"][language]}</p>
                 {pages === 1 ? <div className="Logo"></div> : null}
+                {pages === 2 ? <div className="ShortestPath"></div> : null}
+                {pages === 3 ? <div className="Algorithm"></div> : null}
+                {pages === 4 ? <div className="Maze"></div> : null}
+                {pages === 5 ? <div className="WallWeight"></div> : null}
+                {pages === 6 ? <div className="AddBomb"></div> : null}
+                {pages === 7 ? <div className="StartDrag"></div> : null}
+                {pages === 8 ? <div className="Other"></div> : null}
+                {pages === 9 ? (language === 1 ? <p className="Modal-BodyText1">本專案由 <a href="https://github.com/novayo">novayo</a> 及 <a href="https://github.com/ChengTsungPao">ChengTsungPao</a> 共同製作</p> : <p className="Modal-BodyText1">This application made by <a href="https://github.com/novayo">novayo</a> and <a href="https://github.com/ChengTsungPao">ChengTsungPao</a>.</p>) : null}
             </Modal.Body>
 
             <Modal.Footer>
@@ -56,7 +64,7 @@ function IntroductionModal() {
                 <Button className="Button" variant='outline-success' size="md" onClick={() => HandlePrevious()}>Previous</Button>
                 <Button className="Button" variant='outline-success' size="md" onClick={() => HandleNext()}>Next</Button>
             </Modal.Footer>
-        </Modal>
+        </Modal >
     )
 }
 

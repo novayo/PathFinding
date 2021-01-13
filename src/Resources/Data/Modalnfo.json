@@ -2,7 +2,7 @@
     {
         "Title": [
             "Welcome to Our Path-Finding Project!",
-            "歡迎來到Path-Finding專題!"
+            "歡迎來到Path-Finding專案!"
         ],
         "Dialog": [
             "Please follow this tutorial to figure out the features of this application.",
@@ -15,30 +15,114 @@
     },
     {
         "Title": [
-            "Title2",
-            "標題2"
+            "Introduction to the application!",
+            "專案核心!"
         ],
         "Dialog": [
-            "Dialog2",
-            "文章2"
+            "Visualize a couple of maze algorithms and pathfinding algorithms and shortest path as well as bomb and weight node.",
+            "視覺化數種\"迷宮演算法\"及\"搜尋演算法\"的找尋方式，並找到最短路徑，包含必經過的點(Bomb)及權重(Weighted)。"
         ],
         "Body": [
-            "Body2",
-            "文章2-Body"
+            "",
+            ""
         ]
     },
     {
         "Title": [
-            "Title3",
-            "標題3"
+            "How to manipulate? - Pick an algorithm",
+            "如何使用? - 選擇一個演算法"
         ],
         "Dialog": [
-            "Dialog3",
-            "文章3"
+            "Click a algorithm to visualize.",
+            "點選執行演算法。"
         ],
         "Body": [
-            "Body3",
-            "文章3-Body"
+            "Some algorithms are weighted, while the others are unwighted. By the way, not all algorithms guarantee shortest path.Introduction of algorithms locate at the top of grids.",
+            "演算法分為weighted與unweighted，且不是所有演算法都保證最短路徑。演算法的介紹在網格上方。"
+        ]
+    },
+    {
+        "Title": [
+            "How to manipulate? - Create Maze",
+            "如何使用? - 建立迷宮"
+        ],
+        "Dialog": [
+            "Click a maze algorithm to automatically create walls or weights maze.",
+            "點擊maze演算法建立牆壁或是權重迷宮。"
+        ],
+        "Body": [
+            "",
+            ""
+        ]
+    },
+    {
+        "Title": [
+            "How to manipulate? - Add Walls or Weights",
+            "如何使用? - 建立牆壁或權重"
+        ],
+        "Dialog": [
+            "Click on grids to add walls. Click on grids to while pressing W to add weights. Click again to cancel.",
+            "點擊方格加入牆壁，按住w點擊方格加入權重，再次點擊取消牆壁或權重。"
+        ],
+        "Body": [
+            "",
+            ""
+        ]
+    },
+    {
+        "Title": [
+            "How to manipulate? - Add Bomb",
+            "如何使用? - 建立Bomb"
+        ],
+        "Dialog": [
+            "After picking an algorithm, click \"Add Bomb\" to add bomb",
+            "選擇完演算法後，點擊按鈕加入Bomb。"
+        ],
+        "Body": [
+            "Bomb：the algorithm will first look for the bomb and then look for target.",
+            "Bomb：演算法必須先找尋bomb才會找尋目標。"
+        ]
+    },
+    {
+        "Title": [
+            "How to manipulate? - Visualize & Drag Nodes",
+            "如何使用? - 開始視覺化 & 拖拉結果"
+        ],
+        "Dialog": [
+            "Processing after press visualize button. You can drag nodes even after an algorithm has finished running.",
+            "按下Visualize後，開始執行，執行完後實時更新找尋結果。"
+        ],
+        "Body": [
+            "",
+            ""
+        ]
+    },
+    {
+        "Title": [
+            "How to manipulate? - Other Functional Buttons",
+            "如何使用? - 其他功能"
+        ],
+        "Dialog": [
+            "You can visualize, clear the entire board, clear walls and weights, clear the current path and adjust the visualization speed, all from the navbar.",
+            "你可以開始，重置網格，重置牆壁跟權重，重置找尋路徑，更改速度。"
+        ],
+        "Body": [
+            "",
+            ""
+        ]
+    },
+    {
+        "Title": [
+            "Enjoy! - Hope you enjoy the application.",
+            "Enjoy! - 希望您喜歡這個專案"
+        ],
+        "Dialog": [
+            "If you find any questions or bugs, pls contact to me by email.",
+            "如有任何疑問或是發現bugs，請用Email與我聯繫。"
+        ],
+        "Body": [
+            "",
+            ""
         ]
     }
 ]
