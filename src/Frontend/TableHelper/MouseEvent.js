@@ -1,15 +1,29 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { sysStatusContext, algorithmContext, speedContext } from '../../Core/index'
-import { tableVar, touchContext, moveContext, updateContext, componentKind } from './TableIndex'
+import { tableVar, touchContext, moveContext, updateContext, componentKind, keyboardSupport } from './TableIndex'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
 import { WhichComponent } from './WhichComp'
+import { KeyboardEvent } from './KeyboardEvent'
 import ButtonEvent from './ButtonEvent'
 
 function MouseEvent() {
     const [touch, move, update] = [useContext(touchContext), useContext(moveContext), useContext(updateContext)]
     const [algorithm, speed, sysStatus] = [useContext(algorithmContext), useContext(speedContext), useContext(sysStatusContext)]
     const buttonEvent = ButtonEvent()
+
+    useEffect(() => {
+        document.addEventListener('keydown', function(event) {
+            if(keyboardSupport.down){
+                KeyboardEvent(event)
+            }
+        })
+        document.addEventListener('keyup', function(event) {
+            if(keyboardSupport.down === false){
+                KeyboardEvent(event)
+            }
+        })
+    })
 
     const MouseDownHandler = (e) => {
         // console.log("MouseDownHandler " + e.target.id)
@@ -25,7 +39,7 @@ function MouseEvent() {
 
         if(whichComponent.type){
             setTable(tableVar.id, whichComponent.rKind)
-            move.set(componentKind.wall)
+            move.set(componentKind.add)
 
         }else{
             move.set(whichComponent.kind)
@@ -57,11 +71,11 @@ function MouseEvent() {
         const whichOldComponent = WhichComponent(tableVar.id, touch)
         const whichNewComponent = WhichComponent(tableVar.newId, touch)
 
-        if(move.get === componentKind.wall && whichNewComponent.type){
+        if(move.get === componentKind.add && whichNewComponent.type){
             setTable(tableVar.newId, whichNewComponent.rKind)
             tableVar.id = tableVar.newId
 
-        }else if(move.get !== componentKind.wall && move.get !== "" && whichNewComponent.type){
+        }else if(move.get !== componentKind.add && move.get !== "" && whichNewComponent.type){
             setTable(tableVar.id, whichOldComponent.touch)
             touch.set({componentKind: whichOldComponent.kind, under: whichNewComponent.kind})
             setTable(tableVar.newId, whichOldComponent.kind)

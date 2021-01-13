@@ -115,7 +115,7 @@ code {
 }
 
 .Info-Weight-Node{
-  background-image: url("./Resources/Images/Info/BombNode.png");	
+  background-image: url("./Resources/Images/Info/WeightNode.png");	
 }
 
 .Info-Unvisited-Node{
@@ -240,7 +240,7 @@ code {
 
 .start {
   background: white url('./Resources/Images/Info/StartNode.png');
-  background-position: center center;
+  background-position: center;
   background-size: cover; /*填滿*/
 }
 
@@ -252,6 +252,12 @@ code {
 
 .bomb {
   background: white url('./Resources/Images/Info/BombNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+}
+
+.weight {
+  background: white url('./Resources/Images/Info/WeightNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
 }
@@ -311,6 +317,7 @@ code {
   background-color:#F0F000;
   animation-name: pathAnimation;
   animation-duration: 0.5s;
+  border: 0;
 }
 
 @keyframes pathAnimation {
@@ -322,4 +329,5 @@ code {
 
 .pathFinal {
   background-color:#F0F000;
+  border: 0;
 }

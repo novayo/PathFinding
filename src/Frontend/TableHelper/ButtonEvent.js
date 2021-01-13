@@ -41,7 +41,7 @@ function ButtonEvent() {
                 }
             }
 
-        } else {
+        }else {
             sysStatus.set("RUNNING")
             update.set("True")
             console.log("Start")
@@ -93,6 +93,10 @@ function ButtonEvent() {
             }
         }
         touch.set("")
+
+        if (update.get) {
+            UpdateTable(Start, ClearPath, algorithm, speed)
+        }
     }
 
     const ClearPath = (event = true) => {

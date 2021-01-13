@@ -1,5 +1,6 @@
 import { tableVar, componentKind } from './TableIndex'
 import { setTable } from './SetTable'
+import { WhichComponentType } from './WhichComp'
 
 
 export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
@@ -11,8 +12,7 @@ export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
             clearInterval(arrAnimation);
         }else {
             const index = arr[count][0] * tableVar.colSize + arr[count][1]
-            const name = document.getElementById(index.toString()).className
-            if (name === componentKind.background || name === componentKind.search || name === componentKind.searchBomb) {
+            if (WhichComponentType(index.toString()) !== 0) {
                 setTable(index, kind)
             }
         }
@@ -28,8 +28,7 @@ export function SearchBombAnimation(search, bomb, path, speed, count, myCallback
         }else{
             for(var i = 0;i < search[count].length;i++){
                 const index = search[count][i][0] * tableVar.colSize + search[count][i][1]
-                const name = document.getElementById(index.toString()).className
-                if (name === componentKind.background || name === componentKind.search) {
+                if (WhichComponentType(index.toString()) !== 0) {
                     if(bomb.length === 0){
                         setTable(index, componentKind.search)
                     }else{
@@ -45,14 +44,12 @@ export function SearchBombAnimation(search, bomb, path, speed, count, myCallback
 export function SearchAnimation(bomb, path, speed, count, myCallbackFunction, sysStatusFunction) {
     const searchAnimation = setInterval(() => {
         if (count === bomb.length) {
-            console.log("here")
             myCallbackFunction(path, speed, 0, sysStatusFunction)
             clearInterval(searchAnimation)
         }else{
             for(var i = 0;i < bomb[count].length;i++){
                 const index = bomb[count][i][0] * tableVar.colSize + bomb[count][i][1]
-                const name = document.getElementById(index.toString()).className
-                if (name === componentKind.background || name === componentKind.searchBomb) {
+                if (WhichComponentType(index.toString()) !== 0) {
                     setTable(index, componentKind.search)
                 }
             }

@@ -11,7 +11,8 @@ export const tableVar = {
     newId: "0"
 }
 
-export const componentKind =  {wall: "wall", bomb: "bomb", start: "start", end: "end", background: "background", search: "search", searchFinal: "searchFinal", searchBomb: "searchBomb", searchBombFinal: "searchBombFinal", path: "path", pathFinal: "pathFinal"}
+export const componentKind =  {add: "wall", wall: "wall", weight: "weight",  bomb: "bomb", start: "start", end: "end", background: "background", search: "search", searchFinal: "searchFinal", searchBomb: "searchBomb", searchBombFinal: "searchBombFinal", path: "path", pathFinal: "pathFinal"}
+export const keyboardSupport = {w: "w", down: true}
 
 // touch status
 export const touchContext = createContext()
@@ -41,6 +42,8 @@ export const moveReducer = (state, action) => {
         case componentKind.bomb:
             return action
         case componentKind.wall:
+            return action
+        case componentKind.weight:
             return action
         default:
             return moveInitial
