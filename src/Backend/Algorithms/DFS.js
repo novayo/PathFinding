@@ -12,7 +12,7 @@ function DFS(startCallback, speed) {
         }
 
         visited.add([x, y].toString());
-        startPath.push([[x, y]]);
+        startPath.push([[x, y]]); // 每一層都是一個
         endPath.push([x, y]);
 
         if ([x, y].toString() === endPos.toString()) return true;

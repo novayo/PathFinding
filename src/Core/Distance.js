@@ -81,6 +81,11 @@ class Distance {
         if (shortest.length === 1) return []; // 如果沒有找到路徑(只有終點自己)，則不用跑最短路徑
         return shortest;
     }
+
+    clear() {
+        this.dict = {};
+        this.max_d = 0;
+    }
 }
 
 export default Distance;
