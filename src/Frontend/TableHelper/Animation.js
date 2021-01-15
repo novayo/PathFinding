@@ -4,8 +4,12 @@ import { WhichComponentType } from './WhichComp'
 
 
 export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
+    var [id, newid] = [-1, -1]
     const arrAnimation = setInterval(() => {
         if (count === arr.length) {
+            if(kind === componentKind.path){
+                setTable(newid, componentKind.pathFinal)
+            }
             if (myCallbackFunction !== null) {
                 myCallbackFunction();
             }
@@ -13,11 +17,18 @@ export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
         }else {
             const index = arr[count][0] * tableVar.colSize + arr[count][1]
             if (WhichComponentType(index.toString()) !== 0) {
-                setTable(index, kind)
+                if(kind === componentKind.path){
+                    newid = index
+                    setTable(id, componentKind.pathFinal)
+                    setTable(newid, componentKind.pathHead)
+                    id = newid
+                }else{
+                    setTable(index, kind)
+                }
             }
         }
         count += 1
-    }, speed / 3)
+    }, speed / 2)
 }
 
 export function SearchBombAnimation(search, bomb, path, speed, count, myCallbackFunction, sysStatusFunction) {

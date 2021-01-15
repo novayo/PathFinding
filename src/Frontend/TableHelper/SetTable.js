@@ -3,6 +3,10 @@ import { position } from '../../Core/index'
 
 
 export function setTable(index, kind){
+    if(index < 0){
+        return
+    }
+
     document.getElementById(index.toString()).className = kind
     const pos = [Math.floor(index / tableVar.colSize), index % tableVar.colSize]
 

@@ -11,7 +11,7 @@ export const tableVar = {
     newId: "0"
 }
 
-export const componentKind =  {add: "wall", wall: "wall", weight: "weight",  bomb: "bomb", start: "start", end: "end", background: "background", search: "search", searchFinal: "searchFinal", searchBomb: "searchBomb", searchBombFinal: "searchBombFinal", path: "path", pathFinal: "pathFinal"}
+export const componentKind =  {add: "wall", wall: "wall", weight: "weight",  bomb: "bomb", start: "start", end: "end", background: "background", search: "search", searchFinal: "searchFinal", searchBomb: "searchBomb", searchBombFinal: "searchBombFinal", path: "path", pathFinal: "pathFinal", pathHead: "pathHead"}
 export const keyboardSupport = {w: "w", down: true}
 
 // touch status
