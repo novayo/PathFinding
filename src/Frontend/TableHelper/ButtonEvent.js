@@ -94,7 +94,7 @@ function ButtonEvent() {
             }
         }
         touch.set("")
-        update.set("False")
+        ClearPath()
     }
 
     const ClearPath = (event = true) => {
