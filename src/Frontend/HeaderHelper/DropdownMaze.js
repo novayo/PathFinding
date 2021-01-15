@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { NavDropdown, Nav } from 'react-bootstrap';
-import { sysStatusContext, speedContext } from '../../Core';
+import { sysStatusContext } from '../../Core';
 import Colored from '../../HOC/Colored';
 import Simple_Stair_Pattern from '../../Backend/Maze/Simple_Stair_Pattern';
 import Binary_Tree from '../../Backend/Maze/Binary_Tree';
@@ -10,7 +10,7 @@ function DropdownMaze() {
     const sysStatus = useContext(sysStatusContext);
     const [className, toggleHandler] = Colored();
     const buttonEvent = ButtonEvent();
-    const speed = useContext(speedContext);
+    const speed = 5;
 
     const DropdownMazeHandler = (eventKey) => {
         if (sysStatus.get !== "IDLE") {
@@ -34,10 +34,10 @@ function DropdownMaze() {
                 alert("Maze_Basic_Weight_Maze");
                 break;
             case "Maze_Simple_stair_pattern":
-                buttonEvent.CreateMaze(Simple_Stair_Pattern(), speed.get[1]);
+                buttonEvent.CreateMaze(Simple_Stair_Pattern(), speed);
                 break;
             case "Maze_Binary_Tree":
-                buttonEvent.CreateMaze(Binary_Tree(), speed.get[1]);
+                buttonEvent.CreateMaze(Binary_Tree(), speed);
                 break;
             default:
                 break;
