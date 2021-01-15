@@ -10,10 +10,10 @@ import { WhichComponent } from './WhichComp'
 function ButtonEvent() {
     const [touch, update] = [useContext(touchContext), useContext(updateContext)]
     const [algorithm, bomb, speed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
-
+    var updateVar = true
 
     const Start = (search, path, speed, bomb = []) => {
-        if (update.get) {
+        if (update.get && updateVar) {
             for (var i = 0; i < search.length; i++) {
                 for (var j = 0; j < search[i].length; j++) {
                     const index = search[i][j][0] * tableVar.colSize + search[i][j][1]
@@ -44,6 +44,7 @@ function ButtonEvent() {
         }else {
             sysStatus.set("RUNNING")
             update.set("True")
+            updateVar = true
             console.log("Start")
             SearchBombAnimation(search, bomb, path, speed, 0, SearchAnimation, () => sysStatus.set("IDLE"))
         }
@@ -55,7 +56,7 @@ function ButtonEvent() {
     }
 
     const Addbomb = () => {
-        console.log("AddBomb")
+        console.log("AddBomb" + update.get)
         const index = Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 2)
 
         if (WhichComponent(index.toString(), touch).type === 0) {
@@ -103,6 +104,7 @@ function ButtonEvent() {
         console.log("ClearPath")
         if (event) {
             update.set("False")
+            updateVar = false
         }
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
             const name = document.getElementById(i.toString()).className
