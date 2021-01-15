@@ -298,6 +298,7 @@ code {
   background-color:blue;
   animation-name: wallAnimation;
   animation-duration: 0.5s;
+  border: 0;
 }
 
 @keyframes wallAnimation {
