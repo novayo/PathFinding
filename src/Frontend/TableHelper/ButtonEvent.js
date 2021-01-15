@@ -94,10 +94,7 @@ function ButtonEvent() {
             }
         }
         touch.set("")
-
-        if (update.get) {
-            UpdateTable(Start, ClearPath, algorithm, speed)
-        }
+        update.set("False")
     }
 
     const ClearPath = (event = true) => {
