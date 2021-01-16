@@ -2,9 +2,10 @@ import React, { useContext } from 'react'
 import { NavDropdown, Nav } from 'react-bootstrap';
 import { sysStatusContext } from '../../Core';
 import Colored from '../../HOC/Colored';
+import ButtonEvent from '../TableHelper/ButtonEvent';
 import Simple_Stair_Pattern from '../../Backend/Maze/Simple_Stair_Pattern';
 import Binary_Tree from '../../Backend/Maze/Binary_Tree';
-import ButtonEvent from '../TableHelper/ButtonEvent';
+import RecursiveDivision from '../../Backend/Maze/RecursiveDivision';
 
 function DropdownMaze() {
     const sysStatus = useContext(sysStatusContext);
@@ -20,7 +21,7 @@ function DropdownMaze() {
         buttonEvent.ClearWalls()
         switch (eventKey) {
             case "Maze_Recursive_Division":
-                alert("Maze_Recursive_Division");
+                buttonEvent.CreateMaze(RecursiveDivision(), speed);
                 break;
             case "Maze_Recursive_Division_vertical":
                 alert("Maze_Recursive_Division_vertical");
