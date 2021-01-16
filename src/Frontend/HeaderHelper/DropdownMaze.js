@@ -10,7 +10,7 @@ function DropdownMaze() {
     const sysStatus = useContext(sysStatusContext);
     const [className, toggleHandler] = Colored();
     const buttonEvent = ButtonEvent();
-    const speed = 5;
+    const speed = 20;
 
     const DropdownMazeHandler = (eventKey) => {
         if (sysStatus.get !== "IDLE") {

@@ -1,11 +1,13 @@
 import BFS from '../../Backend/Algorithms/BFS';
 import DFS from '../../Backend/Algorithms/DFS';
+import Dijkstra from '../../Backend/Algorithms/Dijkstra';
 
 
 export function UpdateTable(Start, ClearPath, algorithm, speed) {
     ClearPath(false)
     switch (algorithm.get) {
         case "Algorithm_Dijkstra":
+            Dijkstra(Start, speed.get[1]);
             break;
         case 'Algorithm_APlus':
             break;

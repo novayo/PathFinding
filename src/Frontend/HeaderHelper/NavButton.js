@@ -5,6 +5,7 @@ import { algorithmContext, sysStatusContext, speedContext } from '../../Core';
 import ButtonEvent from '../TableHelper/ButtonEvent';
 import BFS from '../../Backend/Algorithms/BFS';
 import DFS from '../../Backend/Algorithms/DFS';
+import Dijkstra from '../../Backend/Algorithms/Dijkstra';
 
 const NavButton = () => {
 
@@ -74,6 +75,7 @@ const NavButton = () => {
             buttonEvent.ClearPath();
             switch (algoContext.get) {
                 case "Algorithm_Dijkstra":
+                    Dijkstra(buttonEvent.Start, speed.get[1]);
                     break;
                 case 'Algorithm_APlus':
                     break;
