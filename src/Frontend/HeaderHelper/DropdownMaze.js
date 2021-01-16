@@ -6,6 +6,8 @@ import ButtonEvent from '../TableHelper/ButtonEvent';
 import Simple_Stair_Pattern from '../../Backend/Maze/Simple_Stair_Pattern';
 import Binary_Tree from '../../Backend/Maze/Binary_Tree';
 import RecursiveDivision from '../../Backend/Maze/RecursiveDivision';
+import RecursiveDivision_Horizontal from '../../Backend/Maze/RecursiveDivision_Horizontal';
+import RecursiveDivision_Vertical from '../../Backend/Maze/RecursiveDivision_Vertical';
 
 function DropdownMaze() {
     const sysStatus = useContext(sysStatusContext);
@@ -24,10 +26,10 @@ function DropdownMaze() {
                 buttonEvent.CreateMaze(RecursiveDivision(), speed);
                 break;
             case "Maze_Recursive_Division_vertical":
-                alert("Maze_Recursive_Division_vertical");
+                buttonEvent.CreateMaze(RecursiveDivision_Vertical(), speed);
                 break;
             case "Maze_Recursive_Division_horizontal":
-                alert("Maze_Recursive_Division_horizontal");
+                buttonEvent.CreateMaze(RecursiveDivision_Horizontal(), speed);
                 break;
             case "Maze_Basic_Random":
                 break;
