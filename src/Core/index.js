@@ -8,7 +8,7 @@ export var position = {
     bomb: false,
     wall: [],
     weight: [],
-    weightValue: 0,
+    weightValue: 50,
     rowSize: tableVar.rowSize,
     colSize: tableVar.colSize
 }
