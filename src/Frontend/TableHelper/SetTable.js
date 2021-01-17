@@ -10,16 +10,13 @@ export function setTable(index, kind){
     document.getElementById(index.toString()).className = kind
     const pos = [Math.floor(index / tableVar.colSize), index % tableVar.colSize]
 
-    if(position.wall[pos]){
-        delete position.wall[pos]
-    }else if(position.weight[pos]){
-        delete position.weight[pos]
-    }
+    delete position.wall[pos]
+    delete position.weight[pos]
 
     if(kind === componentKind.wall){
         position.wall[pos] = true
     }else if(kind === componentKind.weight){
-        position.weight[pos] = true
+        position.weight[pos] = position.weightValue
     }else if(kind === componentKind.start){
         position.start = pos
     }else if(kind === componentKind.end){

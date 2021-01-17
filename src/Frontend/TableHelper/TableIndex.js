@@ -35,7 +35,7 @@ export const keyboardSupport = {
     plus: "+", 
     sub: "-",
 
-    w: "w", 
+    w: "w",
     down: true
 
 }
