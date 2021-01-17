@@ -246,14 +246,6 @@ code {
   animation-duration: 3s;
 }
 
-.startFinal {
-  background: #F0F000 url('./Resources/Images/Info/StartNode.png');
-  background-position: center;
-  background-size: cover; /*填滿*/
-  animation-name: startAnimation;
-  animation-duration: 3s;
-}
-
 @keyframes startAnimation {
   0%   {transform: scale(0.5, 0.5);}
   25%  {transform: scale(1, 1);}
@@ -267,29 +259,13 @@ code {
   animation-duration: 3s;
 }
 
-.endFinal {
-  background: #F0F000  url('./Resources/Images/Info/EndNode.png');
-  background-position: center;
-  background-size: cover; /*填滿*/
-  animation-name: endAnimation;
-  animation-duration: 3s;
-}
-
-@keyframes startAnimation {
+@keyframes endAnimation {
   0%   {transform: scale(0.5, 0.5);}
   25%  {transform: scale(1, 1);}
 }
 
 .bomb {
   background: white url('./Resources/Images/Info/BombNode.png');
-  background-position: center;
-  background-size: cover; /*填滿*/
-  animation-name: bombAnimation;
-  animation-duration: 3s;
-}
-
-.bombFinal {
-  background: #F0F000 url('./Resources/Images/Info/BombNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: bombAnimation;
@@ -309,19 +285,10 @@ code {
   animation-duration: 3s;
 }
 
-.weightFinal {
-  background: #F0F000 url('./Resources/Images/Info/WeightNode.png');
-  background-position: center;
-  background-size: cover; /*填滿*/
-  animation-name: weightAnimation;
-  animation-duration: 3s;
-}
-
 @keyframes weightAnimation {
   0%   {transform: scale(0.5, 0.5);}
   25%  {transform: scale(1, 1);}
 }
-
 
 .background {
   background-color:white;
