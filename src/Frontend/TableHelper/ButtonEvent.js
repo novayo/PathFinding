@@ -4,7 +4,7 @@ import { SearchAnimation, SearchBombAnimation, MazeAnimation } from './Animation
 import { sysStatusContext, algorithmContext, bombContext, speedContext } from '../../Core'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
-import { WhichComponent } from './WhichComp'
+import { WhichComponent, WhichComponentSame } from './WhichComp'
 
 
 function ButtonEvent() {
@@ -14,6 +14,7 @@ function ButtonEvent() {
 
     const Start = (search, path, speed, bomb = []) => {
         if (update.get && updateVar) {
+            // document.getElementById(i.toString()).style.backgroundColor = ...
             for (var i = 0; i < search.length; i++) {
                 for (var j = 0; j < search[i].length; j++) {
                     const index = search[i][j][0] * tableVar.colSize + search[i][j][1]
@@ -58,8 +59,9 @@ function ButtonEvent() {
     const Addbomb = () => {
         console.log("AddBomb" + update.get)
         const index = Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 2)
+        const name = document.getElementById(index.toString()).className
 
-        if (WhichComponent(index.toString(), touch).type === 0) {
+        if (WhichComponentSame(name) <= 2) {
             return
         }
 
@@ -74,7 +76,8 @@ function ButtonEvent() {
     const RemoveBomb = () => {
         console.log("RemoveBomb")
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
-            if (document.getElementById(i.toString()).className === componentKind.bomb) {
+            const name = document.getElementById(i.toString()).className
+            if (WhichComponentSame(name) === 2) {
                 setTable(i, componentKind.background)
                 break
             }
@@ -89,7 +92,8 @@ function ButtonEvent() {
     const ClearWalls = () => {
         console.log("ClearWall")
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
-            if (document.getElementById(i.toString()).className === componentKind.wall) {
+            const name = document.getElementById(i.toString()).className
+            if (WhichComponentSame(name) === 3 || WhichComponentSame(name) === 4) {
                 setTable(i, componentKind.background)
             }
         }
@@ -105,7 +109,7 @@ function ButtonEvent() {
         }
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
             const name = document.getElementById(i.toString()).className
-            if (name === componentKind.search || name === componentKind.searchFinal || name === componentKind.searchBomb || name === componentKind.searchBombFinal || name === componentKind.path || name === componentKind.pathFinal) {
+            if (WhichComponentSame(name) >= 5 && WhichComponentSame(name) <= 7) {
                 setTable(i, componentKind.background)
             }
         }

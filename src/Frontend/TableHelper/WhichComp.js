@@ -31,7 +31,7 @@ export function WhichComponent(id, touch){ // MouseEvent
 
 }
 
-export function WhichComponentType(id){
+export function WhichComponentType(id){ // Animation
 
     const element = document.getElementById(id).className
 
@@ -48,6 +48,41 @@ export function WhichComponentType(id){
             return 2
         default:
             return 1
+    }
+
+}
+
+export function WhichComponentSame(kind){
+
+    switch (kind) {
+        case componentKind.start:
+            return 0
+        case componentKind.end:
+            return 1
+        case componentKind.bomb:
+            return 2
+        case componentKind.wall:
+            return 3
+        case componentKind.weight:
+            return 4
+        case componentKind.search:
+            return 5
+        case componentKind.searchFinal:
+            return 5
+        case componentKind.searchBomb:
+            return 6
+        case componentKind.searchBombFinal:
+            return 6
+        case componentKind.path:
+            return 7
+        case componentKind.pathFinal:
+            return 7
+        case componentKind.pathHead:
+            return 8
+        case componentKind.background:
+            return 9
+        default:
+            return 10
     }
 
 }
