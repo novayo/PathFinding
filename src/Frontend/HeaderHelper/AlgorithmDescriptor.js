@@ -1,13 +1,13 @@
-import {useState, useContext, useEffect} from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { algorithmContext } from '../../Core';
 
-function AlgorithmDescriptor(){
-	const [algorithmName, setAlgorithmName] = useState('Pick an algorithm and visualize it!');
+function AlgorithmDescriptor() {
+    const [algorithmName, setAlgorithmName] = useState('Pick an algorithm and visualize it!');
     const [discription1, setDiscription1] = useState('');
     const [discription2, setDiscription2] = useState('');
-	const algoContext = useContext(algorithmContext);
+    const algoContext = useContext(algorithmContext);
 
-	useEffect(() => {
+    useEffect(() => {
         var algoName = "";
         var d1 = "";
         var d2 = "";
@@ -17,7 +17,7 @@ function AlgorithmDescriptor(){
                 d1 = "weighted";
                 d2 = "guarantees";
                 break;
-            case 'Algorithm_APlus':
+            case 'Algorithm_AStar':
                 algoName = "A* Search";
                 d1 = "weighted";
                 d2 = "guarantees";
@@ -65,20 +65,20 @@ function AlgorithmDescriptor(){
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [algoContext.get])
 
-    if (algoContext.get === ""){
+    if (algoContext.get === "") {
         return (
             <div id="algorithmDescriptor">
                 {algorithmName}
             </div>
         )
-    } else{
+    } else {
         return (
             <div id="algorithmDescriptor">
                 {algorithmName} is <i><b>{discription1}</b></i> and <i><b>{discription2}</b></i> the shortest path!
             </div>
         )
     }
-	
+
 }
 
 export default AlgorithmDescriptor;

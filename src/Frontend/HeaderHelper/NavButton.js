@@ -6,6 +6,7 @@ import ButtonEvent from '../TableHelper/ButtonEvent';
 import BFS from '../../Backend/Algorithms/BFS';
 import DFS from '../../Backend/Algorithms/DFS';
 import Dijkstra from '../../Backend/Algorithms/Dijkstra';
+import Astar from '../../Backend/Algorithms/Astar';
 
 const NavButton = () => {
 
@@ -26,7 +27,7 @@ const NavButton = () => {
             case "Algorithm_Dijkstra":
                 algoName = "Dijkstra's";
                 break;
-            case 'Algorithm_APlus':
+            case 'Algorithm_AStar':
                 algoName = "A*";
                 break;
             case "Algorithm_Greedy_Best_First":
@@ -77,7 +78,8 @@ const NavButton = () => {
                 case "Algorithm_Dijkstra":
                     Dijkstra(buttonEvent.Start, speed.get[1]);
                     break;
-                case 'Algorithm_APlus':
+                case 'Algorithm_AStar':
+                    Astar(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Greedy_Best_First":
                     break;

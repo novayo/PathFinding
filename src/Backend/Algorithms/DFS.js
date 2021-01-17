@@ -35,15 +35,22 @@ function DFS(startCallback, speed) {
     const visited = new Set();
     const distance = new Distance();
     var start = position.start;
-    if (position.bomb !== false) {
+    if (position.bomb) {
         DoDFS(start[0], start[1], position.bomb, visited, retSearchPath, distance, 0);
         start = position.bomb;
         retShortestPath = retShortestPath.concat(distance.getShortestPath(position.bomb));
         distance.clear();
         visited.clear();
+
+        // 有找到最小路徑才繼續
+        if (retShortestPath.length > 0) {
+            DoDFS(start[0], start[1], position.end, visited, retBombPath, distance, 0);
+            retShortestPath = retShortestPath.concat(distance.getShortestPath(position.end));
+        }
+    } else {
+        DoDFS(start[0], start[1], position.end, visited, retBombPath, distance, 0);
+        retShortestPath = retShortestPath.concat(distance.getShortestPath(position.end));
     }
-    DoDFS(start[0], start[1], position.end, visited, retBombPath, distance, 0);
-    retShortestPath = retShortestPath.concat(distance.getShortestPath(position.end));
     startCallback(retSearchPath, retShortestPath, speed, retBombPath);
 }
 

@@ -66,8 +66,8 @@ export const algorithmReducer = (state, action) => {
     switch (action) {
         case 'Algorithm_Dijkstra':
             return 'Algorithm_Dijkstra';
-        case 'Algorithm_APlus':
-            return 'Algorithm_APlus';
+        case 'Algorithm_AStar':
+            return 'Algorithm_AStar';
         case "Algorithm_Greedy_Best_First":
             return 'Algorithm_Greedy_Best_First';
         case "Algorithm_Swarm":

@@ -20,8 +20,8 @@ function DropdownAlgorithm() {
             case "Algorithm_Dijkstra":
                 algoContext.set('Algorithm_Dijkstra');
                 break;
-            case "Algorithm_APlus":
-                algoContext.set('Algorithm_APlus');
+            case "Algorithm_AStar":
+                algoContext.set('Algorithm_AStar');
                 break;
             case "Algorithm_Greedy_Best_First":
                 algoContext.set('Algorithm_Greedy_Best_First');
@@ -53,7 +53,7 @@ function DropdownAlgorithm() {
                 onMouseEnter={toggleHandler} onMouseLeave={toggleHandler}
             >
                 <NavDropdown.Item eventKey="Algorithm_Dijkstra">Dijkstra's Algorithm</NavDropdown.Item>
-                <NavDropdown.Item eventKey="Algorithm_APlus">A+ Search</NavDropdown.Item>
+                <NavDropdown.Item eventKey="Algorithm_AStar">A* Search</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Algorithm_Greedy_Best_First">Greedy Best-First Search</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Algorithm_Swarm">Swarm Algorithm</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Algorithm_Convergent_Swarm">Convergent Swarm Algorithm</NavDropdown.Item>
