@@ -2,8 +2,8 @@ import { position } from '../../Core';
 import { CreateAround } from './Core';
 
 function Binary_Tree() {
-    var walls = CreateAround();
     var wallSet = new Set();
+    var walls = CreateAround(wallSet);
     var x = 0;
     var y = 0;
 

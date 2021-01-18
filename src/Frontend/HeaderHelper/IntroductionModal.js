@@ -64,7 +64,7 @@ function IntroductionModal() {
                 <Button className="Button" variant='outline-success' size="md" onClick={() => HandlePrevious()}>Previous</Button>
                 <Button className="Button" variant='outline-success' size="md" onClick={() => HandleNext()}>Next</Button>
             </Modal.Footer>
-        </Modal >
+        </Modal>
     )
 }
 

@@ -1,26 +1,21 @@
 import { position } from '../../Core';
 
-function Astar(startCallback, speed) {
+function GreedyBestFirstSearch(startCallback, speed) {
     var retSearchPath = [];
     var retBombPath = [];
     var retShortestPath = [];
 
     if (position.bomb) {
-        retShortestPath = retShortestPath.concat(DoAStar(position.start, position.bomb, retSearchPath))
-
-        // 有找到最小路徑才繼續
-        if (retShortestPath.length > 0) {
-            retShortestPath = retShortestPath.concat(DoAStar(position.bomb, position.end, retBombPath))
-        }
+        retShortestPath = retShortestPath.concat(DoGreedyBestFirstSearch(position.start, position.bomb, retSearchPath));
+        retShortestPath = retShortestPath.concat(DoGreedyBestFirstSearch(position.bomb, position.end, retBombPath));
     } else {
-        retShortestPath = retShortestPath.concat(DoAStar(position.start, position.end, retSearchPath))
+        retShortestPath = retShortestPath.concat(DoGreedyBestFirstSearch(position.start, position.end, retSearchPath));
     }
     // 執行 start 動畫
     startCallback(retSearchPath, retShortestPath, speed, retBombPath);
 }
 
-// 回傳最短路徑，update search
-function DoAStar(startPos, endPos, searchPath) {
+function DoGreedyBestFirstSearch(startPos, endPos, searchPath) {
     // 先假設權重都是1
     var i, j;
     var weights = {}
@@ -71,12 +66,11 @@ function DoAStar(startPos, endPos, searchPath) {
         [up, right, down, left].forEach((nextPos, idx) => {
             if (!nextPos || isFoundEnd || nextPos in position.wall) return; // 若超過邊界 or 已經找到終點了 or 是牆壁
 
-            // 策略為：只考慮 目前總分+權重+轉向分數
-            var total = table[curPos][0] + weights[nextPos] + GetScore(table[nextPos][2], idx);
+            // 策略為：只考慮 估值+轉向分數
+            var total = table[curPos][0] + GetScore(table[nextPos][2], idx);
             if (total < table[nextPos][0]) {
-                table[nextPos][0] = total;
-                table[nextPos][3] = total + GetHeuristic(nextPos, endPos);
-                table[nextPos][1] = curPos;
+                table[nextPos][0] = GetHeuristic(nextPos, endPos);
+                table[nextPos][1] = curPos; // 因為table[0]現在是heuristic（因此不更新），所以四周圍直接更新成目前的點就行
                 switch (idx) {
                     case 0:
                         table[nextPos][2] = "up";
@@ -123,16 +117,16 @@ function GetHeuristic(startPos, endPos) {
     return Math.abs(endPos[0] - startPos[0]) + Math.abs(endPos[1] - startPos[1]);
 }
 
-// 找出分數最小點，策略：考慮所有的分數 目前總分+權重+轉向分數+估值
+// 找出分數最小點，策略：考慮所有的GetHeuristic
 function GetClosestNode(table, unvisited, endPos) {
     let retPos, retIndex;
     for (var i = 0; i < unvisited.length; i++) {
-        if (!retPos || table[retPos][3] > table[unvisited[i]][3]) {
+        if (!retPos || table[retPos][0] > table[unvisited[i]][0]) {
             retPos = unvisited[i];
             retIndex = i;
 
             // 若相等則取得 估值大的（距離目標遠的）
-        } else if (table[retPos][3] === table[unvisited[i]][3]) {
+        } else if (table[retPos][0] === table[unvisited[i]][0]) {
             if (GetHeuristic(retPos, endPos) > GetHeuristic(unvisited[i], endPos)) {
                 retPos = unvisited[i];
                 retIndex = i;
@@ -144,6 +138,8 @@ function GetClosestNode(table, unvisited, endPos) {
     return retPos;
 }
 
+// 取得轉向分數
+// 考慮轉向分數是為了只搜尋一條線，如果沒有這個分數，則搜尋會變成三條線，因為１點的前下上 距離終點 的估值可能相同，所以會走三條路
 function GetScore(direction, index) {
     var score = 0;
     switch (direction) {
@@ -225,4 +221,4 @@ function GetScore(direction, index) {
     return score;
 }
 
-export default Astar;
+export default GreedyBestFirstSearch;

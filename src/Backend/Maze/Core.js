@@ -1,9 +1,8 @@
 import { position } from '../../Core';
 
 // 取得四周圍
-export const CreateAround = () => {
+export const CreateAround = (wallSet = new Set()) => {
     var walls = [];
-    var wallSet = new Set();
     var x = 0;
     var y = 0;
 

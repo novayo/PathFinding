@@ -7,6 +7,7 @@ import BFS from '../../Backend/Algorithms/BFS';
 import DFS from '../../Backend/Algorithms/DFS';
 import Dijkstra from '../../Backend/Algorithms/Dijkstra';
 import Astar from '../../Backend/Algorithms/Astar';
+import GreedyBestFirstSearch from '../../Backend/Algorithms/GreedyBestFirstSearch';
 
 const NavButton = () => {
 
@@ -82,6 +83,7 @@ const NavButton = () => {
                     Astar(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Greedy_Best_First":
+                    GreedyBestFirstSearch(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Swarm":
                     break;
