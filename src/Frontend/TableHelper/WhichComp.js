@@ -45,7 +45,7 @@ export function WhichComponentType(id){ // Animation
         case componentKind.wall:
             return 1
         case componentKind.weight:
-            return 2
+            return 0
         default:
             return 1
     }

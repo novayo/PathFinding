@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind } from './TableIndex'
-import { SearchAnimation, SearchBombAnimation, MazeAnimation } from './Animation'
+import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation } from './Animation'
 import { sysStatusContext, algorithmContext, bombContext, speedContext } from '../../Core'
-import { setTable } from './SetTable'
+import { setTable, backgroundReset } from './SetTable'
 import { UpdateTable } from './UpdateTable'
-import { WhichComponent, WhichComponentSame } from './WhichComp'
+import { WhichComponentSame } from './WhichComp'
 
 
 function ButtonEvent() {
@@ -14,34 +14,7 @@ function ButtonEvent() {
 
     const Start = (search, path, speed, bomb = []) => {
         if (update.get && updateVar) {
-            // document.getElementById(i.toString()).style.backgroundColor = ...
-            for (var i = 0; i < search.length; i++) {
-                for (var j = 0; j < search[i].length; j++) {
-                    const index = search[i][j][0] * tableVar.colSize + search[i][j][1]
-                    if (WhichComponent(index.toString(), touch).type) {
-                        if(bomb.length === 0){
-                            setTable(index, componentKind.searchFinal)
-                        }else{
-                            setTable(index, componentKind.searchBombFinal)
-                        }
-                    }
-                }
-            }
-            for (i = 0; i < bomb.length; i++) {
-                for (j = 0; j < bomb[i].length; j++) {
-                    const index = bomb[i][j][0] * tableVar.colSize + bomb[i][j][1]
-                    if (WhichComponent(index.toString(), touch).type) {
-                        setTable(index, componentKind.searchFinal)
-                    }
-                }
-            }
-            for (i = 0; i < path.length; i++) {
-                const index = path[i][0] * tableVar.colSize + path[i][1]
-                if (WhichComponent(index.toString(), touch).type) {
-                    setTable(index, componentKind.pathFinal)
-                }
-            }
-
+            FinalAnimation(search, path, bomb)
         }else {
             sysStatus.set("RUNNING")
             update.set("True")
@@ -52,6 +25,7 @@ function ButtonEvent() {
     }
 
     const CreateMaze = (maze, speed) => {
+        backgroundReset()
         sysStatus.set("RUNNING");
         MazeAnimation(maze, speed, 0, () => sysStatus.set("IDLE"));
     }
@@ -103,6 +77,7 @@ function ButtonEvent() {
 
     const ClearPath = (event = true) => {
         console.log("ClearPath")
+        backgroundReset()
         if (event) {
             update.set("False")
             updateVar = false

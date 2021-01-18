@@ -3,9 +3,16 @@ import { createContext } from 'react'
 
 const size = 23
 
+function adjustSize(size) {
+    if(size % 2 === 0){
+        size -= 1
+    }
+    return size
+}
+
 export const tableVar = {
-    rowSize: Math.floor(window.screen.availHeight / size) - 16, // Math.floor((window.screen.height - document.getElementById("navbar").clientHeight) / 30)
-    colSize: Math.floor(window.screen.availWidth / size), 
+    rowSize: adjustSize(Math.floor(window.screen.availHeight / size) - 16),
+    colSize: adjustSize(Math.floor(window.screen.availWidth / size)), 
     size: size,
     id: "0",
     newId: "0"
@@ -37,6 +44,14 @@ export const keyboardSupport = {
 
     w: "w",
     down: true
+
+}
+
+export const tableColor = {
+    searchBomb: "#e403e4",
+    search: "#26FFFF",
+    path: "#F0F000",
+    background: "white"
 
 }
 

@@ -1,4 +1,5 @@
-import { componentKind, tableVar } from './TableIndex'
+import { componentKind, tableVar, tableColor } from './TableIndex'
+import { WhichComponentSame } from './WhichComp'
 import { position } from '../../Core/index'
 
 
@@ -9,6 +10,10 @@ export function setTable(index, kind){
 
     document.getElementById(index.toString()).className = kind
     const pos = [Math.floor(index / tableVar.colSize), index % tableVar.colSize]
+
+    if(WhichComponentSame(kind) >= 3){
+        document.getElementById(index.toString()).style = ""
+    }
 
     if(position.wall[pos]){
         delete position.wall[pos]
@@ -34,4 +39,17 @@ export function setTable(index, kind){
 
     // console.log(position)
 
+}
+
+export function setbackground(index, color){
+    document.getElementById(index.toString()).style.backgroundColor = color
+    if(color === tableColor.path){
+        document.getElementById(index.toString()).style.border = 0
+    }
+}
+
+export function backgroundReset(){
+    for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
+        document.getElementById(i.toString()).style = ""
+    }
 }
