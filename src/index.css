@@ -246,7 +246,47 @@ code {
   animation-duration: 3s;
 }
 
+.startSearchBomb {
+  background: #e403e4 url('./Resources/Images/Info/StartNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  animation-name: startSearchBombAnimation;
+  animation-duration: 3s;
+}
+
+.startSearch {
+  background: #26FFFF url('./Resources/Images/Info/StartNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  animation-name: startSearchAnimation;
+  animation-duration: 3s;
+}
+
+.startPath {
+  background: #F0F000 url('./Resources/Images/Info/StartNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  animation-name: startPathAnimation;
+  animation-duration: 3s;
+  border: 0;
+}
+
 @keyframes startAnimation {
+  0%   {transform: scale(0.5, 0.5);}
+  25%  {transform: scale(1, 1);}
+}
+
+@keyframes startSearchBombAnimation {
+  0%   {transform: scale(0.5, 0.5);}
+  25%  {transform: scale(1, 1);}
+}
+
+@keyframes startSearchAnimation {
+  0%   {transform: scale(0.5, 0.5);}
+  25%  {transform: scale(1, 1);}
+}
+
+@keyframes startPathAnimation {
   0%   {transform: scale(0.5, 0.5);}
   25%  {transform: scale(1, 1);}
 }
@@ -259,7 +299,47 @@ code {
   animation-duration: 3s;
 }
 
+.endSearchBomb {
+  background: #e403e4 url('./Resources/Images/Info/EndNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  animation-name: endSearchBombAnimation;
+  animation-duration: 3s;
+}
+
+.endSearch {
+  background: #26FFFF url('./Resources/Images/Info/EndNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  animation-name: endSearchAnimation;
+  animation-duration: 3s;
+}
+
+.endPath {
+  background: #F0F000 url('./Resources/Images/Info/EndNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  animation-name: endPathAnimation;
+  animation-duration: 3s;
+  border: 0;
+}
+
 @keyframes endAnimation {
+  0%   {transform: scale(0.5, 0.5);}
+  25%  {transform: scale(1, 1);}
+}
+
+@keyframes endSearchBombAnimation {
+  0%   {transform: scale(0.5, 0.5);}
+  25%  {transform: scale(1, 1);}
+}
+
+@keyframes endSearchAnimation {
+  0%   {transform: scale(0.5, 0.5);}
+  25%  {transform: scale(1, 1);}
+}
+
+@keyframes endPathAnimation {
   0%   {transform: scale(0.5, 0.5);}
   25%  {transform: scale(1, 1);}
 }
@@ -272,7 +352,47 @@ code {
   animation-duration: 3s;
 }
 
+.bombSearchBomb {
+  background: #e403e4 url('./Resources/Images/Info/BombNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  animation-name: bombSearchBombAnimation;
+  animation-duration: 3s;
+}
+
+.bombSearch {
+  background: #26FFFF url('./Resources/Images/Info/BombNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  animation-name: bombSearchAnimation;
+  animation-duration: 3s;
+}
+
+.bombPath {
+  background: #F0F000 url('./Resources/Images/Info/BombNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  animation-name: bombPathAnimation;
+  animation-duration: 3s;
+  border: 0;
+}
+
 @keyframes bombAnimation {
+  0%   {transform: scale(0.5, 0.5);}
+  25%  {transform: scale(1, 1);}
+}
+
+@keyframes bombSearchBombAnimation {
+  0%   {transform: scale(0.5, 0.5);}
+  25%  {transform: scale(1, 1);}
+}
+
+@keyframes bombSearchAnimation {
+  0%   {transform: scale(0.5, 0.5);}
+  25%  {transform: scale(1, 1);}
+}
+
+@keyframes bombPathAnimation {
   0%   {transform: scale(0.5, 0.5);}
   25%  {transform: scale(1, 1);}
 }
@@ -285,7 +405,47 @@ code {
   animation-duration: 3s;
 }
 
+.weightSearchBomb {
+  background: #e403e4 url('./Resources/Images/Info/WeightNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  animation-name: weightSearchBombAnimation;
+  animation-duration: 3s;
+}
+
+.weightSearch {
+  background: #26FFFF url('./Resources/Images/Info/WeightNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  animation-name: weightSearchAnimation;
+  animation-duration: 3s;
+}
+
+.weightPath {
+  background: #F0F000 url('./Resources/Images/Info/WeightNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  animation-name: weightPathAnimation;
+  animation-duration: 3s;
+  border: 0;
+}
+
 @keyframes weightAnimation {
+  0%   {transform: scale(0.5, 0.5);}
+  25%  {transform: scale(1, 1);}
+}
+
+@keyframes weightSearchBombAnimation {
+  0%   {transform: scale(0.5, 0.5);}
+  25%  {transform: scale(1, 1);}
+}
+
+@keyframes weightSearchAnimation {
+  0%   {transform: scale(0.5, 0.5);}
+  25%  {transform: scale(1, 1);}
+}
+
+@keyframes weightPathAnimation {
   0%   {transform: scale(0.5, 0.5);}
   25%  {transform: scale(1, 1);}
 }
@@ -334,14 +494,6 @@ code {
   100% {background-color: #e403e4; transform: scale(1, 1);}
 }
 
-.searchFinal {
-  background-color:#26FFFF;
-}
-
-.searchBombFinal {
-  background-color:#e403e4;
-}
-
 .path {
   background-color:#F0F000;
   animation-name: pathAnimation;
@@ -354,11 +506,6 @@ code {
   25%  {background-color: #26FFFF; transform: scale(0.3, 0.3);}
   50%  {background-color: #F0F000; transform: scale(1.2, 1.2);}
   100% {background-color: #F0F000; transform: scale(1, 1);}
-}
-
-.pathFinal {
-  background-color:#F0F000;
-  border: 0;
 }
 
 .pathHead {

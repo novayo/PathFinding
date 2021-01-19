@@ -1,6 +1,6 @@
 import { tableVar, componentKind, tableColor } from './TableIndex'
 import { setTable, setbackground } from './SetTable'
-import { WhichComponentType } from './WhichComp'
+import { WhichComponentSame, StartEndBombWeight } from './WhichComp'
 import { position } from '../../Core/index'
 
 
@@ -9,7 +9,7 @@ export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
     const arrAnimation = setInterval(() => {
         if (count === arr.length) {
             if(kind === componentKind.path){
-                setTable(newid, componentKind.pathFinal)
+                setTable(newid, componentKind.path)
             }
             if (myCallbackFunction !== null) {
                 myCallbackFunction();
@@ -17,17 +17,19 @@ export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
             clearInterval(arrAnimation);
         }else {
             const index = arr[count][0] * tableVar.colSize + arr[count][1]
-            if (WhichComponentType(index.toString()) !== 0) {
+            const name = document.getElementById(index.toString()).className
+            if (WhichComponentSame(name) > 3) {
                 if(kind === componentKind.path){
                     newid = index
-                    setTable(id, componentKind.pathFinal)
+                    setTable(id, componentKind.path)
                     setTable(newid, componentKind.pathHead)
                     id = newid
                 }else{
                     setTable(index, kind)
                 }
             }else{
-                setbackground(index, tableColor.path)
+                setTable(id, componentKind.path)
+                setTable(index, StartEndBombWeight(WhichComponentSame(name), componentKind.startPath, componentKind.endPath, componentKind.bombPath, componentKind.weightPath))
             }
         }
         count += 1
@@ -37,9 +39,9 @@ export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
 export function SearchBombAnimation(search, bomb, path, speed, count, myCallbackFunction, sysStatusFunction) {
     var index = position.start[0] * tableVar.colSize + position.start[1]
     if(bomb.length === 0){
-        setbackground(index, tableColor.search)
+        setTable(index, componentKind.startSearch)
     }else{
-        setbackground(index, tableColor.searchBomb)
+        setTable(index, componentKind.startSearchBomb)
     }
     const searchBombAnimation = setInterval(() => {
         if (count === search.length) {
@@ -48,7 +50,8 @@ export function SearchBombAnimation(search, bomb, path, speed, count, myCallback
         }else{
             for(var i = 0;i < search[count].length;i++){
                 index = search[count][i][0] * tableVar.colSize + search[count][i][1]
-                if (WhichComponentType(index.toString()) !== 0) {
+                const name = document.getElementById(index.toString()).className
+                if (WhichComponentSame(name) > 3) {
                     if(bomb.length === 0){
                         setTable(index, componentKind.search)
                     }else{
@@ -56,9 +59,9 @@ export function SearchBombAnimation(search, bomb, path, speed, count, myCallback
                     }
                 }else{
                     if(bomb.length === 0){
-                        setbackground(index, tableColor.search)
+                        setTable(index, StartEndBombWeight(WhichComponentSame(name), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
                     }else{
-                        setbackground(index, tableColor.searchBomb)
+                        setTable(index, StartEndBombWeight(WhichComponentSame(name), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearch, componentKind.weightSearchBomb))
                     }
                 }
             }
@@ -68,10 +71,6 @@ export function SearchBombAnimation(search, bomb, path, speed, count, myCallback
 }
 
 export function SearchAnimation(bomb, path, speed, count, myCallbackFunction, sysStatusFunction) {
-    if(position.bomb !== false){
-        const index = position.bomb[0] * tableVar.colSize + position.bomb[1]
-        setbackground(index, tableColor.search)
-    }
     const searchAnimation = setInterval(() => {
         if (count === bomb.length) {
             myCallbackFunction(path, speed, 0, sysStatusFunction)
@@ -79,10 +78,11 @@ export function SearchAnimation(bomb, path, speed, count, myCallbackFunction, sy
         }else{
             for(var i = 0;i < bomb[count].length;i++){
                 const index = bomb[count][i][0] * tableVar.colSize + bomb[count][i][1]
-                if (WhichComponentType(index.toString()) !== 0) {
+                const name = document.getElementById(index.toString()).className
+                if (WhichComponentSame(name) > 3) {
                     setTable(index, componentKind.search)
                 }else{
-                    setbackground(index, tableColor.search)
+                    setTable(index, StartEndBombWeight(WhichComponentSame(name), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
                 }
             }
         }
@@ -108,41 +108,21 @@ export function FinalAnimation(search, path, bomb){
     for (var i = 0; i < search.length; i++) {
         for (var j = 0; j < search[i].length; j++) {
             index = search[i][j][0] * tableVar.colSize + search[i][j][1]
-            if (WhichComponentType(index.toString())) {
-                if(bomb.length === 0){
-                    setTable(index, componentKind.searchFinal)
-                }else{
-                    setTable(index, componentKind.searchBombFinal)
-                }
+            if(bomb.length === 0){
+                setbackground(index, tableColor.search)
             }else{
-                if(bomb.length === 0){
-                    setbackground(index, tableColor.search)
-                }else{
-                    setbackground(index, tableColor.searchBomb)
-                }
+                setbackground(index, tableColor.searchBomb)
             }
         }
-    }
-    if(position.bomb !== false){ //why can not bomb.length !== 0
-        index = position.bomb[0] * tableVar.colSize + position.bomb[1]
-        setbackground(index, tableColor.search)
     }
     for (i = 0; i < bomb.length; i++) {
         for (j = 0; j < bomb[i].length; j++) {
             index = bomb[i][j][0] * tableVar.colSize + bomb[i][j][1]
-            if (WhichComponentType(index.toString())) {
-                setTable(index, componentKind.searchFinal)
-            }else{
-                setbackground(index, tableColor.search)
-            }
+            setbackground(index, tableColor.search)
         }
     }
     for (i = 0; i < path.length; i++) {
         index = path[i][0] * tableVar.colSize + path[i][1]
-        if (WhichComponentType(index.toString())) {
-            setTable(index, componentKind.pathFinal)
-        }else{
-            setbackground(index, tableColor.path)
-        }
+        setbackground(index, tableColor.path)
     }
 }

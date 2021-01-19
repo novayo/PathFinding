@@ -1,5 +1,5 @@
 import { componentKind, tableVar, tableColor } from './TableIndex'
-import { WhichComponentSame } from './WhichComp'
+import { WhichComponentSame, StartEndBombWeight } from './WhichComp'
 import { position } from '../../Core/index'
 
 
@@ -11,7 +11,7 @@ export function setTable(index, kind){
     document.getElementById(index.toString()).className = kind
     const pos = [Math.floor(index / tableVar.colSize), index % tableVar.colSize]
 
-    if(WhichComponentSame(kind) >= 3){
+    if(WhichComponentSame(kind) > 3){
         document.getElementById(index.toString()).style = ""
     }
 
@@ -51,5 +51,9 @@ export function setbackground(index, color){
 export function backgroundReset(){
     for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
         document.getElementById(i.toString()).style = ""
+        const name = document.getElementById(i.toString()).className
+        if(WhichComponentSame(name) <= 3){
+            setTable(i, StartEndBombWeight(WhichComponentSame(name), componentKind.start, componentKind.end, componentKind.bomb, componentKind.weight))
+        }
     }
 }

@@ -22,10 +22,24 @@ export const componentKind =  {
     add: "wall", 
     wall: "wall", 
     weight: "weight",
+    weightSearchBomb: "weightSearchBomb",
+    weightSearch: "weightSearch",
+    weightPath: "weightPath",
 
     start: "start",
+    startSearchBomb: "startSearchBomb",
+    startSearch: "startSearch",
+    startPath: "startPath",
+
     end: "end",
+    endSearchBomb: "endSearchBomb",
+    endSearch: "endSearch",
+    endPath: "endPath",
+
     bomb: "bomb",
+    bombSearchBomb: "bombSearchBomb",
+    bombSearch: "bombSearch",
+    bombPath: "bombPath",
 
     search: "search", 
     searchFinal: "searchFinal", 
