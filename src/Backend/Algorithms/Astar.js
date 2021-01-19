@@ -26,7 +26,7 @@ function DoAStar(startPos, endPos, searchPath) {
     var weights = {}
     for (i = 0; i < position.rowSize; i++) {
         for (j = 0; j < position.colSize; j++) {
-            weights[[i, j]] = 1;
+            weights[[i, j]] = 0;
         }
     }
 
@@ -40,7 +40,7 @@ function DoAStar(startPos, endPos, searchPath) {
             var pos = [i, j];
 
             // 起始點走到pos的最短距離，上一個點，direction，total距離
-            table[pos] = [Infinity, null, null, null];
+            table[pos] = [Infinity, null, null, Infinity];
         }
     }
     table[startPos] = [0, null, "up", 0]; // 設定起始點
@@ -54,11 +54,8 @@ function DoAStar(startPos, endPos, searchPath) {
         // 1. 選出當前最小路徑的點
         var curPos = GetClosestNode(table, unvisited, endPos);
 
-        if (visited.has(curPos.toString())) {
-            continue; // 已走過的點不走
-        } else {
-            visited.add(curPos.toString()); // 加入已走過
-            searchPath.push([curPos]); // 加入搜尋範圍
+        if (curPos in position.wall) {
+            continue; // 牆壁不走
         }
 
         // 2. 計算相鄰且尚未走過的點
@@ -72,10 +69,11 @@ function DoAStar(startPos, endPos, searchPath) {
             if (!nextPos || isFoundEnd || nextPos in position.wall) return; // 若超過邊界 or 已經找到終點了 or 是牆壁
 
             // 策略為：只考慮 目前總分+權重+轉向分數
-            var total = table[curPos][0] + weights[nextPos] + GetScore(table[nextPos][2], idx);
+            // 且，走過的也要更新，只是不會加入unvisited，因此不會在上面continue
+            var total = table[curPos][0] + weights[nextPos] + GetScore(table[curPos][2], idx);
             if (total < table[nextPos][0]) {
                 table[nextPos][0] = total;
-                table[nextPos][3] = total + GetHeuristic(nextPos, endPos);
+                table[nextPos][3] = table[nextPos][0] + GetHeuristic(nextPos, endPos);
                 table[nextPos][1] = curPos;
                 switch (idx) {
                     case 0:
@@ -94,12 +92,19 @@ function DoAStar(startPos, endPos, searchPath) {
                         break;
                 }
             }
-            unvisited.push(nextPos);
+
+            if (!visited.has(curPos.toString())) {
+                unvisited.push(nextPos);
+            }
 
             if (nextPos.toString() === endPos.toString()) { // 看是否找到終點了
                 isFoundEnd = true;
             }
         })
+        if (!visited.has(curPos.toString())) {
+            searchPath.push([curPos]); // 加入搜尋範圍
+            visited.add(curPos.toString()); // 加入已走過
+        }
 
         if (isFoundEnd) { // 找到終點跳出
             break;

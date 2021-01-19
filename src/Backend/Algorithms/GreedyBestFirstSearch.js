@@ -49,11 +49,8 @@ function DoGreedyBestFirstSearch(startPos, endPos, searchPath) {
         // 1. 選出當前最小路徑的點
         var curPos = GetClosestNode(table, unvisited, endPos);
 
-        if (visited.has(curPos.toString())) {
-            continue; // 已走過的點不走
-        } else {
-            visited.add(curPos.toString()); // 加入已走過
-            searchPath.push([curPos]); // 加入搜尋範圍
+        if (curPos in position.wall) {
+            continue; // 牆壁不走
         }
 
         // 2. 計算相鄰且尚未走過的點
@@ -88,13 +85,18 @@ function DoGreedyBestFirstSearch(startPos, endPos, searchPath) {
                         break;
                 }
             }
-            unvisited.push(nextPos);
+            if (!visited.has(curPos.toString())) {
+                unvisited.push(nextPos);
+            }
 
             if (nextPos.toString() === endPos.toString()) { // 看是否找到終點了
                 isFoundEnd = true;
             }
         })
-
+        if (!visited.has(curPos.toString())) {
+            visited.add(curPos.toString()); // 加入已走過
+            searchPath.push([curPos]); // 加入搜尋範圍
+        }
         if (isFoundEnd) { // 找到終點跳出
             break;
         }

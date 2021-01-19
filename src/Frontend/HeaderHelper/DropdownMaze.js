@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { NavDropdown, Nav } from 'react-bootstrap';
-import { sysStatusContext } from '../../Core';
+import { sysStatusContext, speedContext } from '../../Core';
 import Colored from '../../HOC/Colored';
 import ButtonEvent from '../TableHelper/ButtonEvent';
 import Simple_Stair_Pattern from '../../Backend/Maze/Simple_Stair_Pattern';
@@ -11,9 +11,10 @@ import RecursiveDivision_Vertical from '../../Backend/Maze/RecursiveDivision_Ver
 
 function DropdownMaze() {
     const sysStatus = useContext(sysStatusContext);
+    const speedStatus = useContext(speedContext);
     const [className, toggleHandler] = Colored();
     const buttonEvent = ButtonEvent();
-    const speed = 20;
+    const speed = speedStatus.get[1];
 
     const DropdownMazeHandler = (eventKey) => {
         if (sysStatus.get !== "IDLE") {
