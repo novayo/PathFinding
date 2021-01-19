@@ -21,6 +21,9 @@ export const tableVar = {
 export const componentKind =  {
     add: "wall", 
     wall: "wall", 
+
+    /*---------dynamic---------*/
+
     weight: "weight",
     weightSearchBomb: "weightSearchBomb",
     weightSearch: "weightSearch",
@@ -45,6 +48,28 @@ export const componentKind =  {
     searchBomb: "searchBomb", 
     path: "path", 
 
+    /*----------static-----------*/
+
+    weightStatic: "weightStatic",
+    weightSearchBombStatic: "weightSearchBombStatic",
+    weightSearchStatic: "weightSearchStatic",
+    weightPathStatic: "weightPathStatic",
+
+    startStatic: "startStatic",
+    startPathStatic: "startPathStatic",
+
+    endStatic: "endStatic",
+    endPathStatic: "endPathStatic",
+
+    bombStatic: "bombStatic",
+    bombPathStatic: "bombPathStatic",
+
+    searchStatic: "searchStatic", 
+    searchBombStatic: "searchBombStatic", 
+    pathStatic: "pathStatic", 
+
+    /*----------------------------*/
+
     pathHead: "pathHead",
     background: "background"
 }
@@ -55,14 +80,6 @@ export const keyboardSupport = {
 
     w: "w",
     down: true
-
-}
-
-export const tableColor = {
-    searchBomb: "#e403e4",
-    search: "#26FFFF",
-    path: "#F0F000",
-    background: "white"
 
 }
 

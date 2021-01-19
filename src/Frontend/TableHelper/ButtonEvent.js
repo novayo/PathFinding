@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind } from './TableIndex'
 import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation } from './Animation'
 import { sysStatusContext, algorithmContext, bombContext, speedContext } from '../../Core'
-import { setTable, backgroundReset } from './SetTable'
+import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
 import { WhichComponentSame } from './WhichComp'
 
@@ -26,7 +26,6 @@ function ButtonEvent() {
     }
 
     const CreateMaze = (maze, speed) => {
-        backgroundReset()
         sysStatus.set("RUNNING")
         if(sysSpeed.get[0] === "Average"){
             speed *= 10
@@ -81,14 +80,21 @@ function ButtonEvent() {
 
     const ClearPath = (event = true) => {
         // console.log("ClearPath")
-        backgroundReset()
         if (event) {
             update.set("False")
             updateVar = false
         }
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
-            if (WhichComponentSame(i) >= 5) {
+            if(WhichComponentSame(i) >= 5) {
                 setTable(i, componentKind.background, true)
+            }else if(WhichComponentSame(i) === 3){
+                setTable(i, componentKind.weightStatic)
+            }else if(WhichComponentSame(i) === 2){
+                setTable(i, componentKind.bombStatic)
+            }else if(WhichComponentSame(i) === 1){
+                setTable(i, componentKind.endStatic)
+            }else if(WhichComponentSame(i) === 0){
+                setTable(i, componentKind.startStatic)
             }
         }
     }

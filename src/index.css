@@ -238,6 +238,8 @@ code {
   padding: 10px 10px;
 }
 
+/*---------dynamic---------*/
+
 .start {
   background: white url('./Resources/Images/Info/StartNode.png');
   background-position: center;
@@ -449,6 +451,87 @@ code {
   0%   {transform: scale(0.5, 0.5);}
   25%  {transform: scale(1, 1);}
 }
+
+/*----------static-----------*/
+
+.startStatic {
+  background: white url('./Resources/Images/Info/StartNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+}
+
+.startPathStatic {
+  background: #F0F000 url('./Resources/Images/Info/StartNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  border: 0;
+}
+
+.endStatic {
+  background: white url('./Resources/Images/Info/EndNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+}
+
+.endPathStatic {
+  background: #F0F000 url('./Resources/Images/Info/EndNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  border: 0;
+}
+
+.bombStatic {
+  background: white url('./Resources/Images/Info/BombNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+}
+
+.bombPathStatic {
+  background: #F0F000 url('./Resources/Images/Info/BombNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  border: 0;
+}
+
+.weightStatic {
+  background: white url('./Resources/Images/Info/WeightNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+}
+
+.weightSearchBombStatic {
+  background: #e403e4 url('./Resources/Images/Info/WeightNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+}
+
+.weightSearchStatic {
+  background: #26FFFF url('./Resources/Images/Info/WeightNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+}
+
+.weightPathStatic {
+  background: #F0F000 url('./Resources/Images/Info/WeightNode.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  border: 0;
+}
+
+.searchStatic  {
+  background-color:#26FFFF;
+}
+
+.searchBombStatic  {
+  background-color:#e403e4;
+}
+
+.pathStatic  {
+  background-color:#F0F000;
+  border: 0;
+}
+
+/*----------------------------*/
 
 .background {
   background-color:white;

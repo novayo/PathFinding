@@ -1,5 +1,5 @@
-import { tableVar, componentKind, tableColor } from './TableIndex'
-import { setTable, setbackground } from './SetTable'
+import { componentKind } from './TableIndex'
+import { setTable } from './SetTable'
 import { WhichComponentSame, StartEndBombWeight } from './WhichComp'
 import { position } from '../../Core/index'
 
@@ -94,30 +94,42 @@ export function MazeAnimation(maze, speed, count, myCallbackFunction = null) {
 }
 
 export function FinalAnimation(search, path, bomb){
-    var index = position.start[0] * tableVar.colSize + position.start[1]
     if(bomb.length === 0){
-        setbackground(index, tableColor.search) 
+        setTable(position.start, componentKind.searchStatic) 
     }else{
-        setbackground(index, tableColor.searchBomb)
+        setTable(position.start, componentKind.searchBombStatic)
     }
     for (var i = 0; i < search.length; i++) {
         for (var j = 0; j < search[i].length; j++) {
-            index = search[i][j][0] * tableVar.colSize + search[i][j][1]
-            if(bomb.length === 0){
-                setbackground(index, tableColor.search)
-            }else{
-                setbackground(index, tableColor.searchBomb)
+            if (WhichComponentSame(search[i][j]) >= 5) {
+                if(bomb.length === 0){
+                    setTable(search[i][j], componentKind.searchStatic)
+                }else{
+                    setTable(search[i][j], componentKind.searchBombStatic)
+                }
+            }else if(WhichComponentSame(search[i][j]) === 3){
+                if(bomb.length === 0){
+                    setTable(search[i][j], componentKind.weightSearchStatic)
+                }else{
+                    setTable(search[i][j], componentKind.weightSearchBombStatic)
+                }
             }
         }
     }
     for (i = 0; i < bomb.length; i++) {
         for (j = 0; j < bomb[i].length; j++) {
-            index = bomb[i][j][0] * tableVar.colSize + bomb[i][j][1]
-            setbackground(index, tableColor.search)
+            if (WhichComponentSame(bomb[i][j]) >= 5) {
+                setTable(bomb[i][j], componentKind.searchStatic)
+            }else if(WhichComponentSame(bomb[i][j]) === 3){
+                setTable(bomb[i][j], componentKind.weightSearchStatic)
+            }
         }
     }
     for (i = 0; i < path.length; i++) {
-        index = path[i][0] * tableVar.colSize + path[i][1]
-        setbackground(index, tableColor.path)
+        if (WhichComponentSame(path[i]) > 3) {
+            setTable(path[i], componentKind.pathStatic)
+        }else{
+            setTable(path[i], StartEndBombWeight(WhichComponentSame(path[i]), componentKind.startPathStatic, componentKind.endPathStatic, componentKind.bombPathStatic, componentKind.weightPathStatic))
+        }
     }
 }
