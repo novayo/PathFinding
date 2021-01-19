@@ -8,6 +8,8 @@ import DFS from '../../Backend/Algorithms/DFS';
 import Dijkstra from '../../Backend/Algorithms/Dijkstra';
 import Astar from '../../Backend/Algorithms/Astar';
 import GreedyBestFirstSearch from '../../Backend/Algorithms/GreedyBestFirstSearch';
+import Swarm from '../../Backend/Algorithms/Swarm';
+import ConvergentSwarm from '../../Backend/Algorithms/ConvergentSwarm';
 
 const NavButton = () => {
 
@@ -86,8 +88,10 @@ const NavButton = () => {
                     GreedyBestFirstSearch(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Swarm":
+                    Swarm(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Convergent_Swarm":
+                    ConvergentSwarm(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Bidrectional_Swarm":
                     break;

@@ -3,6 +3,8 @@ import DFS from '../../Backend/Algorithms/DFS';
 import Dijkstra from '../../Backend/Algorithms/Dijkstra';
 import Astar from '../../Backend/Algorithms/Astar';
 import GreedyBestFirstSearch from '../../Backend/Algorithms/GreedyBestFirstSearch';
+import Swarm from '../../Backend/Algorithms/Swarm';
+import ConvergentSwarm from '../../Backend/Algorithms/ConvergentSwarm';
 
 
 export function UpdateTable(Start, ClearPath, algorithm, speed) {
@@ -18,8 +20,10 @@ export function UpdateTable(Start, ClearPath, algorithm, speed) {
             GreedyBestFirstSearch(Start, speed.get[1]);
             break;
         case "Algorithm_Swarm":
+            Swarm(Start, speed.get[1]);
             break;
         case "Algorithm_Convergent_Swarm":
+            ConvergentSwarm(Start, speed.get[1]);
             break;
         case "Algorithm_Bidrectional_Swarm":
             break;
