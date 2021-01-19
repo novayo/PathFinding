@@ -9,7 +9,7 @@ import { WhichComponentSame } from './WhichComp'
 
 function ButtonEvent() {
     const [touch, update] = [useContext(touchContext), useContext(updateContext)]
-    const [algorithm, bomb, speed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
+    const [algorithm, bomb, sysSpeed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
     var updateVar = true
 
     const Start = (search, path, speed, bomb = []) => {
@@ -20,14 +20,21 @@ function ButtonEvent() {
             update.set("True")
             updateVar = true
             console.log("Start")
+            speed = speed / (search.length + bomb.length + path.length * 0.5)
             SearchBombAnimation(search, bomb, path, speed, 0, SearchAnimation, () => sysStatus.set("IDLE"))
         }
     }
 
     const CreateMaze = (maze, speed) => {
         backgroundReset()
-        sysStatus.set("RUNNING");
-        MazeAnimation(maze, speed, 0, () => sysStatus.set("IDLE"));
+        sysStatus.set("RUNNING")
+        if(sysSpeed.get[0] === "Average"){
+            speed *= 10
+        }else if(sysSpeed.get[0] === "Slow"){
+            speed *= 10
+        }
+        speed = speed / maze.length * 0.5
+        MazeAnimation(maze, speed, 0, () => sysStatus.set("IDLE"))
     }
 
     const Addbomb = () => {
@@ -43,7 +50,7 @@ function ButtonEvent() {
         setTable(index.toString(), componentKind.bomb)
 
         if (update.get) {
-            UpdateTable(Start, ClearPath, algorithm, speed)
+            UpdateTable(Start, ClearPath, algorithm, sysSpeed)
         }
     }
 
@@ -59,7 +66,7 @@ function ButtonEvent() {
         bomb.set("False")
 
         if (update.get) {
-            UpdateTable(Start, ClearPath, algorithm, speed)
+            UpdateTable(Start, ClearPath, algorithm, sysSpeed)
         }
     }
 
