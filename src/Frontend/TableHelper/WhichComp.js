@@ -1,4 +1,5 @@
-import { componentKind } from './TableIndex'
+import { tableVar, componentKind } from './TableIndex'
+import { position } from '../../Core/index'
 
 
 function addComponentKind(kind) {
@@ -12,99 +13,49 @@ function addComponentKind(kind) {
 
 export function WhichComponent(id, touch){ // MouseEvent
 
-    const element = document.getElementById(id).className
+    var pos = id
 
-    switch (element) {
-        case componentKind.start:
-            return {kind: componentKind.start, touch: touch.get.start, type: 0}
-        case componentKind.startSearchBomb:
-            return {kind: componentKind.start, touch: touch.get.start, type: 0}
-        case componentKind.startSearch:
-            return {kind: componentKind.start, touch: touch.get.start, type: 0}
-        case componentKind.startPath:
-            return {kind: componentKind.start, touch: touch.get.start, type: 0}
-        case componentKind.end:
-            return {kind: componentKind.end, touch: touch.get.end, type: 0}
-        case componentKind.endSearchBomb:
-            return {kind: componentKind.end, touch: touch.get.end, type: 0}
-        case componentKind.endSearch:
-            return {kind: componentKind.end, touch: touch.get.end, type: 0}
-        case componentKind.endPath:
-            return {kind: componentKind.end, touch: touch.get.end, type: 0}
-        case componentKind.bomb:
-            return {kind: componentKind.bomb, touch: touch.get.bomb, type: 0}
-        case componentKind.bombSearchBomb:
-            return {kind: componentKind.bomb, touch: touch.get.bomb, type: 0}
-        case componentKind.bombSearch:
-            return {kind: componentKind.bomb, touch: touch.get.bomb, type: 0}
-        case componentKind.bombPath:
-            return {kind: componentKind.bomb, touch: touch.get.bomb, type: 0}
-        case componentKind.wall:
-            return {kind: componentKind.wall, rKind: addComponentKind(componentKind.wall), type: 1}
-        case componentKind.weight:
-            return {kind: componentKind.weight, rKind: addComponentKind(componentKind.weight), type: 1}
-        case componentKind.weightSearchBomb:
-            return {kind: componentKind.weight, rKind: addComponentKind(componentKind.weight), type: 1}
-        case componentKind.weightSearch:
-            return {kind: componentKind.weight, rKind: addComponentKind(componentKind.weight), type: 1}
-        case componentKind.weightPath:
-            return {kind: componentKind.weight, rKind: addComponentKind(componentKind.weight), type: 1}
-        default:
-            return {kind: componentKind.background, rKind: componentKind.add, type: 1}
+    if(typeof id === "number"){
+        pos = [Math.floor(parseInt(id) / tableVar.colSize), parseInt(id) % tableVar.colSize]
+    }
+
+    if(position.start[0] === pos[0] && position.start[1] === pos[1]){
+        return {kind: componentKind.start, touch: touch.get.start, type: 0}
+    }else if(position.end[0] === pos[0] && position.end[1] === pos[1]){
+        return {kind: componentKind.end, touch: touch.get.end, type: 0}
+    }else if(position.bomb !== false && position.bomb[0] === pos[0] && position.bomb[1] === pos[1]){
+        return {kind: componentKind.bomb, touch: touch.get.bomb, type: 0}
+    }else if(position.wall[pos]){
+        return {kind: componentKind.wall, rKind: addComponentKind(componentKind.wall), type: 1}
+    }else if(position.weight[pos]){
+        return {kind: componentKind.weight, rKind: addComponentKind(componentKind.weight), type: 1}
+    }else{
+        return {kind: componentKind.background, rKind: componentKind.add, type: 1}
     }
 
 }
 
 
-export function WhichComponentSame(kind){
+export function WhichComponentSame(id){
 
-    switch (kind) {
-        case componentKind.start:
-            return 0
-        case componentKind.startSearchBomb:
-            return 0
-        case componentKind.startSearch:
-            return 0
-        case componentKind.startPath:
-            return 0
-        case componentKind.end:
-            return 1
-        case componentKind.endSearchBomb:
-            return 1
-        case componentKind.endSearch:
-            return 1
-        case componentKind.endPath:
-            return 1
-        case componentKind.bomb:
-            return 2
-        case componentKind.bombSearchBomb:
-            return 2
-        case componentKind.bombSearch:
-            return 2
-        case componentKind.bombPath:
-            return 2
-        case componentKind.weight:
-            return 3
-        case componentKind.weightSearchBomb:
-            return 3
-        case componentKind.weightSearch:
-            return 3
-        case componentKind.weightPath:
-            return 3
-        case componentKind.wall:
-            return 4
-        case componentKind.search:
-            return 5
-        case componentKind.searchBomb:
-            return 6
-        case componentKind.path:
-            return 7
-        case componentKind.pathHead:
-            return 8
-        case componentKind.background:
-            return 9
-        default:
-            return 10
+    var pos = id
+
+    if(typeof id === "string" || typeof id === "number"){
+        pos = [Math.floor(parseInt(id) / tableVar.colSize), parseInt(id) % tableVar.colSize]
+    }
+
+    if(position.start[0] === pos[0] && position.start[1] === pos[1]){
+        return 0
+    }else if(position.end[0] === pos[0] && position.end[1] === pos[1]){
+        return 1
+    }else if(position.bomb !== false && position.bomb[0] === pos[0] && position.bomb[1] === pos[1]){
+        return 2
+    }else if(position.weight[pos]){
+        return 3
+    }else if(position.wall[pos]){
+        return 4
+    }else{
+        return 5
     }
 
 }

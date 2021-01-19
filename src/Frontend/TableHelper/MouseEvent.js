@@ -34,11 +34,11 @@ function MouseEvent() {
 
         e.preventDefault()
 
-        tableVar.id = e.target.id
+        tableVar.id = parseInt(e.target.id)
         const whichComponent = WhichComponent(tableVar.id, touch)
 
         if(whichComponent.type){
-            setTable(tableVar.id, whichComponent.rKind)
+            setTable(tableVar.id, whichComponent.rKind, true)
             move.set(componentKind.add)
 
         }else{
@@ -67,19 +67,19 @@ function MouseEvent() {
             return
         }
 
-        tableVar.newId = e.target.id
+        tableVar.newId = parseInt(e.target.id)
         const whichOldComponent = WhichComponent(tableVar.id, touch)
         const whichNewComponent = WhichComponent(tableVar.newId, touch)
 
         if(move.get === componentKind.add && whichNewComponent.type){
-            setTable(tableVar.newId, whichNewComponent.rKind)
-            tableVar.id = tableVar.newId
+            setTable(tableVar.newId, whichNewComponent.rKind, true)
+            tableVar.id = parseInt(tableVar.newId)
 
         }else if(move.get !== componentKind.add && move.get !== "" && whichNewComponent.type){
-            setTable(tableVar.id, whichOldComponent.touch)
+            setTable(tableVar.id, whichOldComponent.touch, true)
             touch.set({componentKind: whichOldComponent.kind, under: whichNewComponent.kind})
-            setTable(tableVar.newId, whichOldComponent.kind)
-            tableVar.id = tableVar.newId
+            setTable(tableVar.newId, whichOldComponent.kind, true)
+            tableVar.id = parseInt(tableVar.newId)
         }
 
         if(update.get && move.get !== ""){

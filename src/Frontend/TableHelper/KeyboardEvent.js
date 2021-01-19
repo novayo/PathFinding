@@ -3,7 +3,7 @@ import { position } from '../../Core/index'
 
 
 export function KeyboardEvent(event) {
-    console.log("KeyboardEvent")
+    // console.log("KeyboardEvent")
 
     if(event.key === keyboardSupport.w){
         if(componentKind.add === componentKind.wall){

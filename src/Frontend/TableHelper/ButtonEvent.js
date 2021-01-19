@@ -16,10 +16,10 @@ function ButtonEvent() {
         if (update.get && updateVar) {
             FinalAnimation(search, path, bomb)
         }else {
+            // console.log("Start")
             sysStatus.set("RUNNING")
             update.set("True")
             updateVar = true
-            console.log("Start")
             speed = speed / (search.length + bomb.length + path.length * 0.5)
             SearchBombAnimation(search, bomb, path, speed, 0, SearchAnimation, () => sysStatus.set("IDLE"))
         }
@@ -38,16 +38,15 @@ function ButtonEvent() {
     }
 
     const Addbomb = () => {
-        console.log("AddBomb" + update.get)
+        // console.log("AddBomb")
         const index = Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 2)
-        const name = document.getElementById(index.toString()).className
 
-        if (WhichComponentSame(name) <= 2) {
+        if (WhichComponentSame(index) <= 2) {
             return
         }
 
         bomb.set("True")
-        setTable(index.toString(), componentKind.bomb)
+        setTable(index, componentKind.bomb, true)
 
         if (update.get) {
             UpdateTable(Start, ClearPath, algorithm, sysSpeed)
@@ -55,11 +54,10 @@ function ButtonEvent() {
     }
 
     const RemoveBomb = () => {
-        console.log("RemoveBomb")
+        // console.log("RemoveBomb")
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
-            const name = document.getElementById(i.toString()).className
-            if (WhichComponentSame(name) === 2) {
-                setTable(i, componentKind.background)
+            if (WhichComponentSame(i) === 2) {
+                setTable(i, componentKind.background, true)
                 break
             }
         }
@@ -71,11 +69,10 @@ function ButtonEvent() {
     }
 
     const ClearWalls = () => {
-        console.log("ClearWall")
+        // console.log("ClearWall")
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
-            const name = document.getElementById(i.toString()).className
-            if (WhichComponentSame(name) === 3 || WhichComponentSame(name) === 4) {
-                setTable(i, componentKind.background)
+            if (WhichComponentSame(i) === 3 || WhichComponentSame(i) === 4) {
+                setTable(i, componentKind.background, true)
             }
         }
         touch.set("")
@@ -83,28 +80,27 @@ function ButtonEvent() {
     }
 
     const ClearPath = (event = true) => {
-        console.log("ClearPath")
+        // console.log("ClearPath")
         backgroundReset()
         if (event) {
             update.set("False")
             updateVar = false
         }
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
-            const name = document.getElementById(i.toString()).className
-            if (WhichComponentSame(name) >= 5 && WhichComponentSame(name) <= 7) {
-                setTable(i, componentKind.background)
+            if (WhichComponentSame(i) >= 5) {
+                setTable(i, componentKind.background, true)
             }
         }
     }
 
     const ClearBoard = () => {
-        console.log("ClearBoard")
+        // console.log("ClearBoard")
         update.set("False")
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
-            setTable(i, componentKind.background)
+            setTable(i, componentKind.background, true)
         }
-        setTable(Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 4), componentKind.start)
-        setTable(Math.floor(tableVar.rowSize / 2 + 1) * tableVar.colSize - Math.floor(tableVar.colSize / 4), componentKind.end)
+        setTable(Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 4), componentKind.start, true)
+        setTable(Math.floor(tableVar.rowSize / 2 + 1) * tableVar.colSize - Math.floor(tableVar.colSize / 4), componentKind.end, true)
         touch.set("")
         bomb.set("False")
     }

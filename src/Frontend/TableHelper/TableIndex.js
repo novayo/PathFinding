@@ -14,8 +14,8 @@ export const tableVar = {
     rowSize: adjustSize(Math.floor(window.screen.availHeight / size) - 16),
     colSize: adjustSize(Math.floor(window.screen.availWidth / size)), 
     size: size,
-    id: "0",
-    newId: "0"
+    id: 0,
+    newId: 0
 }
 
 export const componentKind =  {
@@ -42,13 +42,10 @@ export const componentKind =  {
     bombPath: "bombPath",
 
     search: "search", 
-    searchFinal: "searchFinal", 
     searchBomb: "searchBomb", 
-    searchBombFinal: "searchBombFinal", 
     path: "path", 
-    pathFinal: "pathFinal", 
-    pathHead: "pathHead",
 
+    pathHead: "pathHead",
     background: "background"
 }
 

@@ -16,20 +16,20 @@ export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
             }
             clearInterval(arrAnimation);
         }else {
-            const index = arr[count][0] * tableVar.colSize + arr[count][1]
-            const name = document.getElementById(index.toString()).className
-            if (WhichComponentSame(name) > 3) {
+            if (WhichComponentSame(arr[count]) > 3) {
                 if(kind === componentKind.path){
-                    newid = index
+                    newid = arr[count]
                     setTable(id, componentKind.path)
                     setTable(newid, componentKind.pathHead)
                     id = newid
                 }else{
-                    setTable(index, kind)
+                    setTable(arr[count], kind, true) // Maze
                 }
             }else{
-                setTable(id, componentKind.path)
-                setTable(index, StartEndBombWeight(WhichComponentSame(name), componentKind.startPath, componentKind.endPath, componentKind.bombPath, componentKind.weightPath))
+                if(kind === componentKind.path){
+                    setTable(id, kind)
+                    setTable(arr[count], StartEndBombWeight(WhichComponentSame(arr[count]), componentKind.startPath, componentKind.endPath, componentKind.bombPath, componentKind.weightPath))
+                }
             }
         }
         count += 1
@@ -37,11 +37,10 @@ export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
 }
 
 export function SearchBombAnimation(search, bomb, path, speed, count, myCallbackFunction, sysStatusFunction) {
-    var index = position.start[0] * tableVar.colSize + position.start[1]
     if(bomb.length === 0){
-        setTable(index, componentKind.startSearch)
+        setTable(position.start, componentKind.startSearch)
     }else{
-        setTable(index, componentKind.startSearchBomb)
+        setTable(position.start, componentKind.startSearchBomb)
     }
     const searchBombAnimation = setInterval(() => {
         if (count === search.length) {
@@ -49,19 +48,17 @@ export function SearchBombAnimation(search, bomb, path, speed, count, myCallback
             clearInterval(searchBombAnimation)
         }else{
             for(var i = 0;i < search[count].length;i++){
-                index = search[count][i][0] * tableVar.colSize + search[count][i][1]
-                const name = document.getElementById(index.toString()).className
-                if (WhichComponentSame(name) > 3) {
+                if (WhichComponentSame(search[count][i]) > 3) {
                     if(bomb.length === 0){
-                        setTable(index, componentKind.search)
+                        setTable(search[count][i], componentKind.search)
                     }else{
-                        setTable(index, componentKind.searchBomb)
+                        setTable(search[count][i], componentKind.searchBomb)
                     }
                 }else{
                     if(bomb.length === 0){
-                        setTable(index, StartEndBombWeight(WhichComponentSame(name), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
+                        setTable(search[count][i], StartEndBombWeight(WhichComponentSame(search[count][i]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
                     }else{
-                        setTable(index, StartEndBombWeight(WhichComponentSame(name), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearch, componentKind.weightSearchBomb))
+                        setTable(search[count][i], StartEndBombWeight(WhichComponentSame(search[count][i]), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearch, componentKind.weightSearchBomb))
                     }
                 }
             }
@@ -77,12 +74,10 @@ export function SearchAnimation(bomb, path, speed, count, myCallbackFunction, sy
             clearInterval(searchAnimation)
         }else{
             for(var i = 0;i < bomb[count].length;i++){
-                const index = bomb[count][i][0] * tableVar.colSize + bomb[count][i][1]
-                const name = document.getElementById(index.toString()).className
-                if (WhichComponentSame(name) > 3) {
-                    setTable(index, componentKind.search)
+                if (WhichComponentSame(bomb[count][i]) > 3) {
+                    setTable(bomb[count][i], componentKind.search)
                 }else{
-                    setTable(index, StartEndBombWeight(WhichComponentSame(name), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
+                    setTable(bomb[count][i], StartEndBombWeight(WhichComponentSame(bomb[count][i]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
                 }
             }
         }
