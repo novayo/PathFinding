@@ -22,6 +22,6 @@ export function KeyboardEvent(event) {
 
     }
 
-    console.log(position.weightValue)
+    // console.log(position.weightValue)
 
 }
