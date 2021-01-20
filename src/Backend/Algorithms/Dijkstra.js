@@ -35,7 +35,7 @@ function DoDijkstra(startPos, endPos, searchPath) {
     var weights = {}
     for (i = 0; i < position.rowSize; i++) {
         for (j = 0; j < position.colSize; j++) {
-            weights[[i, j]] = 1;
+            weights[[i, j]] = 0;
         }
     }
 
@@ -57,8 +57,6 @@ function DoDijkstra(startPos, endPos, searchPath) {
     /* 演算法開始 */
     var isFoundEnd = false;
     var visited = new Set();
-    visited.add(startPos.toString()); // 加入已走過
-    searchPath.push([startPos]); // 加入搜尋範圍
 
     while (current_shortest_path.size() > 0) {
         // 1. 選出當前最小路徑的點 O(logn)
@@ -77,26 +75,25 @@ function DoDijkstra(startPos, endPos, searchPath) {
         [up, right, down, left].forEach(nextPos => {
             if (!nextPos || isFoundEnd || nextPos in position.wall) return; // 若超過邊界 or 已經找到終點了 or 是牆壁
 
-
-            if (visited.has(nextPos.toString())) {
-                return; // 已走過的點不走
-            }
-            else {
-                visited.add(nextPos.toString()); // 加入已走過
-                searchPath.push([nextPos]); // 加入搜尋範圍
-            }
-
-            var tmp = table[curPos][0] + weights[nextPos];
+            var tmp = table[curPos][0] + (weights[nextPos] === 0 ? 1 : weights[nextPos]);
             if (tmp < table[nextPos][0]) {
                 table[nextPos][0] = tmp;
                 table[nextPos][1] = curPos;
             }
-            current_shortest_path.enqueue(nextPos, table[nextPos][0]); // 加入計算目前的最小的路徑
+            if (!visited.has(curPos.toString())) {
+                current_shortest_path.enqueue(nextPos, table[nextPos][0]); // 加入計算目前的最小的路徑
+
+            }
 
             if (nextPos.toString() === endPos.toString()) { // 看是否找到終點了
                 isFoundEnd = true;
             }
         })
+
+        if (!visited.has(curPos.toString())) {
+            visited.add(curPos.toString()); // 加入已走過
+            searchPath.push([curPos]); // 加入搜尋範圍
+        }
 
         if (isFoundEnd) { // 找到終點跳出
             break;
