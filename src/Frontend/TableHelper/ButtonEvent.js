@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { tableVar, touchContext, updateContext, componentKind } from './TableIndex'
+import { tableVar, touchContext, updateContext, componentKind, synchronize } from './TableIndex'
 import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation } from './Animation'
 import { sysStatusContext, algorithmContext, bombContext, speedContext } from '../../Core'
 import { setTable } from './SetTable'
@@ -10,16 +10,15 @@ import { WhichComponentSame } from './WhichComp'
 function ButtonEvent() {
     const [touch, update] = [useContext(touchContext), useContext(updateContext)]
     const [algorithm, bomb, sysSpeed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
-    var updateVar = true
 
     const Start = (search, path, speed, bomb = []) => {
-        if (update.get && updateVar) {
+        if (update.get && synchronize.update) {
             FinalAnimation(search, path, bomb)
         }else{
             // console.log("Start")
             sysStatus.set("RUNNING")
             update.set("True")
-            updateVar = true
+            synchronize.update = true
             speed = speed / (search.length + bomb.length + path.length * 0.5)
             SearchBombAnimation(search, bomb, path, speed, 0, SearchAnimation, () => sysStatus.set("IDLE"))
         }
@@ -82,7 +81,7 @@ function ButtonEvent() {
         // console.log("ClearPath")
         if (event) {
             update.set("False")
-            updateVar = false
+            synchronize.update = false
         }
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
             if(WhichComponentSame(i) >= 5) {

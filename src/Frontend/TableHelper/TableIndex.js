@@ -88,8 +88,12 @@ export const keyboardSupport = {
     sub: "-",
 
     w: "w",
-    down: true
+    down: true,
+}
 
+export const synchronize = {
+    update: true,
+    algorithm: ""
 }
 
 // touch status

@@ -1,11 +1,12 @@
 import { useContext, useEffect } from 'react'
 import { sysStatusContext, algorithmContext, speedContext } from '../../Core/index'
-import { tableVar, touchContext, moveContext, updateContext, weightValueContext, componentKind, keyboardSupport } from './TableIndex'
+import { tableVar, touchContext, moveContext, updateContext, weightValueContext, componentKind, keyboardSupport, synchronize } from './TableIndex'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
 import { WhichComponent } from './WhichComp'
 import { KeyboardEvent } from './KeyboardEvent'
 import ButtonEvent from './ButtonEvent'
+
 
 function MouseEvent() {
     const [touch, move, update, weightValue] = [useContext(touchContext), useContext(moveContext), useContext(updateContext), useContext(weightValueContext)]
@@ -13,16 +14,19 @@ function MouseEvent() {
     const buttonEvent = ButtonEvent()
 
     useEffect(() => {
-        document.addEventListener('keydown', function(event) {
-            if(keyboardSupport.down){
-                KeyboardEvent(event, weightValue)
-            }
-        })
-        document.addEventListener('keyup', function(event) {
-            if(keyboardSupport.down === false){
-                KeyboardEvent(event)
-            }
-        })
+        synchronize.algorithm = algorithm
+        // eslint-disable-next-line
+    }, [algorithm.get])
+
+    document.addEventListener('keydown', function(event) {
+        if(keyboardSupport.down){
+            KeyboardEvent(event, synchronize.algorithm, weightValue)
+        }
+    })
+    document.addEventListener('keyup', function(event) {
+        if(keyboardSupport.down === false){
+            KeyboardEvent(event, synchronize.algorithm)
+        }
     })
 
     const MouseDownHandler = (e) => {
