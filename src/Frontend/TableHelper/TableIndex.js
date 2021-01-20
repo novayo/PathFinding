@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+import { position } from '../../Core/index'
 
 
 const size = 23
@@ -16,6 +17,14 @@ export const tableVar = {
     size: size,
     id: 0,
     newId: 0
+}
+
+export const weightValueRange = {
+    max: 100,
+    min: 0,
+    init: 50,
+    increase: 10,
+    waiting: 2000
 }
 
 export const componentKind =  {
@@ -130,6 +139,25 @@ export const updateReducer = (state, action) => {
             return false
         default:
             return updateInitial
+    }
+} 
+
+export const weightValueContext = createContext()
+export const weightValueInitial = {value: weightValueRange.init, status: true}
+export const weightValueReducer = (state, action) => {
+    switch (action) {
+        case "+":
+            position.weightValue = state.value + weightValueRange.increase
+            return {value: position.weightValue, status: true}
+        case "-":
+            position.weightValue = state.value - weightValueRange.increase
+            return {value: position.weightValue, status: true}
+        case true:
+            return {value: position.weightValue, status: true}
+        case false:
+            return {value: position.weightValue, status: false}
+        default:
+            return weightValueInitial
     }
 } 
 

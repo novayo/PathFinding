@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { sysStatusContext, algorithmContext, speedContext } from '../../Core/index'
-import { tableVar, touchContext, moveContext, updateContext, componentKind, keyboardSupport } from './TableIndex'
+import { tableVar, touchContext, moveContext, updateContext, weightValueContext, componentKind, keyboardSupport } from './TableIndex'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
 import { WhichComponent } from './WhichComp'
@@ -8,14 +8,14 @@ import { KeyboardEvent } from './KeyboardEvent'
 import ButtonEvent from './ButtonEvent'
 
 function MouseEvent() {
-    const [touch, move, update] = [useContext(touchContext), useContext(moveContext), useContext(updateContext)]
+    const [touch, move, update, weightValue] = [useContext(touchContext), useContext(moveContext), useContext(updateContext), useContext(weightValueContext)]
     const [algorithm, speed, sysStatus] = [useContext(algorithmContext), useContext(speedContext), useContext(sysStatusContext)]
     const buttonEvent = ButtonEvent()
 
     useEffect(() => {
         document.addEventListener('keydown', function(event) {
             if(keyboardSupport.down){
-                KeyboardEvent(event)
+                KeyboardEvent(event, weightValue)
             }
         })
         document.addEventListener('keyup', function(event) {

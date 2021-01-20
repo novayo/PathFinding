@@ -1,5 +1,5 @@
 import React from 'react'
-import { tableVar } from '../Frontend/TableHelper/TableIndex'
+import { tableVar, weightValueRange } from '../Frontend/TableHelper/TableIndex'
 
 // component position
 export var position = {
@@ -8,7 +8,7 @@ export var position = {
     bomb: false,
     wall: [],
     weight: [],
-    weightValue: 50,
+    weightValue: weightValueRange.init,
     rowSize: tableVar.rowSize,
     colSize: tableVar.colSize
 }

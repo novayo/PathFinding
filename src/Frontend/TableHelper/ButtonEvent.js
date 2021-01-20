@@ -15,7 +15,7 @@ function ButtonEvent() {
     const Start = (search, path, speed, bomb = []) => {
         if (update.get && updateVar) {
             FinalAnimation(search, path, bomb)
-        }else {
+        }else{
             // console.log("Start")
             sysStatus.set("RUNNING")
             update.set("True")
@@ -86,7 +86,7 @@ function ButtonEvent() {
         }
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
             if(WhichComponentSame(i) >= 5) {
-                setTable(i, componentKind.background, true)
+                setTable(i, componentKind.background)
             }else if(WhichComponentSame(i) === 3){
                 setTable(i, componentKind.weightStatic)
             }else if(WhichComponentSame(i) === 2){

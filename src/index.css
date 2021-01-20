@@ -597,3 +597,24 @@ code {
   background-size: cover; /*填滿*/
   border: 0;
 }
+
+/*----------Modal----------*/
+
+.weightModal {
+  top: 85%;
+}
+
+.weightImage {
+  width: 20px; 
+  height: 20px; 
+  background-image: url('./Resources/Images/Info/WeightNode.png');
+  background-size: contain; 
+}
+
+.progress {
+  position: absolute;
+  top: 10%;
+  width: 85%;
+}
+
+

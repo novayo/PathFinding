@@ -8,6 +8,7 @@ import { speedContext, speedInitial, speedReducer } from './Core';
 import Table from './Frontend/Table';
 import { touchReducer, touchInitial, touchContext } from './Frontend/TableHelper/TableIndex';
 import { moveReducer, moveInitial, moveContext } from './Frontend/TableHelper/TableIndex';
+import { weightValueReducer, weightValueInitial, weightValueContext } from './Frontend/TableHelper/TableIndex';
 import { updateReducer, updateInitial, updateContext } from './Frontend/TableHelper/TableIndex';
 import Info from './Frontend/HeaderHelper/Info';
 import AlgorithmDescriptor from './Frontend/HeaderHelper/AlgorithmDescriptor';
@@ -21,28 +22,31 @@ function App() {
   const [touch, setTouch] = useReducer(touchReducer, touchInitial)
   const [move, setMove] = useReducer(moveReducer, moveInitial)
   const [update, setUpdate] = useReducer(updateReducer, updateInitial)
+  const [weightValue, setWeightValue] = useReducer(weightValueReducer, weightValueInitial)
 
   return (
     <div className="App">
       <IntroductionModal />
-      <updateContext.Provider value={{ get: update, set: setUpdate }}>
-        <moveContext.Provider value={{ get: move, set: setMove }}>
-          <touchContext.Provider value={{ get: touch, set: setTouch }}>
-            <speedContext.Provider value={{ get: curSpeed, set: setCurSpeed }}>
-              <bombContext.Provider value={{ get: curBomb, set: setCurBomb }}>
-                <sysStatusContext.Provider value={{ get: curSysStatus, set: setCurSysStatus }}>
-                  <algorithmContext.Provider value={{ get: curAlgorithm, set: setCurAlgorithm }}>
-                    <Header />
-                    <Info />
-                    <AlgorithmDescriptor />
-                    <Table />
-                  </algorithmContext.Provider>
-                </sysStatusContext.Provider>
-              </bombContext.Provider>
-            </speedContext.Provider>
-          </touchContext.Provider>
-        </moveContext.Provider>
-      </updateContext.Provider>
+      <weightValueContext.Provider value={{ get: weightValue, set: setWeightValue }}>
+        <updateContext.Provider value={{ get: update, set: setUpdate }}>
+          <moveContext.Provider value={{ get: move, set: setMove }}>
+            <touchContext.Provider value={{ get: touch, set: setTouch }}>
+              <speedContext.Provider value={{ get: curSpeed, set: setCurSpeed }}>
+                <bombContext.Provider value={{ get: curBomb, set: setCurBomb }}>
+                  <sysStatusContext.Provider value={{ get: curSysStatus, set: setCurSysStatus }}>
+                    <algorithmContext.Provider value={{ get: curAlgorithm, set: setCurAlgorithm }}>
+                      <Header />
+                      <Info />
+                      <AlgorithmDescriptor />
+                      <Table />
+                    </algorithmContext.Provider>
+                  </sysStatusContext.Provider>
+                </bombContext.Provider>
+              </speedContext.Provider>
+            </touchContext.Provider>
+          </moveContext.Provider>
+        </updateContext.Provider>
+      </weightValueContext.Provider>
     </div>
   );
 }
