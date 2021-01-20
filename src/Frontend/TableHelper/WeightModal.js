@@ -16,7 +16,13 @@ function WeightModal() {
         if(initShow){
             setShow(show => show + 1)
             setTimeout(() => {
-                setShow(show => show - 1)
+                setShow(show => {
+                    if(show === 0){
+                        return 0
+                    }else{
+                        return show - 1
+                    }
+                })
             }, weightValueRange.waiting)
         }
         setInitShow(true)
