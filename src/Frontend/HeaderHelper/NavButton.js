@@ -10,6 +10,7 @@ import Astar from '../../Backend/Algorithms/Astar';
 import GreedyBestFirstSearch from '../../Backend/Algorithms/GreedyBestFirstSearch';
 import Swarm from '../../Backend/Algorithms/Swarm';
 import ConvergentSwarm from '../../Backend/Algorithms/ConvergentSwarm';
+import BidirectionSwarm from '../../Backend/Algorithms/BidirectionSwarm';
 
 const NavButton = () => {
 
@@ -94,6 +95,7 @@ const NavButton = () => {
                     ConvergentSwarm(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Bidrectional_Swarm":
+                    BidirectionSwarm(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Breadth_First":
                     BFS(buttonEvent.Start, speed.get[1]);

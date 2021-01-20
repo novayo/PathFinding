@@ -74,7 +74,7 @@ function AlgorithmDescriptor() {
     } else {
         return (
             <div id="algorithmDescriptor">
-                {algorithmName} is <i><b>{discription1}</b></i> and <i><b>{discription2}</b></i> the shortest path!
+                <i>{algorithmName}</i> is <b>{discription1}</b> and <b>{discription2}</b> the shortest path!
             </div>
         )
     }

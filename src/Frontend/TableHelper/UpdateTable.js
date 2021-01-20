@@ -5,6 +5,7 @@ import Astar from '../../Backend/Algorithms/Astar';
 import GreedyBestFirstSearch from '../../Backend/Algorithms/GreedyBestFirstSearch';
 import Swarm from '../../Backend/Algorithms/Swarm';
 import ConvergentSwarm from '../../Backend/Algorithms/ConvergentSwarm';
+import BidirectionSwarm from '../../Backend/Algorithms/BidirectionSwarm';
 
 
 export function UpdateTable(Start, ClearPath, algorithm, speed) {
@@ -26,6 +27,7 @@ export function UpdateTable(Start, ClearPath, algorithm, speed) {
             ConvergentSwarm(Start, speed.get[1]);
             break;
         case "Algorithm_Bidrectional_Swarm":
+            BidirectionSwarm(Start, speed.get[1]);
             break;
         case "Algorithm_Breadth_First":
             BFS(Start, speed.get[1]);
