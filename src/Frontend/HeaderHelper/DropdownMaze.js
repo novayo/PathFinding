@@ -8,6 +8,7 @@ import Binary_Tree from '../../Backend/Maze/Binary_Tree';
 import RecursiveDivision from '../../Backend/Maze/RecursiveDivision';
 import RecursiveDivision_Horizontal from '../../Backend/Maze/RecursiveDivision_Horizontal';
 import RecursiveDivision_Vertical from '../../Backend/Maze/RecursiveDivision_Vertical';
+import Kruskal from '../../Backend/Maze/Kruskal';
 
 function DropdownMaze() {
     const sysStatus = useContext(sysStatusContext);
@@ -43,6 +44,9 @@ function DropdownMaze() {
             case "Maze_Binary_Tree":
                 buttonEvent.CreateMaze(Binary_Tree(), speed);
                 break;
+            case "Maze_Kruskal":
+                buttonEvent.CreateMaze(Kruskal(), speed);
+                break;
             default:
                 break;
         }
@@ -60,6 +64,7 @@ function DropdownMaze() {
                 <NavDropdown.Item eventKey="Maze_Basic_Weight_Maze">Basic Weight Maze</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Maze_Simple_stair_pattern">Simple Stair Pattern</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Maze_Binary_Tree">Binary Tree Generator</NavDropdown.Item>
+                <NavDropdown.Item eventKey="Maze_Kruskal">Kruskal's Maze</NavDropdown.Item>
             </NavDropdown>
         </Nav.Item>
     )

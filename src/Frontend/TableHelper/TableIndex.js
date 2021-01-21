@@ -5,7 +5,7 @@ import { position } from '../../Core/index'
 const size = 23
 
 function adjustSize(size) {
-    if(size % 2 === 0){
+    if (size % 2 === 0) {
         size -= 1
     }
     return size
@@ -13,7 +13,7 @@ function adjustSize(size) {
 
 export const tableVar = {
     rowSize: adjustSize(Math.floor(window.screen.availHeight / size) - 16),
-    colSize: adjustSize(Math.floor(window.screen.availWidth / size)), 
+    colSize: adjustSize(Math.floor(window.screen.availWidth / size)),
     size: size,
     id: 0,
     newId: 0
@@ -27,9 +27,9 @@ export const weightValueRange = {
     waiting: 2000
 }
 
-export const componentKind =  {
-    add: "wall", 
-    wall: "wall", 
+export const componentKind = {
+    add: "wall",
+    wall: "wall",
 
     /*---------dynamic---------*/
 
@@ -53,9 +53,9 @@ export const componentKind =  {
     bombSearch: "bombSearch",
     bombPath: "bombPath",
 
-    search: "search", 
-    searchBomb: "searchBomb", 
-    path: "path", 
+    search: "search",
+    searchBomb: "searchBomb",
+    path: "path",
 
     /*----------static-----------*/
 
@@ -73,9 +73,9 @@ export const componentKind =  {
     bombStatic: "bombStatic",
     bombPathStatic: "bombPathStatic",
 
-    searchStatic: "searchStatic", 
-    searchBombStatic: "searchBombStatic", 
-    pathStatic: "pathStatic", 
+    searchStatic: "searchStatic",
+    searchBombStatic: "searchBombStatic",
+    pathStatic: "pathStatic",
 
     /*----------------------------*/
 
@@ -83,8 +83,8 @@ export const componentKind =  {
     background: "background"
 }
 
-export const keyboardSupport = {   
-    plus: "+", 
+export const keyboardSupport = {
+    plus: "+",
     sub: "-",
 
     w: "w",
@@ -98,15 +98,15 @@ export const synchronize = {
 
 // touch status
 export const touchContext = createContext()
-export const touchInitial = {start: componentKind.background, end: componentKind.background, bomb: componentKind.background}
+export const touchInitial = { start: componentKind.background, end: componentKind.background, bomb: componentKind.background }
 export const touchReducer = (state, action) => {
     switch (action.componentKind) {
         case componentKind.start:
-            return {...state, start: action.under}
+            return { ...state, start: action.under }
         case componentKind.end:
-            return {...state, end: action.under}
+            return { ...state, end: action.under }
         case componentKind.bomb:
-            return {...state, bomb: action.under}
+            return { ...state, bomb: action.under }
         default:
             return touchInitial
     }
@@ -144,24 +144,24 @@ export const updateReducer = (state, action) => {
         default:
             return updateInitial
     }
-} 
+}
 
 export const weightValueContext = createContext()
-export const weightValueInitial = {value: weightValueRange.init, status: true}
+export const weightValueInitial = { value: weightValueRange.init, status: true }
 export const weightValueReducer = (state, action) => {
     switch (action) {
         case "+":
             position.weightValue = state.value + weightValueRange.increase
-            return {value: position.weightValue, status: true}
+            return { value: position.weightValue, status: true }
         case "-":
             position.weightValue = state.value - weightValueRange.increase
-            return {value: position.weightValue, status: true}
+            return { value: position.weightValue, status: true }
         case true:
-            return {value: position.weightValue, status: true}
+            return { value: position.weightValue, status: true }
         case false:
-            return {value: position.weightValue, status: false}
+            return { value: position.weightValue, status: false }
         default:
             return weightValueInitial
     }
-} 
+}
 
