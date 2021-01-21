@@ -1,3 +1,36 @@
+:root {
+
+  /* board color */
+
+  --wall: blue;
+  --wall-animation-0: blue;
+  --wall-animation-25: blue;
+  --wall-animation-50: blue;
+  --wall-animation-100: blue;
+
+  --search: #26FFFF;
+  --search-animation-0: #6E6EFF;
+  --search-animation-25: #8CFF8C;
+  --search-animation-50: #8CFF8C;
+  --search-animation-100: #26FFFF;
+
+  --searchBomb: #e403e4;
+  --searchBomb-animation-0: #f87b07;
+  --searchBomb-animation-25: #ff2692;
+  --searchBomb-animation-50: #f000bc;
+  --searchBomb-animation-100: #e403e4;
+
+  --path: #F0F000;
+  --path-animation-0: #26FFFF;
+  --path-animation-25: #26FFFF;
+  --path-animation-50: #F0F000;
+  --path-animation-100: #F0F000;
+
+  --background: white;
+
+}
+
+
 body {
   margin: 0;
   font-family: 'Righteous', cursive, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -241,7 +274,7 @@ code {
 /*---------dynamic---------*/
 
 .start {
-  background: white url('./Resources/Images/Info/StartNode.png');
+  background: var(--background) url('./Resources/Images/Info/StartNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: startAnimation;
@@ -249,7 +282,7 @@ code {
 }
 
 .startSearchBomb {
-  background: #e403e4 url('./Resources/Images/Info/StartNode.png');
+  background: var(--searchBomb) url('./Resources/Images/Info/StartNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: startSearchBombAnimation;
@@ -257,7 +290,7 @@ code {
 }
 
 .startSearch {
-  background: #26FFFF url('./Resources/Images/Info/StartNode.png');
+  background: var(--search) url('./Resources/Images/Info/StartNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: startSearchAnimation;
@@ -265,7 +298,7 @@ code {
 }
 
 .startPath {
-  background: #F0F000 url('./Resources/Images/Info/StartNode.png');
+  background: var(--path) url('./Resources/Images/Info/StartNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: startPathAnimation;
@@ -294,7 +327,7 @@ code {
 }
 
 .end {
-  background: white url('./Resources/Images/Info/EndNode.png');
+  background: var(--background) url('./Resources/Images/Info/EndNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: endAnimation;
@@ -302,7 +335,7 @@ code {
 }
 
 .endSearchBomb {
-  background: #e403e4 url('./Resources/Images/Info/EndNode.png');
+  background: var(--searchBomb) url('./Resources/Images/Info/EndNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: endSearchBombAnimation;
@@ -310,7 +343,7 @@ code {
 }
 
 .endSearch {
-  background: #26FFFF url('./Resources/Images/Info/EndNode.png');
+  background: var(--search) url('./Resources/Images/Info/EndNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: endSearchAnimation;
@@ -318,7 +351,7 @@ code {
 }
 
 .endPath {
-  background: #F0F000 url('./Resources/Images/Info/EndNode.png');
+  background: var(--path) url('./Resources/Images/Info/EndNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: endPathAnimation;
@@ -347,7 +380,7 @@ code {
 }
 
 .bomb {
-  background: white url('./Resources/Images/Info/BombNode.png');
+  background: var(--background) url('./Resources/Images/Info/BombNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: bombAnimation;
@@ -355,7 +388,7 @@ code {
 }
 
 .bombSearchBomb {
-  background: #e403e4 url('./Resources/Images/Info/BombNode.png');
+  background: var(--searchBomb) url('./Resources/Images/Info/BombNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: bombSearchBombAnimation;
@@ -363,7 +396,7 @@ code {
 }
 
 .bombSearch {
-  background: #26FFFF url('./Resources/Images/Info/BombNode.png');
+  background: var(--search) url('./Resources/Images/Info/BombNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: bombSearchAnimation;
@@ -371,7 +404,7 @@ code {
 }
 
 .bombPath {
-  background: #F0F000 url('./Resources/Images/Info/BombNode.png');
+  background: var(--path) url('./Resources/Images/Info/BombNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: bombPathAnimation;
@@ -400,7 +433,7 @@ code {
 }
 
 .weight {
-  background: white url('./Resources/Images/Info/WeightNode.png');
+  background: var(--background) url('./Resources/Images/Info/WeightNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: weightAnimation;
@@ -408,7 +441,7 @@ code {
 }
 
 .weightSearchBomb {
-  background: #e403e4 url('./Resources/Images/Info/WeightNode.png');
+  background: var(--searchBomb) url('./Resources/Images/Info/WeightNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: weightSearchBombAnimation;
@@ -416,7 +449,7 @@ code {
 }
 
 .weightSearch {
-  background: #26FFFF url('./Resources/Images/Info/WeightNode.png');
+  background: var(--search) url('./Resources/Images/Info/WeightNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: weightSearchAnimation;
@@ -424,7 +457,7 @@ code {
 }
 
 .weightPath {
-  background: #F0F000 url('./Resources/Images/Info/WeightNode.png');
+  background: var(--path) url('./Resources/Images/Info/WeightNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   animation-name: weightPathAnimation;
@@ -455,144 +488,144 @@ code {
 /*----------static-----------*/
 
 .startStatic {
-  background: white url('./Resources/Images/Info/StartNode.png');
+  background: var(--background) url('./Resources/Images/Info/StartNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
 }
 
 .startPathStatic {
-  background: #F0F000 url('./Resources/Images/Info/StartNode.png');
+  background: var(--path) url('./Resources/Images/Info/StartNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   border: 0;
 }
 
 .endStatic {
-  background: white url('./Resources/Images/Info/EndNode.png');
+  background: var(--background) url('./Resources/Images/Info/EndNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
 }
 
 .endPathStatic {
-  background: #F0F000 url('./Resources/Images/Info/EndNode.png');
+  background: var(--path) url('./Resources/Images/Info/EndNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   border: 0;
 }
 
 .bombStatic {
-  background: white url('./Resources/Images/Info/BombNode.png');
+  background: var(--background) url('./Resources/Images/Info/BombNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
 }
 
 .bombPathStatic {
-  background: #F0F000 url('./Resources/Images/Info/BombNode.png');
+  background: var(--path) url('./Resources/Images/Info/BombNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   border: 0;
 }
 
 .weightStatic {
-  background: white url('./Resources/Images/Info/WeightNode.png');
+  background: var(--background) url('./Resources/Images/Info/WeightNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
 }
 
 .weightSearchBombStatic {
-  background: #e403e4 url('./Resources/Images/Info/WeightNode.png');
+  background: var(--searchBomb) url('./Resources/Images/Info/WeightNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
 }
 
 .weightSearchStatic {
-  background: #26FFFF url('./Resources/Images/Info/WeightNode.png');
+  background: var(--search) url('./Resources/Images/Info/WeightNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
 }
 
 .weightPathStatic {
-  background: #F0F000 url('./Resources/Images/Info/WeightNode.png');
+  background: var(--path) url('./Resources/Images/Info/WeightNode.png');
   background-position: center;
   background-size: cover; /*填滿*/
   border: 0;
 }
 
 .searchStatic  {
-  background-color:#26FFFF;
+  background-color: var(--search);
 }
 
 .searchBombStatic  {
-  background-color:#e403e4;
+  background-color: var(--searchBomb);
 }
 
 .pathStatic  {
-  background-color:#F0F000;
+  background-color: var(--path);
   border: 0;
 }
 
 /*----------------------------*/
 
 .background {
-  background-color:white;
+  background-color: var(--background);
 }
 
 .wall {
-  background-color:blue;
+  background-color: var(--wall);
   animation-name: wallAnimation;
   animation-duration: 0.5s;
   border: 0;
 }
 
 @keyframes wallAnimation {
-  0%   {background-color: blue; transform: scale(0, 0);}
-  25%  {background-color: blue; transform: scale(0.5, 0.5);}
-  50%  {background-color: blue; transform: scale(1.2, 1.2);}
-  100% {background-color: blue; transform: scale(1, 1);}
+  0%   {background-color: var(--wall-animation-0); transform: scale(0, 0);}
+  25%  {background-color: var(--wall-animation-25); transform: scale(0.5, 0.5);}
+  50%  {background-color: var(--wall-animation-50); transform: scale(1.2, 1.2);}
+  100% {background-color: var(--wall-animation-100); transform: scale(1, 1);}
 }
 
 .search {
-  background-color:#26FFFF;
+  background-color: var(--search);
   animation-name: searchAnimation;
   animation-duration: 0.5s;
 }
 
 @keyframes searchAnimation {
-  0%   {background-color: #6E6EFF; border-radius: 50%;}
-  25%  {background-color: #8CFF8C; border-radius: 80%;}
-  50%  {background-color: #8CFF8C; border-radius: 90%;}
-  100% {background-color: #26FFFF; border-radius: 100%;}
+  0%   {background-color: var(--search-animation-0); border-radius: 50%;}
+  25%  {background-color: var(--search-animation-25); border-radius: 80%;}
+  50%  {background-color: var(--search-animation-50); border-radius: 90%;}
+  100% {background-color: var(--search-animation-100); border-radius: 100%;}
 }
 
 .searchBomb {
-  background-color:#e403e4;
+  background-color: var(--searchBomb);
   animation-name: searchBombAnimation;
   animation-duration: 0.5s;
 }
 
 @keyframes searchBombAnimation {
-  0%   {background-color: #f87b07; transform: scale(0.8, 0.8);}
-  25%  {background-color: #ff2692; transform: scale(0.3, 0.3);}
-  50%  {background-color: #f000bc; transform: scale(1.2, 1.2);}
-  100% {background-color: #e403e4; transform: scale(1, 1);}
+  0%   {background-color: var(--searchBomb-animation-0); transform: scale(0.8, 0.8);}
+  25%  {background-color: var(--searchBomb-animation-25); transform: scale(0.3, 0.3);}
+  50%  {background-color: var(--searchBomb-animation-50); transform: scale(1.2, 1.2);}
+  100% {background-color: var(--searchBomb-animation-100); transform: scale(1, 1);}
 }
 
 .path {
-  background-color:#F0F000;
+  background-color: var(--path);
   animation-name: pathAnimation;
   animation-duration: 0.5s;
   border: 0;
 }
 
 @keyframes pathAnimation {
-  0%   {background-color: #26FFFF; transform: scale(0.8, 0.8);}
-  25%  {background-color: #26FFFF; transform: scale(0.3, 0.3);}
-  50%  {background-color: #F0F000; transform: scale(1.2, 1.2);}
-  100% {background-color: #F0F000; transform: scale(1, 1);}
+  0%   {background-color: var(--path-animation-0); transform: scale(0.8, 0.8);}
+  25%  {background-color: var(--path-animation-25); transform: scale(0.3, 0.3);}
+  50%  {background-color: var(--path-animation-50); transform: scale(1.2, 1.2);}
+  100% {background-color: var(--path-animation-100); transform: scale(1, 1);}
 }
 
 .pathHead {
-  background:#F0F000 url('./Resources/Images/Info/PathHead.png');
+  background: var(--path) url('./Resources/Images/Info/PathHead.png');
   background-position: center;
   background-size: cover; /*填滿*/
   border: 0;
