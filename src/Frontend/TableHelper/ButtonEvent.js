@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind, synchronize } from './TableIndex'
-import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation } from './Animation'
+import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation, RandomMazeAnimation } from './Animation'
 import { sysStatusContext, algorithmContext, bombContext, speedContext } from '../../Core'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
@@ -19,20 +19,24 @@ function ButtonEvent() {
             sysStatus.set("RUNNING")
             update.set("True")
             synchronize.update = true
-            speed = speed / (search.length + bomb.length + path.length * 0.5)
+            speed = speed / (search.length + bomb.length + path.length)
             SearchBombAnimation(search, bomb, path, speed, 0, SearchAnimation, () => sysStatus.set("IDLE"))
         }
     }
 
-    const CreateMaze = (maze, speed) => {
-        sysStatus.set("RUNNING")
-        if(sysSpeed.get[0] === "Average"){
-            speed *= 10
-        }else if(sysSpeed.get[0] === "Slow"){
-            speed *= 10
+    const CreateMaze = (maze, speed, kind = componentKind.wall) => {
+        if(speed === 0){
+            RandomMazeAnimation(maze, kind)            
+        }else{
+            sysStatus.set("RUNNING")
+            if(sysSpeed.get[0] === "Average"){
+                speed *= 5
+            }else if(sysSpeed.get[0] === "Slow"){
+                speed *= 10
+            }
+            speed = speed / maze.length
+            MazeAnimation(maze, speed, 0, () => sysStatus.set("IDLE"))
         }
-        speed = speed / maze.length * 0.5
-        MazeAnimation(maze, speed, 0, () => sysStatus.set("IDLE"))
     }
 
     const Addbomb = () => {

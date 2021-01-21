@@ -9,6 +9,8 @@ import RecursiveDivision from '../../Backend/Maze/RecursiveDivision';
 import RecursiveDivision_Horizontal from '../../Backend/Maze/RecursiveDivision_Horizontal';
 import RecursiveDivision_Vertical from '../../Backend/Maze/RecursiveDivision_Vertical';
 import Kruskal from '../../Backend/Maze/Kruskal';
+import Basic_Random_Maze from '../../Backend/Maze/Basic_Random_Maze'
+import Basic_Weight_Maze from '../../Backend/Maze/Basic_Weight_Maze'
 
 function DropdownMaze() {
     const sysStatus = useContext(sysStatusContext);
@@ -34,9 +36,10 @@ function DropdownMaze() {
                 buttonEvent.CreateMaze(RecursiveDivision_Horizontal(), speed);
                 break;
             case "Maze_Basic_Random":
+                buttonEvent.CreateMaze(Basic_Random_Maze(), 0)
                 break;
             case "Maze_Basic_Weight_Maze":
-                alert("Maze_Basic_Weight_Maze");
+                buttonEvent.CreateMaze(Basic_Weight_Maze(), 0)
                 break;
             case "Maze_Simple_stair_pattern":
                 buttonEvent.CreateMaze(Simple_Stair_Pattern(), speed);

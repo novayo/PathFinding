@@ -33,7 +33,7 @@ export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
             }
         }
         count += 1
-    }, speed / 2)
+    }, speed)
 }
 
 export function SearchBombAnimation(search, bomb, path, speed, count, myCallbackFunction, sysStatusFunction) {
@@ -91,6 +91,12 @@ export function PathAnimation(path, speed, count, myCallbackFunction = null) {
 
 export function MazeAnimation(maze, speed, count, myCallbackFunction = null) {
     Animation(maze, speed, count, componentKind.wall, myCallbackFunction)
+}
+
+export function RandomMazeAnimation(maze, kind){
+    for(var i = 0; i < maze.length; i++){
+        setTable(maze[i], kind, true)
+    }
 }
 
 export function FinalAnimation(search, path, bomb){
