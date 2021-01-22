@@ -74,6 +74,17 @@ function ButtonEvent() {
         ClearPath()
     }
 
+    const ClearWeights = () => {
+        // console.log("ClearWeights")
+        for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
+            if (WhichComponentSame(i) === 3) {
+                setTable(i, componentKind.background, true)
+            }
+        }
+        touch.set("")
+        ClearPath()
+    }
+
     const ClearPath = (event = true) => {
         // console.log("ClearPath")
         if (event) {
