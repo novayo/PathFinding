@@ -70,16 +70,16 @@ function BFS(startCallback, speed) {
             searchPath.pop();
         }
 
-        // 取得最短路徑
-        var shortest = distance.getShortestPath(endPos);
-
         if (i === 0) {
             retSearchPath = retSearchPath.concat(searchPath);
         } else {
             retBombPath = retBombPath.concat(searchPath);
         }
 
-        if (distance.get(endPos) === -1) break; // 如果第一次沒找到終點，直接跳出
+        if (distance.get(endPos) === -1) break; // 如果第一次沒找到終點，不加入最短路徑
+
+        // 取得最短路徑
+        var shortest = distance.getShortestPath(endPos);
         retShortestPath = retShortestPath.concat(shortest);
 
     }

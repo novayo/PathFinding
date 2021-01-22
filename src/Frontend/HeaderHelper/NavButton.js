@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
 import { algorithmContext, sysStatusContext, speedContext } from '../../Core';
 import ButtonEvent from '../TableHelper/ButtonEvent';
 import BFS from '../../Backend/Algorithms/BFS';
@@ -22,7 +21,7 @@ const NavButton = () => {
     const buttonEvent = ButtonEvent();
 
     useEffect(() => {
-        setMyVariant('success');
+        setMyVariant('buttonEnable');
     }, [])
 
     useEffect(() => {
@@ -62,9 +61,9 @@ const NavButton = () => {
 
     useEffect(() => {
         if (sysStatus.get === 'RUNNING') {
-            setMyVariant('danger');
+            setMyVariant('buttonDisable');
         } else {
-            setMyVariant('success');
+            setMyVariant('buttonEnable');
         }
     }, [sysStatus.get])
 
@@ -110,8 +109,8 @@ const NavButton = () => {
     }
 
     return (
-        <Nav.Item xs={1}>
-            <Button id="navButton" variant={myVariant} size="lg" onClick={handler}>{buttonName}</Button>
+        <Nav.Item>
+            <button className={myVariant} onClick={handler}>{buttonName}</button>
         </Nav.Item>
     )
 };

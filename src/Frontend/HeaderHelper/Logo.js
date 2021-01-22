@@ -3,7 +3,7 @@ import { Navbar } from 'react-bootstrap';
 
 function logo() {
     return (
-        <Navbar.Brand href="/PathFinding/" className='Navbar-logo'>
+        <Navbar.Brand href="/PathFinding/" className='navbar-logo'>
             {/* <img
                 src={process.env.PUBLIC_URL + '/logo.png'} // 取得public資料夾路徑
                 width="50"
@@ -12,7 +12,7 @@ function logo() {
                 variant='test'
                 alt='Logo'
             /> {' '} */}
-                    Path-Finding
+                    PathFinding
         </Navbar.Brand>
     )
 }
