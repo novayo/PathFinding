@@ -28,7 +28,7 @@ export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
             }else{
                 if(kind === componentKind.path){
                     setTable(id, kind)
-                    setTable(arr[count], StartEndBombWeight(WhichComponentSame(arr[count]), componentKind.startPath, componentKind.endPath, componentKind.bombPath, componentKind.weightPath))
+                    setTable(arr[count], StartEndBombWeight(WhichComponentSame(arr[count]), componentKind.startPath, componentKind.pathHead, componentKind.bombPath, componentKind.weightPath))
                 }
             }
         }
@@ -37,7 +37,7 @@ export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
 }
 
 export function SearchBombAnimation(search, bomb, path, speed, count, myCallbackFunction, sysStatusFunction) {
-    if(bomb.length === 0){
+    if(position.bomb === false){
         setTable(position.start, componentKind.startSearch)
     }else{
         setTable(position.start, componentKind.startSearchBomb)
@@ -49,13 +49,13 @@ export function SearchBombAnimation(search, bomb, path, speed, count, myCallback
         }else{
             for(var i = 0;i < search[count].length;i++){
                 if (WhichComponentSame(search[count][i]) > 3) {
-                    if(bomb.length === 0){
+                    if(position.bomb === false){
                         setTable(search[count][i], componentKind.search)
                     }else{
                         setTable(search[count][i], componentKind.searchBomb)
                     }
                 }else{
-                    if(bomb.length === 0){
+                    if(position.bomb === false){
                         setTable(search[count][i], StartEndBombWeight(WhichComponentSame(search[count][i]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
                     }else{
                         setTable(search[count][i], StartEndBombWeight(WhichComponentSame(search[count][i]), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearch, componentKind.weightSearchBomb))
@@ -104,34 +104,34 @@ export function FinalMazeAnimation(maze){ // maze = [walls, weights]
 }
 
 export function FinalAnimation(search, path, bomb){
-    if(bomb.length === 0){
+    if(position.bomb === false){
         setTable(position.start, componentKind.startSearch) 
     }else{
         setTable(position.start, componentKind.startSearchBomb)
     }
     for (var i = 0; i < search.length; i++) {
         for (var j = 0; j < search[i].length; j++) {
-            if (WhichComponentSame(search[i][j]) >= 5) {
-                if(bomb.length === 0){
+            if (WhichComponentSame(search[i][j]) > 3) {
+                if(position.bomb === false){
                     setTable(search[i][j], componentKind.searchStatic)
                 }else{
                     setTable(search[i][j], componentKind.searchBombStatic)
                 }
-            }else if(WhichComponentSame(search[i][j]) === 3){
-                if(bomb.length === 0){
-                    setTable(search[i][j], componentKind.weightSearchStatic)
+            }else{
+                if(position.bomb === false){
+                    setTable(search[i][j], StartEndBombWeight(WhichComponentSame(search[i][j]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
                 }else{
-                    setTable(search[i][j], componentKind.weightSearchBombStatic)
+                    setTable(search[i][j], StartEndBombWeight(WhichComponentSame(search[i][j]), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearchBomb, componentKind.weightSearchBomb))
                 }
             }
         }
     }
     for (i = 0; i < bomb.length; i++) {
         for (j = 0; j < bomb[i].length; j++) {
-            if (WhichComponentSame(bomb[i][j]) >= 5) {
+            if (WhichComponentSame(bomb[i][j]) > 3) {
                 setTable(bomb[i][j], componentKind.searchStatic)
-            }else if(WhichComponentSame(bomb[i][j]) === 3){
-                setTable(bomb[i][j], componentKind.weightSearchStatic)
+            }else{
+                setTable(bomb[i][j], StartEndBombWeight(WhichComponentSame(bomb[i][j]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearchStatic))
             }
         }
     }
@@ -139,7 +139,7 @@ export function FinalAnimation(search, path, bomb){
         if (WhichComponentSame(path[i]) > 3) {
             setTable(path[i], componentKind.pathStatic)
         }else{
-            setTable(path[i], StartEndBombWeight(WhichComponentSame(path[i]), componentKind.startPathStatic, componentKind.endPathStatic, componentKind.bombPathStatic, componentKind.weightPathStatic))
+            setTable(path[i], StartEndBombWeight(WhichComponentSame(path[i]), componentKind.startPath, componentKind.pathHead, componentKind.bombPath, componentKind.weightPath))
         }
     }
 }

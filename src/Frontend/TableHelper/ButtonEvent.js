@@ -84,13 +84,13 @@ function ButtonEvent() {
             if(WhichComponentSame(i) >= 5) {
                 setTable(i, componentKind.background)
             }else if(WhichComponentSame(i) === 3){
-                setTable(i, componentKind.weightStatic)
+                setTable(i, componentKind.weight)
             }else if(WhichComponentSame(i) === 2){
-                setTable(i, componentKind.bombStatic)
+                setTable(i, componentKind.bomb)
             }else if(WhichComponentSame(i) === 1){
-                setTable(i, componentKind.endStatic)
+                setTable(i, componentKind.end)
             }else if(WhichComponentSame(i) === 0){
-                setTable(i, componentKind.startStatic)
+                setTable(i, componentKind.start)
             }
         }
     }

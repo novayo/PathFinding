@@ -66,14 +66,14 @@ export const componentKind = {
     weightSearchStatic: "weightSearchStatic",
     weightPathStatic: "weightPathStatic",
 
-    startStatic: "startStatic",
-    startPathStatic: "startPathStatic",
+    //startStatic: "startStatic",           //記得刪除CSS
+    //startPathStatic: "startPathStatic", 
 
-    endStatic: "endStatic",
-    endPathStatic: "endPathStatic",
+    //endStatic: "endStatic",
+    //endPathStatic: "endPathStatic",
 
-    bombStatic: "bombStatic",
-    bombPathStatic: "bombPathStatic",
+    //bombStatic: "bombStatic",
+    //bombPathStatic: "bombPathStatic",
 
     searchStatic: "searchStatic",
     searchBombStatic: "searchBombStatic",
