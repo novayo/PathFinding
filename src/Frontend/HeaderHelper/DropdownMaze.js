@@ -9,8 +9,10 @@ import RecursiveDivision from '../../Backend/Maze/RecursiveDivision';
 import RecursiveDivision_Horizontal from '../../Backend/Maze/RecursiveDivision_Horizontal';
 import RecursiveDivision_Vertical from '../../Backend/Maze/RecursiveDivision_Vertical';
 import Kruskal from '../../Backend/Maze/Kruskal';
-import Basic_Random_Maze from '../../Backend/Maze/Basic_Random_Maze'
-import Basic_Weight_Maze from '../../Backend/Maze/Basic_Weight_Maze'
+import Basic_Random_Maze from '../../Backend/Maze/Basic_Random_Maze';
+import Basic_Weight_Maze from '../../Backend/Maze/Basic_Weight_Maze';
+import Prim from '../../Backend/Maze/Prim';
+import Eller from '../../Backend/Maze/Eller';
 
 function DropdownMaze() {
     const sysStatus = useContext(sysStatusContext);
@@ -50,6 +52,12 @@ function DropdownMaze() {
             case "Maze_Kruskal":
                 buttonEvent.CreateMaze(Kruskal(), speed);
                 break;
+            case "Maze_Prim":
+                buttonEvent.CreateMaze(Prim(), speed);
+                break;
+            case "Maze_Eller":
+                buttonEvent.CreateMaze(Eller(), speed);
+                break;
             default:
                 break;
         }
@@ -68,6 +76,8 @@ function DropdownMaze() {
                 <NavDropdown.Item eventKey="Maze_Simple_stair_pattern">Simple Stair Pattern</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Maze_Binary_Tree">Binary Tree Generator</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Maze_Kruskal">Kruskal's Maze</NavDropdown.Item>
+                <NavDropdown.Item eventKey="Maze_Prim">Prim's Maze</NavDropdown.Item>
+                <NavDropdown.Item eventKey="Maze_Eller">Eller's Maze</NavDropdown.Item>
             </NavDropdown>
         </Nav.Item>
     )

@@ -78,9 +78,10 @@ function BFS(startCallback, speed) {
         } else {
             retBombPath = retBombPath.concat(searchPath);
         }
-        retShortestPath = retShortestPath.concat(shortest);
 
         if (distance.get(endPos) === -1) break; // 如果第一次沒找到終點，直接跳出
+        retShortestPath = retShortestPath.concat(shortest);
+
     }
     // 執行 start 動畫
     startCallback(retSearchPath, retShortestPath, speed, retBombPath);
