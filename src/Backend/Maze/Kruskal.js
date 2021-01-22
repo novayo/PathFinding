@@ -7,6 +7,7 @@ import { position } from '../../Core';
 function Kruskal() {
     var wallSet = new Set();
     var walls = [];
+    var weights = [];
 
     // 建立parent與rank陣列 來判斷是否有cycle及union
     var parent = {};
@@ -74,7 +75,7 @@ function Kruskal() {
         }
     }
 
-    return walls;
+    return [walls, weights];
 }
 
 /* Disjoint Set */

@@ -3,6 +3,7 @@ import { position } from '../../Core';
 const probability = 0.35
 
 function Basic_Weight_Maze(){
+    const wall = []
     const weight = []
 
     const [height, width] = [position.rowSize, position.colSize]
@@ -22,7 +23,7 @@ function Basic_Weight_Maze(){
         }
     }
 
-    return weight
+    return [wall, weight]
 }
 
 export default Basic_Weight_Maze

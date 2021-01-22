@@ -8,11 +8,12 @@ const direction = {
 
 function RecursiveDivision_Vertical() {
     var walls = CreateAround();
+    var weights = [];
 
     // true代表水平，false代表垂直
     // 改用最後一個參數選定要跑哪個方向
     DoRecursiveDivision(0, 0, position.colSize, position.rowSize, walls, false);
-    return walls;
+    return [walls, weights];
 }
 
 // 與正常版的差別在於，選擇切水平或是垂直的條件不同

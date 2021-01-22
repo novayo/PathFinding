@@ -4,6 +4,7 @@ const probability = 0.2
 
 function Basic_Random_Maze(){
     const wall = []
+    const weights = []
 
     const [height, width] = [position.rowSize, position.colSize]
     for(var i = 0; i < height; i++){
@@ -22,7 +23,7 @@ function Basic_Random_Maze(){
         }
     }
 
-    return wall
+    return [wall, weights]
 }
 
 export default Basic_Random_Maze

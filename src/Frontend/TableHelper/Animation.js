@@ -89,14 +89,17 @@ export function PathAnimation(path, speed, count, myCallbackFunction = null) {
     Animation(path, speed, count, componentKind.path, myCallbackFunction)
 }
 
-export function MazeAnimation(maze, speed, count, myCallbackFunction = null) {
+export function MazeAnimation(maze, speed, count, myCallbackFunction = null) { // maze = [walls, weights]
     speed = speed / 2
-    Animation(maze, speed, count, componentKind.wall, myCallbackFunction)
+    Animation(maze[0], speed, count, componentKind.wall, myCallbackFunction)
 }
 
-export function RandomMazeAnimation(maze, kind){
-    for(var i = 0; i < maze.length; i++){
-        setTable(maze[i], kind, true)
+export function FinalMazeAnimation(maze){ // maze = [walls, weights]
+    for(var i = 0; i < maze[0].length; i++){
+        setTable(maze[0][i], componentKind.wall, true)
+    }
+    for(i = 0; i < maze[1].length; i++){
+        setTable(maze[1][i], componentKind.weight, true)
     }
 }
 

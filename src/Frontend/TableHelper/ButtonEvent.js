@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind, synchronize } from './TableIndex'
-import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation, RandomMazeAnimation } from './Animation'
+import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation } from './Animation'
 import { sysStatusContext, algorithmContext, bombContext, speedContext } from '../../Core'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
@@ -23,9 +23,9 @@ function ButtonEvent() {
         }
     }
 
-    const CreateMaze = (maze, speed, kind = componentKind.wall) => {
+    const CreateMaze = (maze, speed) => {
         if(speed === 0){
-            RandomMazeAnimation(maze, kind)            
+            FinalMazeAnimation(maze)         
         }else{
             sysStatus.set("RUNNING")
             MazeAnimation(maze, speed, 0, () => sysStatus.set("IDLE"))

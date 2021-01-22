@@ -8,8 +8,9 @@ const direction = {
 
 function RecursiveDivision() {
     var walls = CreateAround();
+    var weights = [];
     DoRecursiveDivision(0, 0, position.colSize, position.rowSize, walls);
-    return walls;
+    return [walls, weights];
 }
 
 // walls 為 pass-by-reference，動態加入生成牆壁

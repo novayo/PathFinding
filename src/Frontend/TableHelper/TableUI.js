@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import MouseEvent from './MouseEvent'
 import { tableVar, componentKind } from './TableIndex'
-
+import { position } from '../../Core/index'
 
 function TableUI() {
     const [rowSize, colSize, size] = [tableVar.rowSize, tableVar.colSize, tableVar.size]
@@ -26,8 +26,8 @@ function TableUI() {
         )
 
     useEffect(() => {
-        document.getElementById((Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 4)).toString()).className = componentKind.start
-        document.getElementById((Math.floor(tableVar.rowSize / 2 + 1) * tableVar.colSize - Math.floor(tableVar.colSize / 4)).toString()).className = componentKind.end
+        document.getElementById((position.start[0] * tableVar.colSize + position.start[1]).toString()).className = componentKind.start
+        document.getElementById((position.end[0] * tableVar.colSize + position.end[1]).toString()).className = componentKind.end
     }, [])
     
     

@@ -1,10 +1,10 @@
 import React from 'react'
-import { tableVar, weightValueRange } from '../Frontend/TableHelper/TableIndex'
+import { tableVar, weightValueRange, adjust } from '../Frontend/TableHelper/TableIndex'
 
 // component position
 export var position = {
-    start: [Math.floor(tableVar.rowSize / 2), Math.floor(tableVar.colSize / 4)],
-    end: [Math.floor(tableVar.rowSize / 2), tableVar.colSize - Math.floor(tableVar.colSize / 4)],
+    start: [adjust(Math.floor(tableVar.rowSize / 2)), adjust(Math.floor(tableVar.colSize / 4))],
+    end: [adjust(Math.floor(tableVar.rowSize / 2)), adjust(tableVar.colSize - Math.floor(tableVar.colSize / 4))],
     bomb: false,
     wall: [],
     weight: [],

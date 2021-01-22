@@ -2,6 +2,7 @@ import { position } from '../../Core';
 
 function Simple_Stair_Pattern() {
     var walls = [];
+    var weights = [];
     var towardUp = true;
     var x = position.rowSize;
 
@@ -21,7 +22,7 @@ function Simple_Stair_Pattern() {
         }
         walls.push([x, y]);
     }
-    return walls;
+    return [walls, weights];
 }
 
 export default Simple_Stair_Pattern;

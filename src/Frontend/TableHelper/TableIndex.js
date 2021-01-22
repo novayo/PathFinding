@@ -4,16 +4,18 @@ import { position } from '../../Core/index'
 
 const size = 23
 
-function adjustSize(size) {
+export function adjust(size) {
     if (size % 2 === 0) {
-        size -= 1
+        return size - 1
+    }else{
+        return size
     }
-    return size
+    
 }
 
 export const tableVar = {
-    rowSize: adjustSize(Math.floor(window.screen.availHeight / size) - 16),
-    colSize: adjustSize(Math.floor(window.screen.availWidth / size)),
+    rowSize: adjust(Math.floor(window.screen.availHeight / size) - 16),
+    colSize: adjust(Math.floor(window.screen.availWidth / size)),
     size: size,
     id: 0,
     newId: 0

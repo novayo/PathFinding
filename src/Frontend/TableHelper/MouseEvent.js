@@ -32,7 +32,7 @@ function MouseEvent() {
     const MouseDownHandler = (e) => {
         // console.log("MouseDownHandler " + e.target.id)
 
-        if (sysStatus.get !== "IDLE") {
+        if (sysStatus.get !== "IDLE" || componentKind.add === false) {
             return
         }
 
@@ -53,7 +53,7 @@ function MouseEvent() {
     const MouseUpHandler = (e) => {
         // console.log("MouseUpHandler " + e.target.id)
 
-        if (sysStatus.get !== "IDLE") {
+        if (sysStatus.get !== "IDLE" || componentKind.add === false) {
             return
         }
 
@@ -67,7 +67,7 @@ function MouseEvent() {
     const OnMouseEnterHanlder = (e) => {
         // console.log("OnMouseEnterHanlder " + e.target.id)
 
-        if (sysStatus.get !== "IDLE") {
+        if (sysStatus.get !== "IDLE" || componentKind.add === false) {
             return
         }
 

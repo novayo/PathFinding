@@ -4,6 +4,7 @@ import { CreateAround } from './Core';
 function Binary_Tree() {
     var wallSet = new Set();
     var walls = CreateAround(wallSet);
+    var weights = [];
     var x = 0;
     var y = 0;
 
@@ -39,7 +40,7 @@ function Binary_Tree() {
         }
     }
 
-    return walls;
+    return [walls, weights];
 }
 
 export default Binary_Tree;
