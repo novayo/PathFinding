@@ -90,6 +90,7 @@ export function PathAnimation(path, speed, count, myCallbackFunction = null) {
 }
 
 export function MazeAnimation(maze, speed, count, myCallbackFunction = null) {
+    speed = speed / 2
     Animation(maze, speed, count, componentKind.wall, myCallbackFunction)
 }
 
