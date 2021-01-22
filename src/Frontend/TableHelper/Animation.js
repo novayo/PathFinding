@@ -105,9 +105,9 @@ export function FinalMazeAnimation(maze){ // maze = [walls, weights]
 
 export function FinalAnimation(search, path, bomb){
     if(bomb.length === 0){
-        setTable(position.start, componentKind.searchStatic) 
+        setTable(position.start, componentKind.startSearch) 
     }else{
-        setTable(position.start, componentKind.searchBombStatic)
+        setTable(position.start, componentKind.startSearchBomb)
     }
     for (var i = 0; i < search.length; i++) {
         for (var j = 0; j < search[i].length; j++) {
