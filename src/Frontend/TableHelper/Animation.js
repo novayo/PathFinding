@@ -119,9 +119,9 @@ export function FinalAnimation(search, path, bomb){
                 }
             }else{
                 if(position.bomb === false){
-                    setTable(search[i][j], StartEndBombWeight(WhichComponentSame(search[i][j]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
+                    setTable(search[i][j], StartEndBombWeight(WhichComponentSame(search[i][j]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearchStatic))
                 }else{
-                    setTable(search[i][j], StartEndBombWeight(WhichComponentSame(search[i][j]), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearchBomb, componentKind.weightSearchBomb))
+                    setTable(search[i][j], StartEndBombWeight(WhichComponentSame(search[i][j]), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearchBomb, componentKind.weightSearchBombStatic))
                 }
             }
         }
@@ -139,7 +139,7 @@ export function FinalAnimation(search, path, bomb){
         if (WhichComponentSame(path[i]) > 3) {
             setTable(path[i], componentKind.pathStatic)
         }else{
-            setTable(path[i], StartEndBombWeight(WhichComponentSame(path[i]), componentKind.startPath, componentKind.pathHead, componentKind.bombPath, componentKind.weightPath))
+            setTable(path[i], StartEndBombWeight(WhichComponentSame(path[i]), componentKind.startPath, componentKind.pathHead, componentKind.bombPath, componentKind.weightPathStatic))
         }
     }
 }
