@@ -79,11 +79,11 @@ code {
 .buttonEnable{
   background-color: var(--button-enable-color);
   color: var(--button-enable-text-color);
-  font-size: 2.7vh;
+  font-size: 1.3vw;
   border: none;
-  border-radius: 1.5vh;
+  border-radius: 1vw;
   display: block;
-  padding: 1.2vh;
+  padding: 0.7vw;
 }
 
 .buttonEnable:focus{
@@ -94,11 +94,11 @@ code {
 .buttonDisable{
   background-color: var(--button-disable-color);
   color: var(--button-disable-text-color);
-  font-size: 2.7vh;
+  font-size: 1.3vw;
   border: none;
-  border-radius: 1.5vh;
+  border-radius: 1vw;
   display: block;
-  padding: 1.2vh;
+  padding: 0.7vw;
 }
 
 .buttonDisable:focus{
@@ -116,8 +116,8 @@ code {
 }
 
 #mainInfo > ul li > div{
-  width: 2.6vh; /*圖片寬度*/
-  height: 2.6vh; /*圖片高度*/
+  width: 1.4vw; /*圖片寬度*/
+  height: 1.4vw; /*圖片高度*/
   display: inline-block; /*流動式的自動排版，才能使用width跟height*/
   position: relative; /*能改變相對位置*/
   top: 0.3em; /*高度置中*/
@@ -167,38 +167,37 @@ code {
   font-family: 'Righteous', cursive;
   text-align: center;
   font-weight: 900;
-  font-size: 4.5vh;
+  font-size: 2.5vw;
 
   color: var(--text-color);
 }
 
 .Modal-Page{
   font-family: 'Righteous', cursive;
-  margin-right: 3vh;
-  font-size: 3vh;
+  margin-right: 2vw;
+  font-size: 1.7vw;
 }
 
 .Modal-Body{
-  height: 50vh;
-  max-height: 50vh;
+  height: 30vw;
+  min-height: 30vw;
 }
 
 .Modal-BodyText{
   font-family: 'Righteous', cursive;
   text-align: center;
-  font-size: 2.5vh;
+  font-size: 1.4vw;
 }
 
 .Modal-BodyText1{
   font-family: 'Righteous', cursive;
   text-align: center;
-  font-size: 1.9vh;
+  font-size: 1vw;
 }
 
 .Model-Button-success{
   font-family: 'Righteous', cursive;
   color: var(--button-enable-text-color) !important;
-  font-size: 1.9vh;
 }
 
 .Model-Button-success:hover, .Model-Button-success:focus{
@@ -209,7 +208,6 @@ code {
 .Model-Button-danger{
   font-family: 'Righteous', cursive;
   color: var(--button-disable-text-color) !important;
-  font-size: 1.9vh;
 }
 
 .Model-Button-danger:hover, .Model-Button-danger:focus{
@@ -218,8 +216,8 @@ code {
 }
 
 .Logo{
-  width: 30vh; /*圖片寬度*/
-  height: 30vh; /*圖片高度*/
+  width: 19vw; /*圖片寬度*/
+  height: 19vw; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -228,8 +226,8 @@ code {
 }
 
 .ShortestPath{
-  width: 30vh; /*圖片寬度*/
-  height: 30vh; /*圖片高度*/
+  width: 19vw; /*圖片寬度*/
+  height: 19vw; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -249,8 +247,8 @@ code {
 }
 
 .Maze{
-  width: 30vh; /*圖片寬度*/
-  height: 30vh; /*圖片高度*/
+  width: 19vw; /*圖片寬度*/
+  height: 19vw; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -259,8 +257,8 @@ code {
 }
 
 .WallWeight{
-  width: 30vh; /*圖片寬度*/
-  height: 30vh; /*圖片高度*/
+  width: 19vw; /*圖片寬度*/
+  height: 19vw; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -269,8 +267,8 @@ code {
 }
 
 .AddBomb{
-  width: 30vh; /*圖片寬度*/
-  height: 30vh; /*圖片高度*/
+  width: 19vw; /*圖片寬度*/
+  height: 19vw; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -279,8 +277,8 @@ code {
 }
 
 .StartDrag{
-  width: 30vh; /*圖片寬度*/
-  height: 30vh; /*圖片高度*/
+  width: 19vw; /*圖片寬度*/
+  height: 19vw; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -289,8 +287,8 @@ code {
 }
 
 .Other{
-  width: 90vh; /*圖片寬度*/
-  height: 30vh; /*圖片高度*/
+  width: 55vw; /*圖片寬度*/
+  height: 19vw; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -302,7 +300,7 @@ code {
     font-family: 'Roboto', sans-serif;
     text-align: center;
     color: var(--text-color);
-    font-size: 3vh;
+    font-size: 1.9vw;
     margin-top: 2%;
 }
 
@@ -322,7 +320,7 @@ code {
 
 .navbar-logo{
   font-family: 'Righteous', cursive;
-  font-size: 4vh !important;
+  font-size: 2vw !important;
   color: var(--nav-text-color) !important;
 }
 
@@ -333,7 +331,7 @@ code {
 
 .nav-item{
   margin: auto;
-  font-size: 2.2vh;
+  font-size: 1.3vw;
 }
 
 /* https://stackoverflow.com/questions/64196389/dark-dropdown-items-in-react-bootstrap */
