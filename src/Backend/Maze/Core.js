@@ -35,6 +35,15 @@ export const CreateAround = (wallSet = new Set()) => {
     return walls;
 }
 
+export const IndexOf = (array, target) => {
+    for (let i = 0; i < array.length; i++) {
+        if (target.toString() === array[i].toString()) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 export const Random = (n) => {
     return Math.floor(Math.random() * n);
 }

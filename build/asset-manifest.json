@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/PathFinding/static/css/main.b567d907.chunk.css",
-    "main.js": "/PathFinding/static/js/main.e5bea093.chunk.js",
-    "main.js.map": "/PathFinding/static/js/main.e5bea093.chunk.js.map",
-    "runtime-main.js": "/PathFinding/static/js/runtime-main.9d791d18.js",
-    "runtime-main.js.map": "/PathFinding/static/js/runtime-main.9d791d18.js.map",
+    "main.css": "/PathFinding/static/css/main.c3bf44b8.chunk.css",
+    "main.js": "/PathFinding/static/js/main.0dc653a4.chunk.js",
+    "main.js.map": "/PathFinding/static/js/main.0dc653a4.chunk.js.map",
+    "runtime-main.js": "/PathFinding/static/js/runtime-main.79e4969b.js",
+    "runtime-main.js.map": "/PathFinding/static/js/runtime-main.79e4969b.js.map",
     "static/css/2.20aa2d7b.chunk.css": "/PathFinding/static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.bc07cfb7.chunk.js": "/PathFinding/static/js/2.bc07cfb7.chunk.js",
-    "static/js/2.bc07cfb7.chunk.js.map": "/PathFinding/static/js/2.bc07cfb7.chunk.js.map",
-    "static/js/3.3ad5b26f.chunk.js": "/PathFinding/static/js/3.3ad5b26f.chunk.js",
-    "static/js/3.3ad5b26f.chunk.js.map": "/PathFinding/static/js/3.3ad5b26f.chunk.js.map",
+    "static/js/2.00d6e788.chunk.js": "/PathFinding/static/js/2.00d6e788.chunk.js",
+    "static/js/2.00d6e788.chunk.js.map": "/PathFinding/static/js/2.00d6e788.chunk.js.map",
+    "static/js/3.c7d72468.chunk.js": "/PathFinding/static/js/3.c7d72468.chunk.js",
+    "static/js/3.c7d72468.chunk.js.map": "/PathFinding/static/js/3.c7d72468.chunk.js.map",
     "index.html": "/PathFinding/index.html",
     "static/css/2.20aa2d7b.chunk.css.map": "/PathFinding/static/css/2.20aa2d7b.chunk.css.map",
-    "static/css/main.b567d907.chunk.css.map": "/PathFinding/static/css/main.b567d907.chunk.css.map",
-    "static/js/2.bc07cfb7.chunk.js.LICENSE.txt": "/PathFinding/static/js/2.bc07cfb7.chunk.js.LICENSE.txt",
+    "static/css/main.c3bf44b8.chunk.css.map": "/PathFinding/static/css/main.c3bf44b8.chunk.css.map",
+    "static/js/2.00d6e788.chunk.js.LICENSE.txt": "/PathFinding/static/js/2.00d6e788.chunk.js.LICENSE.txt",
     "static/media/index.css": "/PathFinding/static/media/WeightNode.76d99ad1.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.9d791d18.js",
+    "static/js/runtime-main.79e4969b.js",
     "static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.bc07cfb7.chunk.js",
-    "static/css/main.b567d907.chunk.css",
-    "static/js/main.e5bea093.chunk.js"
+    "static/js/2.00d6e788.chunk.js",
+    "static/css/main.c3bf44b8.chunk.css",
+    "static/js/main.0dc653a4.chunk.js"
   ]
 }
