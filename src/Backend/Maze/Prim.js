@@ -1,4 +1,5 @@
 import { position } from '../../Core';
+import { Random, RandomEven } from './Core';
 
 // 從一點出發找四周圍最小的權重
 // 但隨機迷宮可以改成
@@ -10,12 +11,12 @@ function Prim() {
 
     // Random Pick a position
     // 取偶數，因為牆壁長度為３，棋盤長寬為奇數，所以取偶數才能伸展到四邊
-    var startNode = [2 + Random(position.rowSize - 4), 2 + Random(position.colSize - 4)];
+    var startNode = [2 + RandomEven(position.rowSize - 4), 2 + RandomEven(position.colSize - 4)];
     var visited = new Set();
     var queue = [startNode];
 
     while (queue.length > 0) {
-        var randomIndex = Random(queue.length); // random pick a node
+        var randomIndex = RandomEven(queue.length); // random pick a node
         var node = queue[randomIndex];
 
         var availableDirection = [];
@@ -54,11 +55,6 @@ function Prim() {
         queue.push(node[0]);
     }
     return [walls, weights];
-}
-
-
-function Random(n) {
-    return Math.floor(Math.random() * n / 2) * 2;
 }
 
 export default Prim;

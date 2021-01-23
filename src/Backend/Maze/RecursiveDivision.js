@@ -1,24 +1,36 @@
 import { position } from '../../Core';
-import { CreateAround } from './Core';
+import { CreateAround, Random, RandomEven } from './Core';
 
 const direction = {
     horizontal: 0,
     vertical: 1
 }
 
-function RecursiveDivision() {
+function RecursiveDivision(whichAlgo) {
     var walls = CreateAround();
     var weights = [];
-    DoRecursiveDivision(0, 0, position.colSize, position.rowSize, walls);
+
+    // true代表水平，false代表垂直
+    // 改用最後一個參數選定要跑哪個方向
+    switch (whichAlgo) {
+        case "RecursiveDivision":
+            DoRecursiveDivision(0, 0, position.colSize, position.rowSize, walls);
+            break;
+        case "RecursiveDivision_Vertical":
+            DoRecursiveDivision(0, 0, position.colSize, position.rowSize, walls, true);
+            break;
+        case "RecursiveDivision_Horizontal":
+            DoRecursiveDivision(0, 0, position.colSize, position.rowSize, walls, false);
+            break;
+        default:
+            break;
+    }
     return [walls, weights];
 }
 
-// walls 為 pass-by-reference，動態加入生成牆壁
-// x, y, width, height均會包含 牆壁，要生成的範圍會在這個牆壁內
-// 為了保證道路暢通 且 周圍要都是牆壁，因此已經設計成棋盤長寬均為奇數，width, height也必為為奇數
-// 所以x, y必為偶數也就是牆壁必為偶數，則道路必為奇數
-// 因此 就能保證沒有死路，因為選擇牆壁的話（偶數），絕對不會擋到路（奇數）
-function DoRecursiveDivision(x, y, width, height, walls) {
+// 與正常版的差別在於，選擇切水平或是垂直的條件不同
+// 水平偏移（horizontal skew）：表示優先跑左邊，所以第一個遞迴規定跑水平，第二個規定跑垂直
+function DoRecursiveDivision(x, y, width, height, walls, boolDirection = null) {
     // 而且為了保證道路暢通，兩個牆壁+一個空白才會形成一個道路
     // 因此長跟寬必須至少大於3
     if (width < 4 || height < 4) {
@@ -27,9 +39,19 @@ function DoRecursiveDivision(x, y, width, height, walls) {
 
     // 選擇切割方向：挑選短的那邊，一樣就random
     var curDirection = null;
-    if (width < height) curDirection = direction.horizontal;
-    else if (width > height) curDirection = direction.vertical;
-    else curDirection = Math.round(Math.random());
+    if (boolDirection === null) {
+        if (width < height) curDirection = direction.horizontal;
+        else if (width > height) curDirection = direction.vertical;
+        else curDirection = Random(2);
+    } else {
+        if (boolDirection) {
+            curDirection = direction.vertical;
+        }
+        else {
+            curDirection = direction.horizontal;
+        }
+    }
+
 
     var door;
     if (curDirection === direction.horizontal) {
@@ -37,11 +59,11 @@ function DoRecursiveDivision(x, y, width, height, walls) {
         // 則 x建立牆壁的範圍為 2~8 (牆壁跟牆壁中間要留一條路)
 
         // 因此x要x0+2，而剩下的random範圍為0~6且只能為偶數
-        var randomX = x + 2 + Random_0_to_n(height - 4);
+        var randomX = x + 2 + RandomEven(height - 4);
 
         // 假設width = 9，表示y=y0跟y=8的那整條都是牆壁
         // 開路的範圍為 y0+ 1~7（但開路必為奇數），而剩下的random範圍為0~6且只能為偶數
-        door = y + 1 + Random_0_to_n(width - 3);
+        door = y + 1 + RandomEven(width - 3);
 
         // 建立牆壁，範圍從 y0~y0+width
         for (var _y = y; _y < y + width; _y++) {
@@ -51,14 +73,14 @@ function DoRecursiveDivision(x, y, width, height, walls) {
         }
 
         // 跑 x,y,width 且 height變成了剛剛選的高-x0（跑上面）
-        DoRecursiveDivision(x, y, width, randomX - x, walls);
+        DoRecursiveDivision(x, y, width, randomX - x, walls, boolDirection); // 第一個規定跑水平
 
         // 跑 新x, y, width 且 height變成了 目前總高 - 剛剛選的高度(跑下面)
-        DoRecursiveDivision(randomX, y, width, height - (randomX - x), walls);
+        DoRecursiveDivision(randomX, y, width, height - (randomX - x), walls, !boolDirection); // 第二個規定跑垂直
     } else {
         // 垂直雷同
-        var randomY = y + 2 + Random_0_to_n(width - 4);
-        door = x + 1 + Random_0_to_n(height - 3);
+        var randomY = y + 2 + RandomEven(width - 4);
+        door = x + 1 + RandomEven(height - 3);
 
         for (var _x = x; _x < x + height; _x++) {
             if (_x !== door) {
@@ -66,14 +88,9 @@ function DoRecursiveDivision(x, y, width, height, walls) {
             }
         }
 
-        DoRecursiveDivision(x, y, randomY - y, height, walls);
-        DoRecursiveDivision(x, randomY, width - (randomY - y), height, walls);
+        DoRecursiveDivision(x, y, randomY - y, height, walls, boolDirection); // 第一個規定跑水平
+        DoRecursiveDivision(x, randomY, width - (randomY - y), height, walls, !boolDirection); // 第二個規定跑垂直
     }
-}
-
-// 只回傳偶數
-function Random_0_to_n(n) {
-    return Math.floor(Math.random() * n / 2) * 2;
 }
 
 export default RecursiveDivision;

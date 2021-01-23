@@ -7,10 +7,10 @@ const size = 23
 export function adjust(size) {
     if (size % 2 === 0) {
         return size - 1
-    }else{
+    } else {
         return size
     }
-    
+
 }
 
 export const tableVar = {

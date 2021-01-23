@@ -1,4 +1,5 @@
 import { position } from '../../Core';
+import { Random, RandomEven } from './Core';
 
 // Kruskal 雖然是要找最小權重，但是maze的權重都是相同的
 // 因此此演算法就變成，隨機找一個，跟周圍相連，且不要形成cycle
@@ -117,12 +118,5 @@ function Union(parentArray, rankArray, index1, index3) {
     }
 }
 
-function Random(n) {
-    return Math.floor(Math.random() * n);
-}
-
-function RandomEven(n) {
-    return Math.floor(Math.random() * n / 2) * 2;
-}
 
 export default Kruskal;

@@ -5,11 +5,6 @@ import ButtonEvent from '../TableHelper/ButtonEvent';
 import BFS from '../../Backend/Algorithms/BFS';
 import DFS from '../../Backend/Algorithms/DFS';
 import Dijkstra from '../../Backend/Algorithms/Dijkstra';
-import Astar from '../../Backend/Algorithms/Astar';
-import GreedyBestFirstSearch from '../../Backend/Algorithms/GreedyBestFirstSearch';
-import Swarm from '../../Backend/Algorithms/Swarm';
-import ConvergentSwarm from '../../Backend/Algorithms/ConvergentSwarm';
-import BidirectionSwarm from '../../Backend/Algorithms/BidirectionSwarm';
 
 const NavButton = () => {
 
@@ -79,22 +74,27 @@ const NavButton = () => {
             buttonEvent.ClearPath();
             switch (algoContext.get) {
                 case "Algorithm_Dijkstra":
-                    Dijkstra(buttonEvent.Start, speed.get[1]);
+                    Dijkstra("Dijkstra", buttonEvent.Start, speed.get[1]);
                     break;
                 case 'Algorithm_AStar':
-                    Astar(buttonEvent.Start, speed.get[1]);
+                    Dijkstra("Astar", buttonEvent.Start, speed.get[1]);
+                    // Astar(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Greedy_Best_First":
-                    GreedyBestFirstSearch(buttonEvent.Start, speed.get[1]);
+                    Dijkstra("GreedyBestFirstSearch", buttonEvent.Start, speed.get[1]);
+                    // GreedyBestFirstSearch(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Swarm":
-                    Swarm(buttonEvent.Start, speed.get[1]);
+                    Dijkstra("Swarm", buttonEvent.Start, speed.get[1]);
+                    // Swarm(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Convergent_Swarm":
-                    ConvergentSwarm(buttonEvent.Start, speed.get[1]);
+                    Dijkstra("ConvergentSwarm", buttonEvent.Start, speed.get[1]);
+                    // ConvergentSwarm(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Bidrectional_Swarm":
-                    BidirectionSwarm(buttonEvent.Start, speed.get[1]);
+                    Dijkstra("BidirectionSwarm", buttonEvent.Start, speed.get[1]);
+                    // BidirectionSwarm(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Breadth_First":
                     BFS(buttonEvent.Start, speed.get[1]);

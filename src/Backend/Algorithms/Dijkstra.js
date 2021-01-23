@@ -1,27 +1,27 @@
 import { position } from '../../Core';
-import PriorityQueue from 'javascript-priority-queue'; //https://www.npmjs.com/package/javascript-priority-queue
 
-function Dijkstra(startCallback, speed) {
+function Dijkstra(whichAlgo, startCallback, speed) {
     var retSearchPath = [];
     var retBombPath = [];
     var retShortestPath = [];
+    console.log(position.weight)
 
     if (position.bomb) {
-        retShortestPath = retShortestPath.concat(DoDijkstra(position.start, position.bomb, retSearchPath));
+        retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.start, position.bomb, retSearchPath))
 
         // 有找到最小路徑才繼續
         if (retShortestPath.length > 0) {
-            retShortestPath = retShortestPath.concat(DoDijkstra(position.bomb, position.end, retBombPath));
+            retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.bomb, position.end, retBombPath))
         }
     } else {
-        retShortestPath = retShortestPath.concat(DoDijkstra(position.start, position.end, retSearchPath));
+        retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.start, position.end, retSearchPath))
     }
     // 執行 start 動畫
     startCallback(retSearchPath, retShortestPath, speed, retBombPath);
 }
 
-/// 回傳最短路徑
-function DoDijkstra(startPos, endPos, searchPath) {
+// 回傳最短路徑
+function DoDijkstra(whichAlgo, startPos, endPos, searchPath) {
     /*  //https://medium.com/basecs/finding-the-shortest-path-with-a-little-help-from-dijkstra-613149fbdc8e
         Create Dijkstra table 
         
@@ -30,69 +30,220 @@ function DoDijkstra(startPos, endPos, searchPath) {
             * use priority queue to pick the pos which contains current shortest disance.
     */
 
-    // 先假設權重都是1
-    var i, j;
-    var weights = {}
-    for (i = 0; i < position.rowSize; i++) {
-        for (j = 0; j < position.colSize; j++) {
-            weights[[i, j]] = 0;
-        }
-    }
-
-    var current_shortest_path = new PriorityQueue('min');
-    var table = {}
 
     // 設定table: 起始點為0，其他為無限大，所有的previous vertex均為null
     // 設定目前最短路徑的queue
+    var table = [{}, {}];
+    var i, j;
     for (i = 0; i < position.rowSize; i++) {
         for (j = 0; j < position.colSize; j++) {
-            var pos = [i, j]
-            table[pos] = [Infinity, null]; // 起始點走到pos的最短距離，上一個點
+            var pos = [i, j];
+
+            // 起始點走到pos的最短距離，上一個點，direction，total距離
+            table[0][pos] = [Infinity, null, null, Infinity];
+            table[1][pos] = [Infinity, null, null, Infinity]; // for 決定起始點（bidirection
         }
     }
-    table[startPos] = [0, null]; // 設定起始點
-    current_shortest_path.enqueue(startPos, 0); // 設定目前最短路徑的queue
 
+    var start = null; // 決定起始點（bidirection 會有兩個起點）
+    var end = null; // 決定終點（可能bomb or end）
+    var unvisited = [[], []]; // [0]: start, [1]: end
+    switch (whichAlgo) {
+        case "Dijkstra":
+            table[0][startPos] = [0, null, "up", 0]; // 設定起始點
+            unvisited[0].push(startPos); // 設定目前最短路徑的queue
+            start = [startPos];
+            end = [endPos];
+            break;
+        case "Astar":
+            table[0][startPos] = [0, null, "up", 0]; // 設定起始點
+            unvisited[0].push(startPos); // 設定目前最短路徑的queue
+            start = [startPos];
+            end = [endPos];
+            break;
+        case "Swarm":
+            table[0][startPos] = [0, null, "right", 0]; // 設定起始點
+            unvisited[0].push(startPos); // 設定目前最短路徑的queue
+            start = [startPos];
+            end = [endPos];
+            break;
+        case "GreedyBestFirstSearch":
+            table[0][startPos] = [0, null, "up", 0]; // 設定起始點
+            unvisited[0].push(startPos); // 設定目前最短路徑的queue
+            start = [startPos];
+            end = [endPos];
+            break;
+        case "ConvergentSwarm":
+            table[0][startPos] = [0, null, "right", 0]; // 設定起始點
+            unvisited[0].push(startPos); // 設定目前最短路徑的queue
+            start = [startPos];
+            end = [endPos];
+            break;
+        case "BidirectionSwarm":
+            table[0][startPos] = [0, null, "right", 0]; // 設定起始點
+            table[1][endPos] = [0, null, "left", 0]; // 設定起始點
+            unvisited[0].push(startPos); // 設定目前最短路徑的queue
+            unvisited[1].push(endPos); // 設定目前最短路徑的queue
+            start = [startPos, endPos];
+            end = [endPos, startPos];
+            break;
+        default:
+            break;
+    }
 
     /* 演算法開始 */
+    var curShortestPath = []
+    var which = 1; // 0 for start, 1 for end
+    var actualEnd = null;
     var isFoundEnd = false;
-    var visited = new Set();
+    var visited = [new Set(), new Set()]; // [0]: start, [1]: end
+    searchPath.push(start); // 加入搜尋範圍
 
-    while (current_shortest_path.size() > 0) {
-        // 1. 選出當前最小路徑的點 O(logn)
-        var curPos = current_shortest_path.dequeue();
+    while (unvisited[0].length > 0 || unvisited[1].length > 0) {
+
+        // 選要走哪邊
+        if (unvisited[0].length > 0 && unvisited[1].length > 0) {
+            which = (which + 1) % 2;
+        } else if (unvisited[0].length > 0) {
+            which = 0;
+        } else if (unvisited[1].length > 0) {
+            which = 1;
+        }
+
+        // 1. 選出當前最小路徑的點
+        var curPos = null;
+        if (whichAlgo === "GreedyBestFirstSearch") curPos = GetClosestNode(table[which], 0, unvisited[which], end[which]);
+        else curPos = GetClosestNode(table[which], 3, unvisited[which], end[which]);
+
+        if (curPos in position.wall) {
+            continue; // 牆壁不走
+        }
 
         // 2. 計算相鄰且尚未走過的點
-        // tmp = curPos.最短距離 + 走到下一點的權重
-        // 若 tmp < 下一點.最短距離 : 下一點.最短距離=tmp, 且previous vertex=curPos
-
         var up = curPos[0] - 1 >= 0 ? [curPos[0] - 1, curPos[1]] : null;
         var right = curPos[1] + 1 < position.colSize ? [curPos[0], curPos[1] + 1] : null;
         var down = curPos[0] + 1 < position.rowSize ? [curPos[0] + 1, curPos[1]] : null;
         var left = curPos[1] - 1 >= 0 ? [curPos[0], curPos[1] - 1] : null;
 
         // eslint-disable-next-line
-        [up, right, down, left].forEach(nextPos => {
-            if (!nextPos || isFoundEnd || nextPos in position.wall) return; // 若超過邊界 or 已經找到終點了 or 是牆壁
+        [up, right, down, left].forEach((nextPos, idx) => {
+            if (!nextPos || nextPos in position.wall) return; // 若超過邊界 or 是牆壁
 
-            var tmp = table[curPos][0] + (weights[nextPos] === 0 ? 1 : weights[nextPos]);
-            if (tmp < table[nextPos][0]) {
-                table[nextPos][0] = tmp;
-                table[nextPos][1] = curPos;
+            // 走過的也要更新，只是不會加入unvisited，因此不會在上面continue
+            var total = null;
+            var weight = (nextPos in position.weight ? position.weightValue : 0);
+            switch (whichAlgo) {
+                case "Dijkstra":
+                    // 策略為：只考慮 目前總分+權重+轉向分數
+                    total = table[which][curPos][0] + weight + GetScore(table[which][curPos][2], idx);
+                    break;
+                case "Astar":
+                    // 策略為：只考慮 目前總分+權重+轉向分數
+                    total = table[which][curPos][0] + weight + GetScore(table[which][curPos][2], idx);
+                    break;
+                case "Swarm":
+                    // 策略為：只考慮 目前總分+權重+轉向分數+估算
+                    total = table[which][curPos][0] + weight + GetScore(table[which][curPos][2], idx) + Math.pow(GetHeuristic(nextPos, end[which]), 2);
+                    break;
+                case "GreedyBestFirstSearch":
+                    // 策略為：只考慮 估值+轉向分數
+                    total = table[which][curPos][0] + GetScore(table[which][nextPos][2], idx);
+                    break;
+                case "ConvergentSwarm":
+                    // 策略為：只考慮 目前總分+權重+轉向分數+估算
+                    total = table[which][curPos][0] + (weight + GetScore(table[which][curPos][2], idx)) * Math.pow(GetHeuristic(nextPos, end[which]), 7);
+                    break;
+                case "BidirectionSwarm":
+                    // 策略為：只考慮 目前總分+權重+轉向分數+估算
+                    total = table[which][curPos][0] + weight + GetScore(table[which][curPos][2], idx) + Math.pow(GetHeuristic(nextPos, end[which]), 2);
+                    break;
+                default:
+                    break;
             }
-            if (!visited.has(curPos.toString())) {
-                current_shortest_path.enqueue(nextPos, table[nextPos][0]); // 加入計算目前的最小的路徑
 
+            if (total <= table[which][nextPos][0]) {
+                table[which][nextPos][0] = total;
+                table[which][nextPos][1] = curPos;
+                switch (idx) {
+                    case 0:
+                        table[which][nextPos][2] = "up";
+                        break;
+                    case 1:
+                        table[which][nextPos][2] = "right";
+                        break;
+                    case 2:
+                        table[which][nextPos][2] = "down";
+                        break;
+                    case 3:
+                        table[which][nextPos][2] = "left";
+                        break;
+                    default:
+                        break;
+                }
+
+                switch (whichAlgo) {
+                    case "Dijkstra":
+                        table[which][nextPos][3] = table[which][nextPos][0];
+                        break;
+                    case "Astar":
+                        table[which][nextPos][3] = table[which][nextPos][0] + GetHeuristic(nextPos, endPos);
+                        break;
+                    case "Swarm":
+                        table[which][nextPos][3] = table[which][nextPos][0];
+                        break;
+                    case "GreedyBestFirstSearch":
+                        table[which][nextPos][3] = table[which][nextPos][0] + GetScore(table[which][nextPos][2], idx);
+                        break;
+                    case "ConvergentSwarm":
+                        table[which][nextPos][3] = table[which][nextPos][0];
+                        break;
+                    case "BidirectionSwarm":
+                        table[which][nextPos][3] = table[which][nextPos][0];
+                        break;
+                    default:
+                        break;
+                }
             }
 
-            if (nextPos.toString() === endPos.toString()) { // 看是否找到終點了
-                isFoundEnd = true;
+            // 加入尚未走過的點 
+            if (!visited[which].has(curPos.toString())) {
+                unvisited[which].push(nextPos);
+            }
+
+            // 若找尋過程有對方搜尋到的，則更新actualEnd
+            if (whichAlgo === "BidirectionSwarm") {
+                if (visited[(which + 1) % 2].has(curPos.toString())) {
+                    if (actualEnd === null) {
+                        actualEnd = curPos;
+                        var tmp = actualEnd;
+                        while (tmp) { // 因為找到start時的previous vertex為null
+                            if (which === 0) {
+                                curShortestPath.unshift(tmp); // bidirection 左右兩邊要插入的方式相反
+                            } else {
+                                curShortestPath.push(tmp);
+                            }
+                            tmp = table[which][tmp][1];
+                        }
+                    } else {
+                        isFoundEnd = true;
+                    }
+                }
+                return;
+            } else {
+                if (nextPos.toString() === endPos.toString()) { // 看是否找到終點了
+                    actualEnd = nextPos;
+                    isFoundEnd = true;
+
+                    // 因為是找四周，所以找到end之後，要把end資訊加入其中
+                    table[which][actualEnd][1] = curPos;
+                    searchPath.push([actualEnd]);
+                }
             }
         })
 
-        if (!visited.has(curPos.toString())) {
-            visited.add(curPos.toString()); // 加入已走過
+        if (!visited[which].has(curPos.toString())) {
             searchPath.push([curPos]); // 加入搜尋範圍
+            visited[which].add(curPos.toString()); // 加入已走過
         }
 
         if (isFoundEnd) { // 找到終點跳出
@@ -100,17 +251,129 @@ function DoDijkstra(startPos, endPos, searchPath) {
         }
     }
 
-
     // 若有找到終點再判斷最小路徑
-    var curShortestPath = []
     if (isFoundEnd) {
-        curPos = endPos;
+        curPos = actualEnd;
+        if (whichAlgo !== "BidirectionSwarm") which = 1;
         while (curPos) { // 因為找到start時的previous vertex為null
-            curShortestPath.unshift(curPos);
-            curPos = table[curPos][1];
+            if (which === 1) {
+                curShortestPath.unshift(curPos); // bidirection 左右兩邊要插入的方式相反
+            } else {
+                curShortestPath.push(curPos);
+            }
+            curPos = table[(which + 1) % 2][curPos][1];
         }
     }
     return curShortestPath;
+}
+
+// 推測值：用距離來表示，因為是棋盤，所以改成最短距離幾格
+function GetHeuristic(startPos, endPos) {
+    return Math.abs(endPos[0] - startPos[0]) + Math.abs(endPos[1] - startPos[1]);
+}
+
+// 找出分數最小點，策略：考慮所有的分數 目前總分+權重+轉向分數+估值
+function GetClosestNode(table, strategy, unvisited, endPos) {
+    let retPos, retIndex;
+    for (var i = 0; i < unvisited.length; i++) {
+        if (!retPos || table[retPos][strategy] > table[unvisited[i]][strategy]) {
+            retPos = unvisited[i];
+            retIndex = i;
+
+            // 若相等則取得 估值大的（距離目標遠的）
+        } else if (table[retPos][strategy] === table[unvisited[i]][strategy]) {
+            if (GetHeuristic(retPos, endPos) > GetHeuristic(unvisited[i], endPos)) {
+                retPos = unvisited[i];
+                retIndex = i;
+            }
+        }
+    }
+
+    unvisited.splice(retIndex, 1);
+    return retPos;
+}
+
+// 取得轉向分數
+// 考慮轉向分數是為了只搜尋一條線，如果沒有這個分數，則搜尋會變成三條線，因為１點的前下上 距離終點 的估值可能相同，所以會走三條路
+function GetScore(direction, index) {
+    var score = 0;
+    switch (direction) {
+        case "up":
+            switch (index) {
+                case 0:
+                    score = 1;
+                    break;
+                case 1:
+                    score = 2;
+                    break;
+                case 2:
+                    score = 3;
+                    break;
+                case 3:
+                    score = 2;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case "right":
+            switch (index) {
+                case 0:
+                    score = 2;
+                    break;
+                case 1:
+                    score = 1;
+                    break;
+                case 2:
+                    score = 2;
+                    break;
+                case 3:
+                    score = 3;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case "down":
+            switch (index) {
+                case 0:
+                    score = 3;
+                    break;
+                case 1:
+                    score = 2;
+                    break;
+                case 2:
+                    score = 1;
+                    break;
+                case 3:
+                    score = 2;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case "left":
+            switch (index) {
+                case 0:
+                    score = 2;
+                    break;
+                case 1:
+                    score = 3;
+                    break;
+                case 2:
+                    score = 2;
+                    break;
+                case 3:
+                    score = 1;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        default:
+            break;
+    }
+    return score;
 }
 
 export default Dijkstra;

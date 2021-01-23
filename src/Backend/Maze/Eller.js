@@ -1,5 +1,5 @@
 import { position } from '../../Core';
-import { CreateAround } from './Core';
+import { CreateAround, Random } from './Core';
 
 function Eller() {
     var weights = [];
@@ -58,8 +58,5 @@ function Eller() {
     return [walls, weights];
 }
 
-function Random(n) {
-    return Math.floor(Math.random() * n);
-}
 
 export default Eller;

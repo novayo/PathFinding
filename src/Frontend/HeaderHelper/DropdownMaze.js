@@ -6,8 +6,6 @@ import ButtonEvent from '../TableHelper/ButtonEvent';
 import Simple_Stair_Pattern from '../../Backend/Maze/Simple_Stair_Pattern';
 import Binary_Tree from '../../Backend/Maze/Binary_Tree';
 import RecursiveDivision from '../../Backend/Maze/RecursiveDivision';
-import RecursiveDivision_Horizontal from '../../Backend/Maze/RecursiveDivision_Horizontal';
-import RecursiveDivision_Vertical from '../../Backend/Maze/RecursiveDivision_Vertical';
 import Kruskal from '../../Backend/Maze/Kruskal';
 import Basic_Random_Maze from '../../Backend/Maze/Basic_Random_Maze';
 import Basic_Weight_Maze from '../../Backend/Maze/Basic_Weight_Maze';
@@ -29,13 +27,13 @@ function DropdownMaze() {
         buttonEvent.ClearWalls()
         switch (eventKey) {
             case "Maze_Recursive_Division":
-                buttonEvent.CreateMaze(RecursiveDivision(), speed);
+                buttonEvent.CreateMaze(RecursiveDivision("RecursiveDivision"), speed);
                 break;
             case "Maze_Recursive_Division_vertical":
-                buttonEvent.CreateMaze(RecursiveDivision_Vertical(), speed);
+                buttonEvent.CreateMaze(RecursiveDivision("RecursiveDivision_Vertical"), speed);
                 break;
             case "Maze_Recursive_Division_horizontal":
-                buttonEvent.CreateMaze(RecursiveDivision_Horizontal(), speed);
+                buttonEvent.CreateMaze(RecursiveDivision("RecursiveDivision_Horizontal"), speed);
                 break;
             case "Maze_Basic_Random":
                 buttonEvent.CreateMaze(Basic_Random_Maze(), 0)

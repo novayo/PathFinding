@@ -34,3 +34,11 @@ export const CreateAround = (wallSet = new Set()) => {
     }
     return walls;
 }
+
+export const Random = (n) => {
+    return Math.floor(Math.random() * n);
+}
+
+export const RandomEven = (n) => {
+    return Math.floor(Math.random() * n / 2) * 2;
+}

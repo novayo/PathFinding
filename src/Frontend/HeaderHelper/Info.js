@@ -25,7 +25,7 @@ function Info() {
 			<ul>
 				<li> <div className="Info-Start-Node"></div>Start Node </li>
 				<li> <div className="Info-End-Node"></div>Target Node </li>
-				<li className={bannedBomb}> <div className="Info-Bomb-Node"></div>Bomb Node </li>
+				<li className={bannedBomb}> <div className="Info-Bomb-Node"></div>Gas Node </li>
 				<li className={bannedBFSDFS}> <div className="Info-Weight-Node"></div>Weight Node </li>
 				<li> <div className="Info-Unvisited-Node"></div>Unvisited Node </li>
 				<li> <div className="Info-Visited-Node"></div><div className="Info-Visited1-Node"></div>Visited Node </li>
