@@ -7,6 +7,7 @@ function BFS(startCallback, speed) {
     var retSearchPath = [];
     var retBombPath = [];
     var retShortestPath = [];
+    var retDirection = [];
 
     for (var i = 0; i < times; i++) {
         var searchPath = [];
@@ -80,9 +81,11 @@ function BFS(startCallback, speed) {
 
         // 取得最短路徑
         var shortest = distance.getShortestPath(endPos);
-        retShortestPath = retShortestPath.concat(shortest);
-
+        retShortestPath = retShortestPath.concat(shortest[0]);
+        retDirection = shortest[1];
     }
+
+    console.log(retDirection);
     // 執行 start 動畫
     startCallback(retSearchPath, retShortestPath, speed, retBombPath);
 }

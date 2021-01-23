@@ -4,24 +4,29 @@ function Dijkstra(whichAlgo, startCallback, speed) {
     var retSearchPath = [];
     var retBombPath = [];
     var retShortestPath = [];
-    console.log(position.weight)
+    var retDirection = [];
 
     if (position.bomb) {
-        retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.start, position.bomb, retSearchPath))
+        retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.start, position.bomb, retSearchPath, retDirection))
 
         // 有找到最小路徑才繼續
         if (retShortestPath.length > 0) {
-            retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.bomb, position.end, retBombPath))
+            let tmp = [];
+            retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.bomb, position.end, retBombPath, tmp))
+            tmp.splice(0, 1);
+            retDirection = retDirection.concat(tmp);
         }
     } else {
-        retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.start, position.end, retSearchPath))
+        retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.start, position.end, retSearchPath, retDirection))
     }
+
+    console.log(retDirection);
     // 執行 start 動畫
     startCallback(retSearchPath, retShortestPath, speed, retBombPath);
 }
 
 // 回傳最短路徑
-function DoDijkstra(whichAlgo, startPos, endPos, searchPath) {
+function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
     /*  //https://medium.com/basecs/finding-the-shortest-path-with-a-little-help-from-dijkstra-613149fbdc8e
         Create Dijkstra table 
         
@@ -166,16 +171,20 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath) {
                 table[which][nextPos][1] = curPos;
                 switch (idx) {
                     case 0:
-                        table[which][nextPos][2] = "up";
+                        if (which === 0) table[which][nextPos][2] = "up";
+                        else table[which][nextPos][2] = "down";
                         break;
                     case 1:
-                        table[which][nextPos][2] = "right";
+                        if (which === 0) table[which][nextPos][2] = "right";
+                        else table[which][nextPos][2] = "left";
                         break;
                     case 2:
-                        table[which][nextPos][2] = "down";
+                        if (which === 0) table[which][nextPos][2] = "down";
+                        else table[which][nextPos][2] = "up";
                         break;
                     case 3:
-                        table[which][nextPos][2] = "left";
+                        if (which === 0) table[which][nextPos][2] = "left";
+                        else table[which][nextPos][2] = "right";
                         break;
                     default:
                         break;
@@ -219,8 +228,10 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath) {
                         while (tmp) { // 因為找到start時的previous vertex為null
                             if (which === 0) {
                                 curShortestPath.unshift(tmp); // bidirection 左右兩邊要插入的方式相反
+                                retDirection.unshift(table[which][tmp][2]);
                             } else {
                                 curShortestPath.push(tmp);
+                                retDirection.push(table[which][tmp][2]);
                             }
                             tmp = table[which][tmp][1];
                         }
@@ -258,12 +269,20 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath) {
         while (curPos) { // 因為找到start時的previous vertex為null
             if (which === 1) {
                 curShortestPath.unshift(curPos); // bidirection 左右兩邊要插入的方式相反
+                retDirection.unshift(table[(which + 1) % 2][curPos][2]);
             } else {
                 curShortestPath.push(curPos);
+                retDirection.push(table[(which + 1) % 2][curPos][2]);
             }
             curPos = table[(which + 1) % 2][curPos][1];
         }
     }
+
+    // 如果是雙向，尾巴會被計算兩次
+    if (whichAlgo === "BidirectionSwarm") retDirection.splice(retDirection.length - 1, 1);
+    // 因為是找四周圍，只更新是周圍，所以頭的資訊不會被更新，因此去除頭且延伸目前的第一個位置即可
+    retDirection.splice(0, 1);
+    retDirection.unshift(retDirection[0]);
     return curShortestPath;
 }
 
