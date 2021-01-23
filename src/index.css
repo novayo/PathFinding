@@ -76,50 +76,14 @@ code {
   text-decoration:line-through;
 }
 
-.Modal-Title{
-  font-family: 'Righteous', cursive;
-  text-align: center;
-  font-weight: 900;
-  font-size: 50px;
-
-  color: var(--text-color);
-}
-
-.Modal-Page{
-  font-family: 'Righteous', cursive;
-  margin-right: 20px;
-  font-size: 25px;
-}
-
-.Modal-Body{
-  height: 50vh;
-  max-height: 50vh;
-}
-
-.Modal-BodyText{
-  font-family: 'Righteous', cursive;
-  text-align: center;
-  font-size: 25px;
-}
-
-.Modal-BodyText1{
-  font-family: 'Righteous', cursive;
-  text-align: center;
-  font-size: 15px;
-}
-
-/* .Button{
-  font-family: 'Righteous', cursive;
-} */
-
 .buttonEnable{
   background-color: var(--button-enable-color);
   color: var(--button-enable-text-color);
-  font-size: 25px;
+  font-size: 2.7vh;
   border: none;
-  border-radius: 12px;
+  border-radius: 1.5vh;
   display: block;
-  padding: 10px;
+  padding: 1.2vh;
 }
 
 .buttonEnable:focus{
@@ -130,11 +94,11 @@ code {
 .buttonDisable{
   background-color: var(--button-disable-color);
   color: var(--button-disable-text-color);
-  font-size: 25px;
+  font-size: 2.7vh;
   border: none;
-  border-radius: 12px;
+  border-radius: 1.5vh;
   display: block;
-  padding: 10px;
+  padding: 1.2vh;
 }
 
 .buttonDisable:focus{
@@ -146,14 +110,14 @@ code {
   font-family: 'Righteous', cursive;
   display: inline-block;  /*把li點點去掉*/
   list-style: none; /*不要用任何style*/
-  font-size: 17px; /*字的大小*/
+  font-size: 1.8vh; /*字的大小*/
   margin-top: 0.5em; /*置中在mainInfo的div中間*/
-  padding: 0 28px 0 0; /*左右padding*/
+  padding: 0 3vh 0 0; /*左右padding*/
 }
 
 #mainInfo > ul li > div{
-  width: 25px; /*圖片寬度*/
-  height: 25px; /*圖片高度*/
+  width: 2.6vh; /*圖片寬度*/
+  height: 2.6vh; /*圖片高度*/
   display: inline-block; /*流動式的自動排版，才能使用width跟height*/
   position: relative; /*能改變相對位置*/
   top: 0.3em; /*高度置中*/
@@ -199,9 +163,63 @@ code {
 	 background-image: url("./Resources/Images/Info/WallNode.png");	
 }
 
+.Modal-Title{
+  font-family: 'Righteous', cursive;
+  text-align: center;
+  font-weight: 900;
+  font-size: 4.5vh;
+
+  color: var(--text-color);
+}
+
+.Modal-Page{
+  font-family: 'Righteous', cursive;
+  margin-right: 3vh;
+  font-size: 3vh;
+}
+
+.Modal-Body{
+  height: 50vh;
+  max-height: 50vh;
+}
+
+.Modal-BodyText{
+  font-family: 'Righteous', cursive;
+  text-align: center;
+  font-size: 2.5vh;
+}
+
+.Modal-BodyText1{
+  font-family: 'Righteous', cursive;
+  text-align: center;
+  font-size: 1.9vh;
+}
+
+.Model-Button-success{
+  font-family: 'Righteous', cursive;
+  color: var(--button-enable-text-color) !important;
+  font-size: 1.9vh;
+}
+
+.Model-Button-success:hover, .Model-Button-success:focus{
+  background-color: var(--button-enable-text-color) !important;
+  color: white !important;
+}
+
+.Model-Button-danger{
+  font-family: 'Righteous', cursive;
+  color: var(--button-disable-text-color) !important;
+  font-size: 1.9vh;
+}
+
+.Model-Button-danger:hover, .Model-Button-danger:focus{
+  background-color: var(--button-disable-text-color) !important;
+  color: white !important;
+}
+
 .Logo{
-  width: 300px; /*圖片寬度*/
-  height: 300px; /*圖片高度*/
+  width: 30vh; /*圖片寬度*/
+  height: 30vh; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -210,8 +228,8 @@ code {
 }
 
 .ShortestPath{
-  width: 300px; /*圖片寬度*/
-  height: 300px; /*圖片高度*/
+  width: 30vh; /*圖片寬度*/
+  height: 30vh; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -221,8 +239,8 @@ code {
 
 
 .Algorithm{
-  width: 300px; /*圖片寬度*/
-  height: 300px; /*圖片高度*/
+  width: 30vh; /*圖片寬度*/
+  height: 30vh; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -231,8 +249,8 @@ code {
 }
 
 .Maze{
-  width: 300px; /*圖片寬度*/
-  height: 300px; /*圖片高度*/
+  width: 30vh; /*圖片寬度*/
+  height: 30vh; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -241,8 +259,8 @@ code {
 }
 
 .WallWeight{
-  width: 300px; /*圖片寬度*/
-  height: 300px; /*圖片高度*/
+  width: 30vh; /*圖片寬度*/
+  height: 30vh; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -251,8 +269,8 @@ code {
 }
 
 .AddBomb{
-  width: 300px; /*圖片寬度*/
-  height: 300px; /*圖片高度*/
+  width: 30vh; /*圖片寬度*/
+  height: 30vh; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -261,8 +279,8 @@ code {
 }
 
 .StartDrag{
-  width: 300px; /*圖片寬度*/
-  height: 300px; /*圖片高度*/
+  width: 30vh; /*圖片寬度*/
+  height: 30vh; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -271,8 +289,8 @@ code {
 }
 
 .Other{
-  width: 900px; /*圖片寬度*/
-  height: 300px; /*圖片高度*/
+  width: 90vh; /*圖片寬度*/
+  height: 30vh; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -284,7 +302,7 @@ code {
     font-family: 'Roboto', sans-serif;
     text-align: center;
     color: var(--text-color);
-    font-size: 28px;
+    font-size: 3vh;
     margin-top: 2%;
 }
 
@@ -304,7 +322,7 @@ code {
 
 .navbar-logo{
   font-family: 'Righteous', cursive;
-  font-size: 30px !important;
+  font-size: 4vh !important;
   color: var(--nav-text-color) !important;
 }
 
@@ -315,7 +333,7 @@ code {
 
 .nav-item{
   margin: auto;
-  font-size: 20px;
+  font-size: 2.2vh;
 }
 
 /* https://stackoverflow.com/questions/64196389/dark-dropdown-items-in-react-bootstrap */

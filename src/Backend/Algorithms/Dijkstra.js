@@ -13,6 +13,8 @@ function Dijkstra(whichAlgo, startCallback, speed) {
         if (retShortestPath.length > 0) {
             let tmp = [];
             retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.bomb, position.end, retBombPath, tmp))
+
+            // 會重複找一次BOMB的方向，因此去除
             tmp.splice(0, 1);
             retDirection = retDirection.concat(tmp);
         }

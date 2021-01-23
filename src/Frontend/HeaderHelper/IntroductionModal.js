@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../App.scss';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import data from '../../Resources/Data/Modalnfo.json';
@@ -43,7 +44,7 @@ function IntroductionModal() {
             </Modal.Body>
 
             <Modal.Footer>
-                <Button className="mr-auto Button" variant='outline-success' size="md" onClick={() => setShow(false)}>Skip Tutorial</Button>
+                <Button className="mr-auto Model-Button-success" variant='outline-success' size="md" onClick={() => setShow(false)}>Skip Tutorial</Button>
                 <BootstrapSwitchButton
                     checked={checked}
                     onlabel='En'
@@ -61,8 +62,8 @@ function IntroductionModal() {
                         setChecked(pre => !pre);
                     }}
                 />
-                <Button className="Button" variant='outline-success' size="md" onClick={() => HandlePrevious()}>Previous</Button>
-                <Button className="Button" variant='outline-success' size="md" onClick={() => HandleNext()}>Next</Button>
+                <Button className="Model-Button-danger" variant='outline-danger' size="md" onClick={() => HandlePrevious()}>Previous</Button>
+                <Button className="Model-Button-success" variant='outline-success' size="md" onClick={() => HandleNext()}>Next</Button>
             </Modal.Footer>
         </Modal>
     )
