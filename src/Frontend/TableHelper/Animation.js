@@ -4,47 +4,12 @@ import { WhichComponentSame, StartEndBombWeight } from './WhichComp'
 import { position } from '../../Core/index'
 
 
-export function Animation(arr, speed, count, kind, myCallbackFunction = null) {
-    var [id, newid] = [-1, -1]
-    const arrAnimation = setInterval(() => {
-        if (count === arr.length) {
-            if(kind === componentKind.path){
-                setTable(newid, componentKind.path)
-            }
-            if (myCallbackFunction !== null) {
-                myCallbackFunction();
-            }
-            clearInterval(arrAnimation);
-        }else {
-            if (WhichComponentSame(arr[count]) > 3) {
-                if(kind === componentKind.path){
-                    newid = arr[count]
-                    setTable(id, componentKind.path)
-                    setTable(newid, componentKind.pathHead)
-                    id = newid
-                }else{
-                    setTable(arr[count], kind, true) // Maze
-                }
-            }else{
-                if(kind === componentKind.path){
-                    setTable(id, kind)
-                    setTable(arr[count], StartEndBombWeight(WhichComponentSame(arr[count]), componentKind.startPath, componentKind.pathHead, componentKind.bombPath, componentKind.weightPath))
-                }
-            }
-        }
-        count += 1
-    }, speed)
-}
+/* Search */
 
-export function SearchBombAnimation(search, bomb, path, speed, count, myCallbackFunction, sysStatusFunction) {
-    if(position.bomb === false){
-        setTable(position.start, componentKind.startSearch)
-    }else{
-        setTable(position.start, componentKind.startSearchBomb)
-    }
+export function SearchBombAnimation(search, bomb, path, pathDirection, speed, count, myCallbackFunction, sysStatusFunction) {
     const searchBombAnimation = setInterval(() => {
         if (count === search.length) {
-            myCallbackFunction(bomb, path, speed, 0, PathAnimation, sysStatusFunction)
+            myCallbackFunction(bomb, path, pathDirection, speed, 0, PathAnimation, sysStatusFunction)
             clearInterval(searchBombAnimation)
         }else{
             for(var i = 0;i < search[count].length;i++){
@@ -67,10 +32,10 @@ export function SearchBombAnimation(search, bomb, path, speed, count, myCallback
     }, speed)
 }
 
-export function SearchAnimation(bomb, path, speed, count, myCallbackFunction, sysStatusFunction) {
+export function SearchAnimation(bomb, path, pathDirection, speed, count, myCallbackFunction, sysStatusFunction) {
     const searchAnimation = setInterval(() => {
         if (count === bomb.length) {
-            myCallbackFunction(path, speed, 0, sysStatusFunction)
+            myCallbackFunction(path, speed, pathDirection, 0, sysStatusFunction)
             clearInterval(searchAnimation)
         }else{
             for(var i = 0;i < bomb[count].length;i++){
@@ -85,30 +50,51 @@ export function SearchAnimation(bomb, path, speed, count, myCallbackFunction, sy
     }, speed)
 }
 
-export function PathAnimation(path, speed, count, myCallbackFunction = null) {
-    Animation(path, speed, count, componentKind.path, myCallbackFunction)
+export function PathAnimation(path, speed, pathDirection, count, myCallbackFunction = null) {
+    var [id, newid] = [-1, -1]
+
+    // console.log(pathDirection.length)
+    // console.log(path.length)
+
+    // var set = new Set()
+    // var newPath = []
+    // for (let i = 0; i < path.length; i++) {
+    //     if (set.has(path[i].toString())) {
+    //         pathDirection.splice(i, 1);
+    //     } else {
+    //         newPath.push(path[i])
+    //         set.add(path[i].toString())
+    //     }
+    // }
+    // path = newPath
+
+    // console.log(pathDirection.length)
+    // console.log(path.length)
+    // console.log(pathDirection)
+    // console.log(path)
+
+    const pathAnimation = setInterval(() => {
+        if (count === path.length) {
+            // setTable(newid, componentKind.path)
+            myCallbackFunction();
+            clearInterval(pathAnimation);
+        }else {
+            if (WhichComponentSame(path[count]) > 3) {
+                newid = path[count]
+                setTable(id, componentKind.path)
+                setTable(newid, direction(pathDirection[count]))
+                id = newid
+            }else{
+                setTable(id, componentKind.path)
+                setTable(path[count], StartEndBombWeight(WhichComponentSame(path[count]), direction(pathDirection[count]), direction(pathDirection[count]), componentKind.bombPath, componentKind.weightPath))
+            }
+        }
+        count += 1
+    }, speed)
+
 }
 
-export function MazeAnimation(maze, speed, count, myCallbackFunction = null) { // maze = [walls, weights]
-    speed = speed / 2
-    Animation(maze[0], speed, count, componentKind.wall, myCallbackFunction)
-}
-
-export function FinalMazeAnimation(maze){ // maze = [walls, weights]
-    for(var i = 0; i < maze[0].length; i++){
-        setTable(maze[0][i], componentKind.wall, true)
-    }
-    for(i = 0; i < maze[1].length; i++){
-        setTable(maze[1][i], componentKind.weight, true)
-    }
-}
-
-export function FinalAnimation(search, path, bomb){
-    if(position.bomb === false){
-        setTable(position.start, componentKind.startSearch) 
-    }else{
-        setTable(position.start, componentKind.startSearchBomb)
-    }
+export function FinalAnimation(search, path, pathDirection, bomb){
     for (var i = 0; i < search.length; i++) {
         for (var j = 0; j < search[i].length; j++) {
             if (WhichComponentSame(search[i][j]) > 3) {
@@ -139,7 +125,57 @@ export function FinalAnimation(search, path, bomb){
         if (WhichComponentSame(path[i]) > 3) {
             setTable(path[i], componentKind.pathStatic)
         }else{
-            setTable(path[i], StartEndBombWeight(WhichComponentSame(path[i]), componentKind.startPath, componentKind.pathHead, componentKind.bombPath, componentKind.weightPathStatic))
+            setTable(path[i], StartEndBombWeight(WhichComponentSame(path[i]), direction(pathDirection[i]), direction(pathDirection[i]), componentKind.bombPath, componentKind.weightPathStatic))
         }
     }
+}
+
+
+/* Maze */
+
+export function MazeAnimation(maze, speed, count, myCallbackFunction) { // maze = [walls, weights]
+
+    maze = maze[0]
+    speed = speed / 2
+    
+    const mazeAnimation = setInterval(() => {
+        if (count === maze.length) {
+            myCallbackFunction();
+            clearInterval(mazeAnimation);
+        }else {
+            if (WhichComponentSame(maze[count]) > 3) {
+                setTable(maze[count], componentKind.wall, true)
+            }
+        }
+        count += 1
+    }, speed)
+}
+
+export function FinalMazeAnimation(maze){ // maze = [walls, weights]
+    for(var i = 0; i < maze[0].length; i++){
+        setTable(maze[0][i], componentKind.wall, true)
+    }
+    for(i = 0; i < maze[1].length; i++){
+        setTable(maze[1][i], componentKind.weight, true)
+    }
+}
+
+
+/* Rocket left right up down */
+
+function direction(kind){
+
+    switch (kind) {
+        case "left":
+            return componentKind.pathHeadLeft
+        case "right":
+            return componentKind.pathHeadRight
+        case "up":
+            return componentKind.pathHeadUp
+        case "down":
+            return componentKind.pathHeadDown
+        default:
+            return componentKind.path
+    }
+
 }

@@ -11,20 +11,22 @@ function Dijkstra(whichAlgo, startCallback, speed) {
 
         // 有找到最小路徑才繼續
         if (retShortestPath.length > 0) {
+            retShortestPath.splice(retShortestPath.length - 1, 1); // 第一段的終點也是第二段的起點，故去除
+            retDirection.splice(retDirection.length - 1, 1); // 第一段的終點也是第二段的起點，故去除
             let tmp = [];
             retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.bomb, position.end, retBombPath, tmp))
 
             // 會重複找一次BOMB的方向，因此去除
-            tmp.splice(0, 1);
+            // tmp.splice(0, 1);
             retDirection = retDirection.concat(tmp);
         }
     } else {
         retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.start, position.end, retSearchPath, retDirection))
     }
 
-    console.log(retDirection);
+    // console.log(retDirection);
     // 執行 start 動畫
-    startCallback(retSearchPath, retShortestPath, speed, retBombPath);
+    startCallback(retSearchPath, retShortestPath, retDirection, speed, retBombPath);
 }
 
 // 回傳最短路徑
@@ -52,38 +54,32 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
         }
     }
 
-    var start = null; // 決定起始點（bidirection 會有兩個起點）
     var end = null; // 決定終點（可能bomb or end）
     var unvisited = [[], []]; // [0]: start, [1]: end
     switch (whichAlgo) {
         case "Dijkstra":
             table[0][startPos] = [0, null, "up", 0]; // 設定起始點
             unvisited[0].push(startPos); // 設定目前最短路徑的queue
-            start = [startPos];
             end = [endPos];
             break;
         case "Astar":
             table[0][startPos] = [0, null, "up", 0]; // 設定起始點
             unvisited[0].push(startPos); // 設定目前最短路徑的queue
-            start = [startPos];
             end = [endPos];
             break;
         case "Swarm":
             table[0][startPos] = [0, null, "right", 0]; // 設定起始點
             unvisited[0].push(startPos); // 設定目前最短路徑的queue
-            start = [startPos];
             end = [endPos];
             break;
         case "GreedyBestFirstSearch":
             table[0][startPos] = [0, null, "up", 0]; // 設定起始點
             unvisited[0].push(startPos); // 設定目前最短路徑的queue
-            start = [startPos];
             end = [endPos];
             break;
         case "ConvergentSwarm":
             table[0][startPos] = [0, null, "right", 0]; // 設定起始點
             unvisited[0].push(startPos); // 設定目前最短路徑的queue
-            start = [startPos];
             end = [endPos];
             break;
         case "BidirectionSwarm":
@@ -91,7 +87,6 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
             table[1][endPos] = [0, null, "left", 0]; // 設定起始點
             unvisited[0].push(startPos); // 設定目前最短路徑的queue
             unvisited[1].push(endPos); // 設定目前最短路徑的queue
-            start = [startPos, endPos];
             end = [endPos, startPos];
             break;
         default:
@@ -104,7 +99,6 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
     var actualEnd = null;
     var isFoundEnd = false;
     var visited = [new Set(), new Set()]; // [0]: start, [1]: end
-    searchPath.push(start); // 加入搜尋範圍
 
     while (unvisited[0].length > 0 || unvisited[1].length > 0) {
 
@@ -237,6 +231,7 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
                             }
                             tmp = table[which][tmp][1];
                         }
+                        curShortestPath.splice(curShortestPath.length - 1, 1)
                     } else {
                         isFoundEnd = true;
                     }
@@ -249,7 +244,6 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
 
                     // 因為是找四周，所以找到end之後，要把end資訊加入其中
                     table[which][actualEnd][1] = curPos;
-                    searchPath.push([actualEnd]);
                 }
             }
         })
@@ -260,6 +254,7 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
         }
 
         if (isFoundEnd) { // 找到終點跳出
+            searchPath.push([actualEnd]);
             break;
         }
     }

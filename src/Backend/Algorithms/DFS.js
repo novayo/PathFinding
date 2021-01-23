@@ -59,8 +59,8 @@ function DFS(startCallback, speed) {
         DoDFS(start[0], start[1], position.end, visited, retBombPath, retShortestPath, retDirection);
     }
 
-    console.log(retDirection);
-    startCallback(retSearchPath, retShortestPath, speed, retBombPath);
+    // console.log(retDirection);
+    startCallback(retSearchPath, retShortestPath, retDirection, speed, retBombPath);
 }
 
 export default DFS;

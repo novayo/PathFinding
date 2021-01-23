@@ -82,6 +82,11 @@ export const componentKind = {
     /*----------------------------*/
 
     pathHead: "pathHead",
+    pathHeadLeft: "pathHeadLeft",
+    pathHeadRight: "pathHeadRight",
+    pathHeadUp: "pathHeadUp",
+    pathHeadDown: "pathHeadDown",
+
     background: "background"
 }
 

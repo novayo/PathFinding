@@ -19,6 +19,14 @@ class Distance {
         }
     }
 
+    remove(pos) {
+        if (pos in this.dict) {
+            delete this.dict[pos];
+        } else {
+            return -1;
+        }
+    }
+
     // 從end開始找尋附近四周圍，第一個 "有被找過的" 且 "距離最小的"的點
     // 回傳最短路徑 及 方向
     getShortestPath(endPos) {
@@ -87,6 +95,7 @@ class Distance {
             this.max_d = curD;
         }
         if (shortest.length === 1) return []; // 如果沒有找到路徑(只有終點自己)，則不用跑最短路徑
+        shortestDirection.push(shortestDirection[shortestDirection.length - 1]); // 加入終點
 
         return [shortest, shortestDirection];
     }

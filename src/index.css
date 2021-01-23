@@ -716,12 +716,37 @@ code {
   100% {background-color: var(--path-animation-100); transform: scale(1, 1);}
 }
 
-.pathHead {
+.pathHeadLeft {
+  background: var(--path) url('./Resources/Images/Info/PathHead.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  transform: rotate(-90deg);
+  border: 0;
+}
+
+.pathHeadRight {
+  background: var(--path) url('./Resources/Images/Info/PathHead.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  transform: rotate(90deg);
+  border: 0;
+}
+
+.pathHeadUp {
   background: var(--path) url('./Resources/Images/Info/PathHead.png');
   background-position: center;
   background-size: cover; /*填滿*/
   border: 0;
 }
+
+.pathHeadDown {
+  background: var(--path) url('./Resources/Images/Info/PathHead.png');
+  background-position: center;
+  background-size: cover; /*填滿*/
+  transform: rotate(180deg);
+  border: 0;
+}
+
 
 /*----------Modal----------*/
 

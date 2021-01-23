@@ -79,14 +79,37 @@ function BFS(startCallback, speed) {
 
         if (distance.get(endPos) === -1) break; // 如果第一次沒找到終點，不加入最短路徑
 
+        // if(i === 1){
+        //     retSearchPath.splice(retSearchPath.length - 1, 1)
+        //     distance.remove(startPos)
+        // }
+        if(i === 0 && times === 2){
+            // retSearchPath.splice(retSearchPath.length - 1, 1)
+            var up = endPos[0] - 1 >= 0 ? [endPos[0] - 1, endPos[1]] : null;
+            var right = endPos[1] + 1 < position.colSize ? [endPos[0], endPos[1] + 1] : null;
+            var down = endPos[0] + 1 < position.rowSize ? [endPos[0] + 1, endPos[1]] : null;
+            var left = endPos[1] - 1 >= 0 ? [endPos[0], endPos[1] - 1] : null;
+    
+            var temp = Infinity;
+
+            // eslint-disable-next-line
+            [up, right, down, left].forEach((nextPos, idx) => {
+                if (!nextPos || distance.get(nextPos) === -1) return; // 若超過邊界 or 是牆壁
+                if (temp > distance.get(nextPos)){
+                    temp = distance.get(nextPos)
+                    endPos = nextPos
+                }
+            })
+            distance.remove(position.bomb)
+        }
         // 取得最短路徑
         var shortest = distance.getShortestPath(endPos);
         retShortestPath = retShortestPath.concat(shortest[0]);
-        retDirection = shortest[1];
+        retDirection = retDirection.concat(shortest[1]);
     }
-
-    console.log(retDirection);
+    retSearchPath.unshift([position.start]); // 加入起始點
+    // console.log(retDirection);
     // 執行 start 動畫
-    startCallback(retSearchPath, retShortestPath, speed, retBombPath);
+    startCallback(retSearchPath, retShortestPath, retDirection, speed, retBombPath);
 }
 export default BFS;

@@ -11,15 +11,18 @@ function ButtonEvent() {
     const [touch, update] = [useContext(touchContext), useContext(updateContext)]
     const [algorithm, bomb, sysSpeed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
 
-    const Start = (search, path, speed, bomb = []) => {
+    const Start = (search, path, pathDirection, speed, bomb = []) => {
+        // console.log(path.length)
+        // console.log(pathDirection.length)
+        // console.log(pathDirection)
         if (update.get && synchronize.update) {
-            FinalAnimation(search, path, bomb)
+            FinalAnimation(search, path, pathDirection, bomb)
         } else {
             // console.log("Start")
             sysStatus.set("RUNNING")
             update.set("True")
             synchronize.update = true
-            SearchBombAnimation(search, bomb, path, speed, 0, SearchAnimation, () => sysStatus.set("IDLE"))
+            SearchBombAnimation(search, bomb, path, pathDirection, speed, 0, SearchAnimation, () => sysStatus.set("IDLE"))
         }
     }
 
