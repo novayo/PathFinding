@@ -14,7 +14,7 @@ function ButtonEvent() {
     const Start = (search, path, speed, bomb = []) => {
         if (update.get && synchronize.update) {
             FinalAnimation(search, path, bomb)
-        }else{
+        } else {
             // console.log("Start")
             sysStatus.set("RUNNING")
             update.set("True")
@@ -24,9 +24,9 @@ function ButtonEvent() {
     }
 
     const CreateMaze = (maze, speed) => {
-        if(speed === 0){
-            FinalMazeAnimation(maze)         
-        }else{
+        if (speed === 0) {
+            FinalMazeAnimation(maze)
+        } else {
             sysStatus.set("RUNNING")
             MazeAnimation(maze, speed, 0, () => sysStatus.set("IDLE"))
         }
@@ -92,15 +92,15 @@ function ButtonEvent() {
             synchronize.update = false
         }
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
-            if(WhichComponentSame(i) >= 5) {
+            if (WhichComponentSame(i) >= 5) {
                 setTable(i, componentKind.background)
-            }else if(WhichComponentSame(i) === 3){
+            } else if (WhichComponentSame(i) === 3) {
                 setTable(i, componentKind.weightStatic)
-            }else if(WhichComponentSame(i) === 2){
+            } else if (WhichComponentSame(i) === 2) {
                 setTable(i, componentKind.bomb)
-            }else if(WhichComponentSame(i) === 1){
+            } else if (WhichComponentSame(i) === 1) {
                 setTable(i, componentKind.end)
-            }else if(WhichComponentSame(i) === 0){
+            } else if (WhichComponentSame(i) === 0) {
                 setTable(i, componentKind.start)
             }
         }
@@ -118,7 +118,7 @@ function ButtonEvent() {
         bomb.set("False")
     }
 
-    return { Start, Addbomb, RemoveBomb, ClearWalls, ClearPath, ClearBoard, CreateMaze }
+    return { Start, Addbomb, RemoveBomb, ClearWalls, ClearPath, ClearBoard, CreateMaze, ClearWeights }
 }
 
 export default ButtonEvent

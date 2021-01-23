@@ -37,9 +37,11 @@ function DropdownAlgorithm() {
                 algoContext.set('Algorithm_Bidrectional_Swarm');
                 break;
             case "Algorithm_Breadth_First":
+                buttonEvent.ClearWeights(); // 按下去後要清空weight
                 algoContext.set('Algorithm_Breadth_First');
                 break;
             case "Algorithm_Depth_First":
+                buttonEvent.ClearWeights(); // 按下去後要清空weight
                 algoContext.set('Algorithm_Depth_First');
                 break;
             default:
