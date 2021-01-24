@@ -62,23 +62,30 @@ function ButtonEvent() {
 
     const ClearWalls = () => {
         // console.log("ClearWall")
-        for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
-            if (WhichComponentSame(i) === 3 || WhichComponentSame(i) === 4) {
-                setTable(i, componentKind.background, true)
-            }
+        const wall = Object.keys(position.wall)
+        for (var i = 0; i < wall.length; i++) {
+            setTable(wall[i].split(","), componentKind.background, true)
         }
-        touch.set("")
+        ClearWeights()
         ClearPath()
+        touch.set("")
     }
 
     const ClearWeights = () => {
         // console.log("ClearWeights")
-        for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
-            if (WhichComponentSame(i) === 3) {
-                setTable(i, componentKind.background, true)
-            }
+        const weight = Object.keys(position.weight)
+        for (var i = 0; i < weight.length; i++) {
+            setTable(weight[i].split(","), componentKind.background, true)
         }
-        touch.set("")
+        if(touch.get.start !== componentKind.wall){
+            touch.set({componentKind: componentKind.start, under: componentKind.background})
+        }
+        if(touch.get.end !== componentKind.wall){
+            touch.set({componentKind: componentKind.end, under: componentKind.background})
+        }
+        if(touch.get.bomb !== componentKind.wall){
+            touch.set({componentKind: componentKind.bomb, under: componentKind.background})
+        }
         ClearPath()
     }
 

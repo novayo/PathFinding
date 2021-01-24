@@ -5,7 +5,7 @@ import { position } from '../../Core/index'
 export function setTable(index, kind, setPosition = false){
 
     if(typeof index !== "number"){
-        index = index[0] * tableVar.colSize + index[1]
+        index = parseInt(index[0]) * tableVar.colSize + parseInt(index[1])
     }
 
     if(index < 0){
