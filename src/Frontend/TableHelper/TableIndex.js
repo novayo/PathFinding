@@ -22,10 +22,10 @@ export const tableVar = {
 }
 
 export const weightValueRange = {
-    max: 50,
+    max: 20,
     min: 0,
     init: 0,
-    increase: 10,
+    increase: 5,
     waiting: 2000
 }
 

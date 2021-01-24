@@ -4,69 +4,135 @@ import { WhichComponentSame, StartEndBombWeight } from './WhichComp'
 import { position } from '../../Core/index'
 
 
+export const stopStatus = {
+    searchBomb: [0, 0],
+    search: [0, 0],
+    path: 0,
+    pathID: [-1, -1],
+
+    animationStatus: false,
+    complete: true
+}
+
+export function resetAnimation(){
+    stopStatus.searchBomb = [0, 0]
+    stopStatus.search = [0, 0]
+    stopStatus.path = 0
+    stopStatus.pathID = [-1, -1]
+    stopStatus.animationStatus = false
+    stopStatus.complete = true
+}
+
+
 /* Search */
 
-export function SearchBombAnimation(search, bomb, path, pathDirection, speed, count, myCallbackFunction, sysStatusFunction) {
+export function SearchBombAnimation(search, bomb, path, pathDirection, speed, searchFunction, sysStatusFunction, updateFunction) {
+    stopStatus.complete = false
+    var count = stopStatus.searchBomb[0]
+
     const searchBombAnimation = setInterval(() => {
         if (count === search.length) {
-            myCallbackFunction(bomb, path, pathDirection, speed, 0, PathAnimation, sysStatusFunction)
+            stopStatus.searchBomb = [search.length, 0]
+            searchFunction(bomb, path, pathDirection, speed, PathAnimation, sysStatusFunction, updateFunction)
             clearInterval(searchBombAnimation)
+
         }else{
-            for(var i = 0;i < search[count].length;i++){
-                if (WhichComponentSame(search[count][i]) > 3) {
-                    if(position.bomb === false){
-                        setTable(search[count][i], componentKind.search)
-                    }else{
-                        setTable(search[count][i], componentKind.searchBomb)
-                    }
+            for(var i = (count === stopStatus.searchBomb[0]) * stopStatus.searchBomb[1];i < search[count].length;i++){
+
+                if(stopStatus.animationStatus === false){
+                    stopStatus.searchBomb = [count, i]
+                    sysStatusFunction()
+                    clearInterval(searchBombAnimation)
+                    return
+
                 }else{
-                    if(position.bomb === false){
-                        setTable(search[count][i], StartEndBombWeight(WhichComponentSame(search[count][i]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
+                    if (WhichComponentSame(search[count][i]) > 3) {
+                        if(position.bomb === false){
+                            setTable(search[count][i], componentKind.search)
+                        }else{
+                            setTable(search[count][i], componentKind.searchBomb)
+                        }
                     }else{
-                        setTable(search[count][i], StartEndBombWeight(WhichComponentSame(search[count][i]), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearch, componentKind.weightSearchBomb))
+                        if(position.bomb === false){
+                            setTable(search[count][i], StartEndBombWeight(WhichComponentSame(search[count][i]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
+                        }else{
+                            setTable(search[count][i], StartEndBombWeight(WhichComponentSame(search[count][i]), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearch, componentKind.weightSearchBomb))
+                        }
                     }
+
                 }
+
             }
         }
         count += 1
     }, speed)
 }
 
-export function SearchAnimation(bomb, path, pathDirection, speed, count, myCallbackFunction, sysStatusFunction) {
+export function SearchAnimation(bomb, path, pathDirection, speed, pathFunction, sysStatusFunction, updateFunction) {
+    var count = stopStatus.search[0]
+
     const searchAnimation = setInterval(() => {
         if (count === bomb.length) {
-            myCallbackFunction(path, speed, pathDirection, 0, sysStatusFunction)
+            stopStatus.search = [bomb.length, 0]
+            pathFunction(path, speed, pathDirection, sysStatusFunction, updateFunction)
             clearInterval(searchAnimation)
+
         }else{
-            for(var i = 0;i < bomb[count].length;i++){
-                if (WhichComponentSame(bomb[count][i]) > 3) {
-                    setTable(bomb[count][i], componentKind.search)
+            for(var i = (count === stopStatus.search[0]) * stopStatus.search[1];i < bomb[count].length;i++){
+
+                if(stopStatus.animationStatus === false){
+                    stopStatus.search = [count, i]
+                    sysStatusFunction()
+                    clearInterval(searchAnimation)
+                    return
+
                 }else{
-                    setTable(bomb[count][i], StartEndBombWeight(WhichComponentSame(bomb[count][i]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
+                    if (WhichComponentSame(bomb[count][i]) > 3) {
+                        setTable(bomb[count][i], componentKind.search)
+                    }else{
+                        setTable(bomb[count][i], StartEndBombWeight(WhichComponentSame(bomb[count][i]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
+                    }
+
                 }
+
             }
         }
         count += 1
     }, speed)
 }
 
-export function PathAnimation(path, speed, pathDirection, count, myCallbackFunction = null) {
-    var [id, newid] = [-1, -1]
+export function PathAnimation(path, speed, pathDirection, sysStatusFunction, updateFunction) {
+    var [id, newid] = [stopStatus.pathID[0], stopStatus.pathID[1]]
+    var count = stopStatus.path
 
     const pathAnimation = setInterval(() => {
         if (count === path.length) {
-            myCallbackFunction();
-            clearInterval(pathAnimation);
+            resetAnimation()
+            updateFunction()
+            sysStatusFunction()
+            clearInterval(pathAnimation)
+
         }else {
-            if (WhichComponentSame(path[count]) > 3) {
-                newid = path[count]
-                setTable(id, componentKind.path)
-                setTable(newid, direction(pathDirection[count]))
-                id = newid
+            if(stopStatus.animationStatus === false){
+                stopStatus.path = count
+                stopStatus.pathID = [id, newid]
+                sysStatusFunction()
+                clearInterval(pathAnimation)
+                return
+
             }else{
-                setTable(id, componentKind.path)
-                setTable(path[count], StartEndBombWeight(WhichComponentSame(path[count]), direction(pathDirection[count]), direction(pathDirection[count]), componentKind.bombPath, componentKind.weightPath))
+                if (WhichComponentSame(path[count]) > 3) {
+                    newid = path[count]
+                    setTable(id, componentKind.path)
+                    setTable(newid, direction(pathDirection[count]))
+                    id = newid
+                }else{
+                    setTable(id, componentKind.path)
+                    setTable(path[count], StartEndBombWeight(WhichComponentSame(path[count]), direction(pathDirection[count]), direction(pathDirection[count]), componentKind.bombPath, componentKind.weightPath))
+                }
+
             }
+
         }
         count += 1
     }, speed)
@@ -112,19 +178,23 @@ export function FinalAnimation(search, path, pathDirection, bomb){
 
 /* Maze */
 
-export function MazeAnimation(maze, speed, count, myCallbackFunction) { // maze = [walls, weights]
+export function MazeAnimation(maze, speed, sysStatusFunction) { // maze = [walls, weights]
 
     maze = maze[0]
     speed = speed / 2
+
+    var count = 0
     
     const mazeAnimation = setInterval(() => {
         if (count === maze.length) {
-            myCallbackFunction();
-            clearInterval(mazeAnimation);
+            sysStatusFunction()
+            clearInterval(mazeAnimation)
+
         }else {
             if (WhichComponentSame(maze[count]) > 3) {
                 setTable(maze[count], componentKind.wall, true)
             }
+
         }
         count += 1
     }, speed)

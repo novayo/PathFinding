@@ -3,7 +3,7 @@ import DFS from '../../Backend/Algorithms/DFS';
 import Dijkstra from '../../Backend/Algorithms/Dijkstra';
 
 export function UpdateTable(Start, ClearPath, algorithm, speed) {
-    ClearPath(false)
+    ClearPath(false, false)
     switch (algorithm.get) {
         case "Algorithm_Dijkstra":
             Dijkstra("Dijkstra", Start, speed.get[1]);

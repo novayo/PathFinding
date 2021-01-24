@@ -29,13 +29,17 @@ function WeightModal() {
                 })
             }, weightValueRange.waiting)
 
-            if(update.get && Object.keys(position.weight).length !== 0){
-                UpdateTable(buttonEvent.Start, buttonEvent.ClearPath, algorithm, speed)
-            }
         }
         setInitShow(true)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [weightValue.get])
+
+    useEffect(() => {
+        if(show === 0 && update.get && Object.keys(position.weight).length !== 0){
+            UpdateTable(buttonEvent.Start, buttonEvent.ClearPath, algorithm, speed)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [show])
 
     const handleClose = () => {
         setShow(0)

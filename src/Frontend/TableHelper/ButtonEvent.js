@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind, synchronize } from './TableIndex'
-import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation } from './Animation'
+import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation, stopStatus, resetAnimation } from './Animation'
 import { sysStatusContext, algorithmContext, bombContext, speedContext, position } from '../../Core'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
@@ -12,14 +12,24 @@ function ButtonEvent() {
     const [algorithm, bomb, sysSpeed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
 
     const Start = (search, path, pathDirection, speed, bomb = []) => {
+        if(stopStatus.animationStatus){
+            stopStatus.animationStatus = false
+            return
+        }
+
         if (update.get && synchronize.update) {
             FinalAnimation(search, path, pathDirection, bomb)
         } else {
             // console.log("Start")
             sysStatus.set("RUNNING")
-            update.set("True")
-            synchronize.update = true
-            SearchBombAnimation(search, bomb, path, pathDirection, speed, 0, SearchAnimation, () => sysStatus.set("IDLE"))
+            stopStatus.animationStatus = true
+            SearchBombAnimation(search, bomb, path, pathDirection, speed, SearchAnimation, 
+                () => sysStatus.set("IDLE"), 
+                () => {
+                    update.set("True")
+                    synchronize.update = true
+                }
+            )
         }
     }
 
@@ -28,7 +38,7 @@ function ButtonEvent() {
             FinalMazeAnimation(maze)
         } else {
             sysStatus.set("RUNNING")
-            MazeAnimation(maze, speed, 0, () => sysStatus.set("IDLE"))
+            MazeAnimation(maze, speed, () => sysStatus.set("IDLE"))
         }
     }
 
@@ -89,12 +99,17 @@ function ButtonEvent() {
         ClearPath()
     }
 
-    const ClearPath = (event = true) => {
+    const ClearPath = (complete = false, event = true) => {
         // console.log("ClearPath")
+        if(complete && stopStatus.complete === false){ // NavButton.js buttonEvent.ClearPath(true);
+            return
+        }
+
         if (event) {
             update.set("False")
             synchronize.update = false
         }
+
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
             if (WhichComponentSame(i) >= 5) {
                 setTable(i, componentKind.background)
@@ -108,6 +123,7 @@ function ButtonEvent() {
                 setTable(i, componentKind.start)
             }
         }
+        resetAnimation()
     }
 
     const ClearBoard = () => {
