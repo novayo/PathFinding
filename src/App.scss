@@ -1,0 +1,129 @@
+
+#floating-button{
+    width: 3.5vw;
+    height: 3.5vw;
+    border-radius: 50%;
+    background: rgb(236, 224, 207);
+    position: fixed;
+    bottom: 1.5vw;
+    right: 2vw;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px #666;
+}
+
+#container-floating:hover .plus{
+    animation: plus-in 0.15s linear;
+    animation-fill-mode: forwards;
+}
+
+.edit{
+    position: absolute;
+    top: 0;
+    display: block;
+    bottom: 0;
+    left: 0;
+    display: block;
+    right: 0;
+    padding: 0;
+    opacity: 0;
+    margin: auto;
+    transform: rotateZ(-70deg);
+    transition: all 0.3s;
+    animation: edit-out 0.3s;
+    width: 2vw; /*圖片寬度*/
+    height: 2vw; /*圖片高度*/
+    margin-top: 20%;
+    background-position: center; /*圖片置中*/
+    background-repeat: no-repeat; /*圖片若太小不重複*/
+    background-size: contain; /*讓圖片能scale*/
+}
+
+#container-floating:hover .edit{
+    animation: edit-in 0.2s;
+        animation-delay: 0.1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes edit-in{
+    from {opacity: 0; transform: rotateZ(-70deg);}
+    to {opacity: 1; transform: rotateZ(0deg);}
+}
+
+@keyframes edit-out{
+    from {opacity: 1; transform: rotateZ(0deg);}
+    to {opacity: 0; transform: rotateZ(-70deg);}
+}
+
+.form-style-4{
+	// width: 450px;
+	font-size: 16px;
+	background: rgb(236, 224, 207);
+	padding: 30px 30px 15px 30px;
+    border: 5px solid #53687E;
+    margin: auto;
+}
+.form-style-4 input[type=submit],
+.form-style-4 input[type=button],
+.form-style-4 input[type=text],
+.form-style-4 input[type=email],
+.form-style-4 textarea,
+.form-style-4 label
+{
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 16px;
+	color:  rgb(52, 73, 94);
+
+}
+.form-style-4 label {
+	display:block;
+	margin-bottom: 10px;
+}
+.form-style-4 label > span{
+	display: inline-block;
+	width: 150px;
+}
+.form-style-4 input[type=text],
+.form-style-4 input[type=email] 
+{
+	background: transparent;
+	border: none;
+	border-bottom: 1px dashed rgb(52, 73, 94);;
+	width: 275px;
+	outline: none;
+	padding: 0px 0px 0px 0px;
+	font-style: italic;
+}
+.form-style-4 textarea{
+	font-style: italic;
+	padding: 0px 0px 0px 0px;
+	background: transparent;
+	outline: none;
+	border: none;
+	border-bottom: 1px dashed rgb(52, 73, 94);;
+	width: 275px;
+	overflow: hidden;
+	resize:none;
+	height:20px;
+}
+
+.form-style-4 textarea:focus, 
+.form-style-4 input[type=text]:focus,
+.form-style-4 input[type=email]:focus,
+.form-style-4 input[type=email] :focus
+{
+	border-bottom: 1px dashed rgb(146, 111, 79);;
+}
+
+.form-style-4 input[type=submit],
+.form-style-4 input[type=button]{
+	background: #576E86;
+	border: none;
+	padding: 8px 10px 8px 10px;
+	border-radius: 5px;
+    color: #A8BACE;
+    margin-top: 5%;
+}
+.form-style-4 input[type=submit]:hover,
+.form-style-4 input[type=button]:hover{
+background: #394D61;
+}

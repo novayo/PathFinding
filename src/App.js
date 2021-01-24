@@ -13,6 +13,7 @@ import { updateReducer, updateInitial, updateContext } from './Frontend/TableHel
 import Info from './Frontend/HeaderHelper/Info';
 import AlgorithmDescriptor from './Frontend/HeaderHelper/AlgorithmDescriptor';
 import IntroductionModal from './Frontend/HeaderHelper/IntroductionModal';
+import Email from './Frontend/HeaderHelper/Email';
 
 function App() {
   const [curAlgorithm, setCurAlgorithm] = useReducer(algorithmReducer, initialAlgorithm);
@@ -39,6 +40,7 @@ function App() {
                       <Info />
                       <AlgorithmDescriptor />
                       <Table />
+                      <Email />
                     </algorithmContext.Provider>
                   </sysStatusContext.Provider>
                 </bombContext.Provider>
