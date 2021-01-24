@@ -579,45 +579,6 @@ code {
 
 /*----------static-----------*/
 
-.startStatic {
-  background: var(--background) url('./Resources/Images/Info/StartNode.png');
-  background-position: center;
-  background-size: cover; /*填滿*/
-}
-
-.startPathStatic {
-  background: var(--path) url('./Resources/Images/Info/StartNode.png');
-  background-position: center;
-  background-size: cover; /*填滿*/
-  border: 0;
-}
-
-.endStatic {
-  background: var(--background) url('./Resources/Images/Info/EndNode.png');
-  background-position: center;
-  background-size: cover; /*填滿*/
-}
-
-.endPathStatic {
-  background: var(--path) url('./Resources/Images/Info/EndNode.png');
-  background-position: center;
-  background-size: cover; /*填滿*/
-  border: 0;
-}
-
-.bombStatic {
-  background: var(--background) url('./Resources/Images/Info/BombNode.png');
-  background-position: center;
-  background-size: cover; /*填滿*/
-}
-
-.bombPathStatic {
-  background: var(--path) url('./Resources/Images/Info/BombNode.png');
-  background-position: center;
-  background-size: cover; /*填滿*/
-  border: 0;
-}
-
 .weightStatic {
   background: var(--background) url('./Resources/Images/Info/WeightNode.png');
   background-position: center;

@@ -1,5 +1,8 @@
-import React, { useEffect, useContext, useState } from 'react'
-import { weightValueContext, weightValueRange } from './TableIndex'
+import { useEffect, useContext, useState } from 'react'
+import { weightValueContext, updateContext, weightValueRange } from './TableIndex'
+import { algorithmContext, speedContext, position } from '../../Core/index'
+import { UpdateTable } from './UpdateTable'
+import ButtonEvent from './ButtonEvent'
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -8,9 +11,10 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 
 function WeightModal() {
     // console.log("WeightModal")
-    const weightValue = useContext(weightValueContext)
+    const [weightValue, update, algorithm, speed] = [useContext(weightValueContext), useContext(updateContext), useContext(algorithmContext), useContext(speedContext)]
     const [initShow, setInitShow] = useState(false)
     const [show, setShow] = useState(0)
+    const buttonEvent = ButtonEvent()
     
     useEffect(() => {
         if(initShow){
@@ -24,6 +28,10 @@ function WeightModal() {
                     }
                 })
             }, weightValueRange.waiting)
+
+            if(update.get && Object.keys(position.weight).length !== 0){
+                UpdateTable(buttonEvent.Start, buttonEvent.ClearPath, algorithm, speed)
+            }
         }
         setInitShow(true)
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,7 +47,7 @@ function WeightModal() {
                 <Modal.Body>
                     <Row>
                         <Col xs = {1}><div className = "weightImage"/></Col>
-                        <Col><ProgressBar className = "progress" now={weightValue.get.value} label={weightValue.get.value} /></Col>
+                        <Col><ProgressBar className = "progress" now={weightValue.get.value} label={weightValue.get.value} min = {weightValueRange.min} max = {weightValueRange.max} /></Col>
                     </Row>    
                 </Modal.Body>
             </Modal>

@@ -22,9 +22,9 @@ export const tableVar = {
 }
 
 export const weightValueRange = {
-    max: 100,
+    max: 50,
     min: 0,
-    init: 50,
+    init: 0,
     increase: 10,
     waiting: 2000
 }
@@ -66,15 +66,6 @@ export const componentKind = {
     weightSearchStatic: "weightSearchStatic",
     weightPathStatic: "weightPathStatic",
 
-    //startStatic: "startStatic",           //記得刪除CSS
-    //startPathStatic: "startPathStatic", 
-
-    //endStatic: "endStatic",
-    //endPathStatic: "endPathStatic",
-
-    //bombStatic: "bombStatic",
-    //bombPathStatic: "bombPathStatic",
-
     searchStatic: "searchStatic",
     searchBombStatic: "searchBombStatic",
     pathStatic: "pathStatic",
@@ -100,7 +91,8 @@ export const keyboardSupport = {
 
 export const synchronize = {
     update: true,
-    algorithm: ""
+    algorithm: "",
+    sysStatus: "IDLE"
 }
 
 // touch status

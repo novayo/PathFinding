@@ -53,29 +53,8 @@ export function SearchAnimation(bomb, path, pathDirection, speed, count, myCallb
 export function PathAnimation(path, speed, pathDirection, count, myCallbackFunction = null) {
     var [id, newid] = [-1, -1]
 
-    // console.log(pathDirection.length)
-    // console.log(path.length)
-
-    // var set = new Set()
-    // var newPath = []
-    // for (let i = 0; i < path.length; i++) {
-    //     if (set.has(path[i].toString())) {
-    //         pathDirection.splice(i, 1);
-    //     } else {
-    //         newPath.push(path[i])
-    //         set.add(path[i].toString())
-    //     }
-    // }
-    // path = newPath
-
-    // console.log(pathDirection.length)
-    // console.log(path.length)
-    // console.log(pathDirection)
-    // console.log(path)
-
     const pathAnimation = setInterval(() => {
         if (count === path.length) {
-            // setTable(newid, componentKind.path)
             myCallbackFunction();
             clearInterval(pathAnimation);
         }else {

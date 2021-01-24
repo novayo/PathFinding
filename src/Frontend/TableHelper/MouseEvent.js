@@ -15,10 +15,14 @@ function MouseEvent() {
 
     useEffect(() => {
         synchronize.algorithm = algorithm
+        synchronize.sysStatus = sysStatus
         // eslint-disable-next-line
-    }, [algorithm.get])
+    }, [algorithm.get, sysStatus.get])
 
     document.addEventListener('keydown', function(event) {
+        if(synchronize.sysStatus.get !== "IDLE"){
+            return
+        }
         if(keyboardSupport.down){
             KeyboardEvent(event, synchronize.algorithm, weightValue)
         }

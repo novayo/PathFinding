@@ -12,9 +12,6 @@ function ButtonEvent() {
     const [algorithm, bomb, sysSpeed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
 
     const Start = (search, path, pathDirection, speed, bomb = []) => {
-        // console.log(path.length)
-        // console.log(pathDirection.length)
-        // console.log(pathDirection)
         if (update.get && synchronize.update) {
             FinalAnimation(search, path, pathDirection, bomb)
         } else {
