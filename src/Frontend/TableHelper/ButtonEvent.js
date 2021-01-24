@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind, synchronize } from './TableIndex'
 import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation } from './Animation'
-import { sysStatusContext, algorithmContext, bombContext, speedContext } from '../../Core'
+import { sysStatusContext, algorithmContext, bombContext, speedContext, position } from '../../Core'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
 import { WhichComponentSame } from './WhichComp'
@@ -50,12 +50,9 @@ function ButtonEvent() {
 
     const RemoveBomb = () => {
         // console.log("RemoveBomb")
-        for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
-            if (WhichComponentSame(i) === 2) {
-                setTable(i, componentKind.background, true)
-                break
-            }
-        }
+        if(position.bomb !== false){
+            setTable(position.bomb, componentKind.background, true)
+        }  
         bomb.set("False")
 
         if (update.get) {
