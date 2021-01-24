@@ -13,18 +13,14 @@ function Dijkstra(whichAlgo, startCallback, speed) {
         if (retShortestPath.length > 0) {
             retShortestPath.splice(retShortestPath.length - 1, 1); // 第一段的終點也是第二段的起點，故去除
             retDirection.splice(retDirection.length - 1, 1); // 第一段的終點也是第二段的起點，故去除
-            let tmp = [];
+            let tmp = []; // 因為unshift所以暫存
             retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.bomb, position.end, retBombPath, tmp))
-
-            // 會重複找一次BOMB的方向，因此去除
-            // tmp.splice(0, 1);
             retDirection = retDirection.concat(tmp);
         }
     } else {
         retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.start, position.end, retSearchPath, retDirection))
     }
 
-    // console.log(retDirection);
     // 執行 start 動畫
     startCallback(retSearchPath, retShortestPath, retDirection, speed, retBombPath);
 }
@@ -231,12 +227,17 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
                             }
                             tmp = table[which][tmp][1];
                         }
-                        curShortestPath.splice(curShortestPath.length - 1, 1)
+                        if (which === 1) {
+                            // end 奇數個: actualEnd下面會在計算一次，而因為要保證「過彎處為上一個的方向」，故下面不計算actualEnd
+                        } else {
+                            // start 偶數個: actualEnd下面會在計算一次，因此去除
+                            curShortestPath.splice(curShortestPath.length - 1, 1);
+                            retDirection.splice(retDirection.length - 1, 1);
+                        }
                     } else {
                         isFoundEnd = true;
                     }
                 }
-                return;
             } else {
                 if (nextPos.toString() === endPos.toString()) { // 看是否找到終點了
                     actualEnd = nextPos;
@@ -254,7 +255,7 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
         }
 
         if (isFoundEnd) { // 找到終點跳出
-            searchPath.push([actualEnd]);
+            searchPath.push([actualEnd]); // 先加入258行，再加入終點
             break;
         }
     }
@@ -265,8 +266,15 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
         if (whichAlgo !== "BidirectionSwarm") which = 1;
         while (curPos) { // 因為找到start時的previous vertex為null
             if (which === 1) {
-                curShortestPath.unshift(curPos); // bidirection 左右兩邊要插入的方式相反
-                retDirection.unshift(table[(which + 1) % 2][curPos][2]);
+                if (whichAlgo === "BidirectionSwarm") {
+                    if (curPos.toString() !== actualEnd.toString()) { // 因為要保證「過彎處為上一個的方向」，故下面不計算actualEnd
+                        curShortestPath.unshift(curPos); // bidirection 左右兩邊要插入的方式相反
+                        retDirection.unshift(table[(which + 1) % 2][curPos][2]);
+                    }
+                } else {
+                    curShortestPath.unshift(curPos); // bidirection 左右兩邊要插入的方式相反
+                    retDirection.unshift(table[(which + 1) % 2][curPos][2]);
+                }
             } else {
                 curShortestPath.push(curPos);
                 retDirection.push(table[(which + 1) % 2][curPos][2]);
@@ -275,11 +283,14 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
         }
     }
 
-    // 如果是雙向，尾巴會被計算兩次
-    if (whichAlgo === "BidirectionSwarm") retDirection.splice(retDirection.length - 1, 1);
     // 因為是找四周圍，只更新是周圍，所以頭的資訊不會被更新，因此去除頭且延伸目前的第一個位置即可
     retDirection.splice(0, 1);
     retDirection.unshift(retDirection[0]);
+    // BidirectionSwarm 有兩個頭，所以尾巴的頭也要做一次
+    if (whichAlgo === "BidirectionSwarm") {
+        retDirection.unshift(retDirection[0]);
+        retDirection.splice(retDirection.length - 1, 1);
+    }
     return curShortestPath;
 }
 

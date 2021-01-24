@@ -95,7 +95,7 @@ class Distance {
             this.max_d = curD;
         }
         if (shortest.length === 1) return []; // 如果沒有找到路徑(只有終點自己)，則不用跑最短路徑
-        shortestDirection.push(shortestDirection[shortestDirection.length - 1]); // 加入終點
+        shortestDirection.unshift(shortestDirection[0]); // 加入改變方向找法
 
         return [shortest, shortestDirection];
     }

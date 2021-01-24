@@ -110,9 +110,9 @@ code {
   font-family: 'Righteous', cursive;
   display: inline-block;  /*把li點點去掉*/
   list-style: none; /*不要用任何style*/
-  font-size: 1.8vh; /*字的大小*/
+  font-size: 1vw; /*字的大小*/
   margin-top: 0.5em; /*置中在mainInfo的div中間*/
-  padding: 0 3vh 0 0; /*左右padding*/
+  padding: 0 1vw 0 0; /*左右padding*/
 }
 
 #mainInfo > ul li > div{
@@ -237,8 +237,8 @@ code {
 
 
 .Algorithm{
-  width: 30vh; /*圖片寬度*/
-  height: 30vh; /*圖片高度*/
+  width: 19vw; /*圖片寬度*/
+  height: 19vw; /*圖片高度*/
   margin: auto;
   background-position: center; /*圖片置中*/
   background-repeat: no-repeat; /*圖片若太小不重複*/
@@ -300,7 +300,7 @@ code {
     font-family: 'Roboto', sans-serif;
     text-align: center;
     color: var(--text-color);
-    font-size: 1.9vw;
+    font-size: 1.5vw;
     margin-top: 2%;
 }
 

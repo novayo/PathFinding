@@ -51,15 +51,20 @@ function DFS(startCallback, speed) {
 
         // 有找到最小路徑才繼續
         if (retShortestPath.length > 0) {
-            var tmp = [];
-            DoDFS(start[0], start[1], position.end, visited, retBombPath, tmp, retDirection);
+            // bottom up 時 尾巴不確定方向，故現在加上方向
+            retShortestPath.splice(retShortestPath.length - 1, 1); // 去除bomb重複
+            var tmp = []; // 因為unshift，所以先暫存
+            var tmp2 = [];
+            DoDFS(start[0], start[1], position.end, visited, retBombPath, tmp, tmp2);
             retShortestPath = retShortestPath.concat(tmp);
+            retDirection = retDirection.concat(tmp2);
         }
     } else {
         DoDFS(start[0], start[1], position.end, visited, retBombPath, retShortestPath, retDirection);
     }
 
-    // console.log(retDirection);
+    // bottom up 時 尾巴不確定方向，故現在加上方向
+    retDirection.unshift(retDirection[0]); // 改變方向找法，往前推移一格
     startCallback(retSearchPath, retShortestPath, retDirection, speed, retBombPath);
 }
 
