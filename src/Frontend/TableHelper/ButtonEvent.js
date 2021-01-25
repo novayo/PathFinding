@@ -73,14 +73,16 @@ function ButtonEvent() {
         }
     }
 
-    const RemoveBomb = () => {
+    const RemoveBomb = (checkStopStatus = true) => {
         // console.log("RemoveBomb")
         if(position.bomb !== false){
             setTable(position.bomb, componentKind.background, true)
         }  
         bomb.set("False")
 
-        CheckStopStatus()
+        if(checkStopStatus){
+            CheckStopStatus()
+        }
 
         if (update.get) {
             UpdateTable(Start, ClearPath, algorithm, sysSpeed)
@@ -99,9 +101,10 @@ function ButtonEvent() {
         touch.set("")
     }
 
-    const ClearWeights = () => {
+    const ClearWeights = (checkStopStatus = true) => {
         // console.log("ClearWeights")
         const weight = Object.keys(position.weight)
+
         for (var i = 0; i < weight.length; i++) {
             setTable(weight[i].split(","), componentKind.background, true)
         }
@@ -114,7 +117,10 @@ function ButtonEvent() {
         if(touch.get.bomb !== componentKind.wall){
             touch.set({componentKind: componentKind.bomb, under: componentKind.background})
         }
-        CheckStopStatus()
+
+        if(checkStopStatus){
+            CheckStopStatus()
+        }
     }
 
     const ClearPath = (event = true) => {
