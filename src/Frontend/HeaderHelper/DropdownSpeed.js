@@ -16,7 +16,7 @@ function DropdownSpeed() {
 
 
     const DropdownSpeedHandler = (eventKey) => {
-        if (sysStatus.get !== "IDLE") {
+        if (sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") {
             return;
         }
 

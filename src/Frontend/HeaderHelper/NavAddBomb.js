@@ -33,7 +33,7 @@ function NavAddBomb({ names, handlers }) {
     const localHandler = () => {
         if (isMount) return;
 
-        if (sysStatus.get !== "IDLE" || algoContext.get === "" || algoContext.get === "Algorithm_Bidrectional_Swarm") {
+        if ((sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") || algoContext.get === "" || algoContext.get === "Algorithm_Bidrectional_Swarm") {
             return;
         }
 

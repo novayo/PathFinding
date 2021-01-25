@@ -10,8 +10,23 @@ export const stopStatus = {
     path: 0,
     pathID: [-1, -1],
 
+    searchResult: [],
+    bombResult: [],
+    pathResult: [],
+    pathDirectionResult: [],
+
+    algorithm: "",
+    
     animationStatus: false,
     complete: true
+}
+
+export function setAnimation(search, path, pathDirection, bomb, algorithm){
+    stopStatus.searchResult = search
+    stopStatus.pathResult = path
+    stopStatus.pathDirectionResult = pathDirection
+    stopStatus.bombResult = bomb
+    stopStatus.algorithm = algorithm
 }
 
 export function resetAnimation(){
@@ -109,7 +124,6 @@ export function PathAnimation(path, speed, pathDirection, sysStatusFunction, upd
         if (count === path.length) {
             resetAnimation()
             updateFunction()
-            sysStatusFunction()
             clearInterval(pathAnimation)
 
         }else {

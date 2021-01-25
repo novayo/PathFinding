@@ -12,7 +12,7 @@ const Colored = () => {
             setClassName("nav-link-default");
             setIsHover(false);
         } else {
-            if (sysStatus.get !== "IDLE") {
+            if (sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") {
                 setClassName("nav-link-red");
             } else {
                 setClassName("nav-link-green");

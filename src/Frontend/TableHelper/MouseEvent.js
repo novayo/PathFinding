@@ -33,10 +33,17 @@ function MouseEvent() {
         }
     })
 
+    const CheckStopStatus = () => {
+        if (sysStatus.get === "STOP"){
+            buttonEvent.ClearPath()
+            sysStatus.set("IDLE")
+        }
+    }
+
     const MouseDownHandler = (e) => {
         // console.log("MouseDownHandler " + e.target.id)
 
-        if (sysStatus.get !== "IDLE" || componentKind.add === false) {
+        if ((sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") || componentKind.add === false) {
             return
         }
 
@@ -48,6 +55,7 @@ function MouseEvent() {
         if(whichComponent.type){
             setTable(tableVar.id, whichComponent.rKind, true)
             move.set(componentKind.add)
+            CheckStopStatus()
 
         }else{
             move.set(whichComponent.kind)
@@ -57,7 +65,7 @@ function MouseEvent() {
     const MouseUpHandler = (e) => {
         // console.log("MouseUpHandler " + e.target.id)
 
-        if (sysStatus.get !== "IDLE" || componentKind.add === false) {
+        if ((sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") || componentKind.add === false) {
             return
         }
 
@@ -71,7 +79,7 @@ function MouseEvent() {
     const OnMouseEnterHanlder = (e) => {
         // console.log("OnMouseEnterHanlder " + e.target.id)
 
-        if (sysStatus.get !== "IDLE" || componentKind.add === false) {
+        if ((sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") || componentKind.add === false) {
             return
         }
 
@@ -82,12 +90,14 @@ function MouseEvent() {
         if(move.get === componentKind.add && whichNewComponent.type){
             setTable(tableVar.newId, whichNewComponent.rKind, true)
             tableVar.id = parseInt(tableVar.newId)
+            CheckStopStatus()
 
         }else if(move.get !== componentKind.add && move.get !== "" && whichNewComponent.type){
             setTable(tableVar.id, whichOldComponent.touch, true)
             touch.set({componentKind: whichOldComponent.kind, under: whichNewComponent.kind})
             setTable(tableVar.newId, whichOldComponent.kind, true)
             tableVar.id = parseInt(tableVar.newId)
+            CheckStopStatus()
         }
 
         if(update.get && move.get !== ""){

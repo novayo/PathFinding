@@ -21,6 +21,8 @@ export const sysStatusReducer = (state, action) => {
     switch (action) {
         case 'IDLE':
             return 'IDLE';
+        case 'STOP':
+            return 'STOP';
         case 'RUNNING':
             return 'RUNNING';
         case 'LOADING':

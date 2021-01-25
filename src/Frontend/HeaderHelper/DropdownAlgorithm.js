@@ -12,7 +12,7 @@ function DropdownAlgorithm() {
 
     const DropdownAlgorithmHandler = (eventKey) => {
 
-        if (sysStatus.get !== "IDLE") {
+        if (sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") {
             return;
         }
 

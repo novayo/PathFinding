@@ -13,7 +13,7 @@ const Colored = () => {
             setClassName("nav-link-default");
             setIsHover(false);
         } else {
-            if (sysStatus.get !== "IDLE" || algoStatus.get === "" || algoStatus.get === "Algorithm_Bidrectional_Swarm") {
+            if ((sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") || algoStatus.get === "" || algoStatus.get === "Algorithm_Bidrectional_Swarm") {
                 setClassName("nav-link-red");
             } else {
                 setClassName("nav-link-green");

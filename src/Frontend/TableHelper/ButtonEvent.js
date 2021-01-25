@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind, synchronize } from './TableIndex'
-import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation, stopStatus, resetAnimation } from './Animation'
+import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation, stopStatus, resetAnimation, setAnimation } from './Animation'
 import { sysStatusContext, algorithmContext, bombContext, speedContext, position } from '../../Core'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
@@ -11,10 +11,15 @@ function ButtonEvent() {
     const [touch, update] = [useContext(touchContext), useContext(updateContext)]
     const [algorithm, bomb, sysSpeed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
 
-    const Start = (search, path, pathDirection, speed, bomb = []) => {
+    const Start = (search = stopStatus.searchResult, path = stopStatus.pathResult, pathDirection = stopStatus.pathDirectionResult, speed = sysSpeed.get[1], bomb = stopStatus.bombResult) => {
         if(stopStatus.animationStatus){
             stopStatus.animationStatus = false
             return
+        }
+
+        if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && algorithm.get !== stopStatus.algorithm)){
+            setAnimation(search, path, pathDirection, bomb, algorithm.get)
+            resetAnimation()
         }
 
         if (update.get && synchronize.update) {
@@ -24,10 +29,11 @@ function ButtonEvent() {
             sysStatus.set("RUNNING")
             stopStatus.animationStatus = true
             SearchBombAnimation(search, bomb, path, pathDirection, speed, SearchAnimation, 
-                () => sysStatus.set("IDLE"), 
+                () => sysStatus.set("STOP"), 
                 () => {
                     update.set("True")
                     synchronize.update = true
+                    sysStatus.set("IDLE")
                 }
             )
         }
@@ -42,6 +48,13 @@ function ButtonEvent() {
         }
     }
 
+    const CheckStopStatus = () => {
+        if (sysStatus.get === "STOP"){
+            ClearPath()
+            sysStatus.set("IDLE")
+        }
+    }
+
     const Addbomb = () => {
         // console.log("AddBomb")
         const index = Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 2)
@@ -52,6 +65,8 @@ function ButtonEvent() {
 
         bomb.set("True")
         setTable(index, componentKind.bomb, true)
+
+        CheckStopStatus()
 
         if (update.get) {
             UpdateTable(Start, ClearPath, algorithm, sysSpeed)
@@ -64,6 +79,8 @@ function ButtonEvent() {
             setTable(position.bomb, componentKind.background, true)
         }  
         bomb.set("False")
+
+        CheckStopStatus()
 
         if (update.get) {
             UpdateTable(Start, ClearPath, algorithm, sysSpeed)
@@ -78,6 +95,7 @@ function ButtonEvent() {
         }
         ClearWeights()
         ClearPath()
+        CheckStopStatus()
         touch.set("")
     }
 
@@ -96,14 +114,11 @@ function ButtonEvent() {
         if(touch.get.bomb !== componentKind.wall){
             touch.set({componentKind: componentKind.bomb, under: componentKind.background})
         }
-        ClearPath()
+        CheckStopStatus()
     }
 
-    const ClearPath = (complete = false, event = true) => {
+    const ClearPath = (event = true) => {
         // console.log("ClearPath")
-        if(complete && stopStatus.complete === false){ // NavButton.js buttonEvent.ClearPath(true);
-            return
-        }
 
         if (event) {
             update.set("False")
@@ -136,6 +151,7 @@ function ButtonEvent() {
         setTable(Math.floor(tableVar.rowSize / 2 + 1) * tableVar.colSize - Math.floor(tableVar.colSize / 4), componentKind.end, true)
         touch.set("")
         bomb.set("False")
+        CheckStopStatus()
     }
 
     return { Start, Addbomb, RemoveBomb, ClearWalls, ClearPath, ClearBoard, CreateMaze, ClearWeights }

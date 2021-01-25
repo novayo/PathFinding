@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { algorithmContext, sysStatusContext, speedContext } from '../../Core';
 import ButtonEvent from '../TableHelper/ButtonEvent';
+import { stopStatus } from '../TableHelper/Animation'
 import BFS from '../../Backend/Algorithms/BFS';
 import DFS from '../../Backend/Algorithms/DFS';
 import Dijkstra from '../../Backend/Algorithms/Dijkstra';
@@ -64,8 +65,9 @@ const NavButton = () => {
 
 
     const handler = () => {
-        if (sysStatus.get !== "IDLE") {
-            return;
+        if (sysStatus.get === "RUNNING" || (sysStatus.get === "STOP" && algoContext.get === stopStatus.algorithm)){
+            buttonEvent.Start()
+            return 
         }
 
         if (algoContext.get === "") {

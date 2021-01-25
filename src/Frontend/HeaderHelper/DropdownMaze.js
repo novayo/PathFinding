@@ -20,7 +20,7 @@ function DropdownMaze() {
     const speed = speedStatus.get[1];
 
     const DropdownMazeHandler = (eventKey) => {
-        if (sysStatus.get !== "IDLE") {
+        if (sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") {
             return;
         }
         buttonEvent.ClearPath()
