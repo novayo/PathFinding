@@ -9,7 +9,7 @@ function NavLink({ names, handlers }) {
     const [className, toggleHandler] = Colored();
 
     const localHandler = () => {
-        if (sysStatus.get !== "IDLE") {
+        if (sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") {
             return;
         }
 
