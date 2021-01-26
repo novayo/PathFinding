@@ -4,21 +4,19 @@ import { position } from '../../Core/index'
 
 const size = 23
 
-export function adjust(size) {
-    if (size % 2 === 0) {
-        return size - 1
-    } else {
-        return size
-    }
-
-}
-
 export const tableVar = {
-    rowSize: adjust(Math.floor(window.screen.availHeight / size) - 16),
+    rowSize: adjust(Math.floor((window.innerHeight - 162 - 100) / size)),
     colSize: adjust(Math.floor(window.screen.availWidth / size)),
     size: size,
+
     id: 0,
     newId: 0
+}
+
+export const originPos = {
+    origin_start: [adjust(Math.floor(tableVar.rowSize / 2)), adjust(Math.floor(tableVar.colSize / 4))],
+    origin_end: [adjust(Math.floor(tableVar.rowSize / 2)), adjust(tableVar.colSize - Math.floor(tableVar.colSize / 4))]
+
 }
 
 export const weightValueRange = {
@@ -162,5 +160,16 @@ export const weightValueReducer = (state, action) => {
         default:
             return weightValueInitial
     }
+}
+
+// 保證奇數
+
+export function adjust(size) {
+    if (size % 2 === 0) {
+        return size - 1
+    } else {
+        return size
+    }
+
 }
 

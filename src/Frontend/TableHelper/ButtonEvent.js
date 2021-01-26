@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { tableVar, touchContext, updateContext, componentKind, synchronize } from './TableIndex'
-import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation, stopStatus, resetAnimation, setAnimation } from './Animation'
+import { tableVar, touchContext, updateContext, componentKind, synchronize, originPos } from './TableIndex'
+import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation, stopStatus, resetAnimation, setAnimation, setMazeAnimation } from './Animation'
 import { sysStatusContext, algorithmContext, bombContext, speedContext, position } from '../../Core'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
@@ -27,6 +27,7 @@ function ButtonEvent() {
         } else {
             // console.log("Start")
             sysStatus.set("RUNNING")
+            stopStatus.isMaze = false
             stopStatus.animationStatus = true
             SearchBombAnimation(search, bomb, path, pathDirection, speed, SearchAnimation, 
                 () => sysStatus.set("STOP"), 
@@ -39,18 +40,29 @@ function ButtonEvent() {
         }
     }
 
-    const CreateMaze = (maze, speed) => {
+    const CreateMaze = (maze = stopStatus.mazeResult, speed = sysSpeed.get[1], reset = true) => {
+        if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && reset)){
+            setMazeAnimation(maze)
+            resetAnimation()
+        }
+
         if (speed === 0) {
             FinalMazeAnimation(maze)
         } else {
             sysStatus.set("RUNNING")
-            MazeAnimation(maze, speed, () => sysStatus.set("IDLE"))
+            stopStatus.isMaze = true
+            stopStatus.animationStatus = true
+            MazeAnimation(maze, speed, () => sysStatus.set("STOP"), () => sysStatus.set("IDLE"))
         }
     }
 
     const CheckStopStatus = () => {
         if (sysStatus.get === "STOP"){
-            ClearPath()
+            if(stopStatus.isMaze){
+                ClearWalls(false)
+            } else {
+                ClearPath()
+            }
             sysStatus.set("IDLE")
         }
     }
@@ -89,16 +101,20 @@ function ButtonEvent() {
         }
     }
 
-    const ClearWalls = () => {
+    const ClearWalls = (checkStopStatus = true) => {
         // console.log("ClearWall")
         const wall = Object.keys(position.wall)
         for (var i = 0; i < wall.length; i++) {
             setTable(wall[i].split(","), componentKind.background, true)
         }
-        ClearWeights()
+        ClearWeights(false)
         ClearPath()
-        CheckStopStatus()
+        
         touch.set("")
+
+        if (checkStopStatus === true){
+            CheckStopStatus()
+        }
     }
 
     const ClearWeights = (checkStopStatus = true) => {
@@ -153,8 +169,8 @@ function ButtonEvent() {
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {
             setTable(i, componentKind.background, true)
         }
-        setTable(Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 4), componentKind.start, true)
-        setTable(Math.floor(tableVar.rowSize / 2 + 1) * tableVar.colSize - Math.floor(tableVar.colSize / 4), componentKind.end, true)
+        setTable(originPos.origin_start[0] * tableVar.colSize + originPos.origin_start[1], componentKind.start, true)
+        setTable(originPos.origin_end[0] * tableVar.colSize + originPos.origin_end[1], componentKind.end, true)
         touch.set("")
         bomb.set("False")
         CheckStopStatus()

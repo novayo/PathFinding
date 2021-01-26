@@ -16,7 +16,11 @@ export const stopStatus = {
     pathDirectionResult: [],
 
     algorithm: "",
-    
+
+    maze: 0,
+    mazeResult: [],
+
+    isMaze: false,
     animationStatus: false,
     complete: true
 }
@@ -29,11 +33,21 @@ export function setAnimation(search, path, pathDirection, bomb, algorithm){
     stopStatus.algorithm = algorithm
 }
 
+export function setMazeAnimation(maze){
+    stopStatus.mazeResult = maze
+}
+
 export function resetAnimation(){
     stopStatus.searchBomb = [0, 0]
     stopStatus.search = [0, 0]
     stopStatus.path = 0
     stopStatus.pathID = [-1, -1]
+
+    stopStatus.maze = 0
+    stopStatus.isMaze = false
+
+    stopStatus.algorithm = ""
+
     stopStatus.animationStatus = false
     stopStatus.complete = true
 }
@@ -192,21 +206,32 @@ export function FinalAnimation(search, path, pathDirection, bomb){
 
 /* Maze */
 
-export function MazeAnimation(maze, speed, sysStatusFunction) { // maze = [walls, weights]
+export function MazeAnimation(maze, speed, sysStatusFunction, updateFunction) { // maze = [walls, weights]
+    stopStatus.complete = false
 
     maze = maze[0]
     speed = speed / 2
 
-    var count = 0
+    var count = stopStatus.maze
     
     const mazeAnimation = setInterval(() => {
         if (count === maze.length) {
-            sysStatusFunction()
+            resetAnimation()
+            updateFunction()
             clearInterval(mazeAnimation)
 
         }else {
-            if (WhichComponentSame(maze[count]) > 3) {
-                setTable(maze[count], componentKind.wall, true)
+            if (stopStatus.animationStatus === false){
+                stopStatus.maze = count
+                sysStatusFunction()
+                clearInterval(mazeAnimation)
+                return
+
+            }else{
+                if (WhichComponentSame(maze[count]) > 4) {
+                    setTable(maze[count], componentKind.wall, true)
+                }
+
             }
 
         }

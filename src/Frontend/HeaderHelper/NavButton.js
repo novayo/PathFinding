@@ -69,9 +69,20 @@ const NavButton = () => {
 
 
     const handler = () => {
-        if (sysStatus.get === "RUNNING" || (sysStatus.get === "STOP" && algoContext.get === stopStatus.algorithm)) {
+        if (sysStatus.get === "RUNNING") {
             buttonEvent.Start()
             return
+
+        } else if (sysStatus.get === "STOP"){
+            if (stopStatus.isMaze){
+                buttonEvent.CreateMaze(undefined, undefined, false)
+                return
+
+            } else if (algoContext.get === stopStatus.algorithm){
+                buttonEvent.Start()
+                return
+
+            }
         }
 
         if (algoContext.get === "") {

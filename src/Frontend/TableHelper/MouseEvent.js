@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { sysStatusContext, algorithmContext, speedContext } from '../../Core/index'
+import { stopStatus } from './Animation'
 import { tableVar, touchContext, moveContext, updateContext, weightValueContext, componentKind, keyboardSupport, synchronize } from './TableIndex'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
@@ -35,7 +36,11 @@ function MouseEvent() {
 
     const CheckStopStatus = () => {
         if (sysStatus.get === "STOP"){
-            buttonEvent.ClearPath()
+            if(stopStatus.isMaze){
+                buttonEvent.ClearWalls()
+            } else {
+                buttonEvent.ClearPath()
+            }
             sysStatus.set("IDLE")
         }
     }
@@ -53,9 +58,9 @@ function MouseEvent() {
         const whichComponent = WhichComponent(tableVar.id, touch)
 
         if(whichComponent.type){
+            CheckStopStatus()
             setTable(tableVar.id, whichComponent.rKind, true)
             move.set(componentKind.add)
-            CheckStopStatus()
 
         }else{
             move.set(whichComponent.kind)
