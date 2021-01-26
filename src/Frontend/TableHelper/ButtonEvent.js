@@ -160,7 +160,10 @@ function ButtonEvent() {
                 setTable(i, componentKind.start)
             }
         }
-        resetAnimation()
+
+        if(stopStatus.isMaze === false){
+            resetAnimation()
+        }
     }
 
     const ClearBoard = () => {

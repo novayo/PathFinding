@@ -21,7 +21,7 @@ function MouseEvent() {
     }, [algorithm.get, sysStatus.get])
 
     document.addEventListener('keydown', function(event) {
-        if(synchronize.sysStatus.get !== "IDLE"){
+        if(synchronize.sysStatus.get !== "IDLE" && synchronize.sysStatus.get !== "STOP"){
             return
         }
         if(keyboardSupport.down){
@@ -37,7 +37,7 @@ function MouseEvent() {
     const CheckStopStatus = () => {
         if (sysStatus.get === "STOP"){
             if(stopStatus.isMaze){
-                buttonEvent.ClearWalls()
+                buttonEvent.ClearWalls(false)
             } else {
                 buttonEvent.ClearPath()
             }
