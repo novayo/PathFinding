@@ -1,25 +1,24 @@
 import { position } from '../../Core';
-import PriorityQueue from '../../Core/PriorityQueue';
 
-function Dijkstra(whichAlgo, startCallback, speed) {
+function Dijkstra_old(whichAlgo, startCallback, speed) {
     var retSearchPath = [];
     var retBombPath = [];
     var retShortestPath = [];
     var retDirection = [];
 
     if (position.bomb) {
-        retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.start, position.bomb, retSearchPath, retDirection))
+        retShortestPath = retShortestPath.concat(DoDijkstra_old(whichAlgo, position.start, position.bomb, retSearchPath, retDirection))
 
         // 有找到最小路徑才繼續
         if (retShortestPath.length > 0) {
             retShortestPath.splice(retShortestPath.length - 1, 1); // 第一段的終點也是第二段的起點，故去除
             retDirection.splice(retDirection.length - 1, 1); // 第一段的終點也是第二段的起點，故去除
             let tmp = []; // 因為unshift所以暫存
-            retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.bomb, position.end, retBombPath, tmp))
+            retShortestPath = retShortestPath.concat(DoDijkstra_old(whichAlgo, position.bomb, position.end, retBombPath, tmp))
             retDirection = retDirection.concat(tmp);
         }
     } else {
-        retShortestPath = retShortestPath.concat(DoDijkstra(whichAlgo, position.start, position.end, retSearchPath, retDirection))
+        retShortestPath = retShortestPath.concat(DoDijkstra_old(whichAlgo, position.start, position.end, retSearchPath, retDirection))
     }
 
     // 執行 start 動畫
@@ -27,7 +26,7 @@ function Dijkstra(whichAlgo, startCallback, speed) {
 }
 
 // 回傳最短路徑
-function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
+function DoDijkstra_old(whichAlgo, startPos, endPos, searchPath, retDirection) {
     /*  //https://medium.com/basecs/finding-the-shortest-path-with-a-little-help-from-dijkstra-613149fbdc8e
         Create Dijkstra table 
         
@@ -52,38 +51,38 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
     }
 
     var end = null; // 決定終點（可能bomb or end）
-    var unvisited = [new PriorityQueue(), new PriorityQueue()]; // [0]: start, [1]: end
+    var unvisited = [[], []]; // [0]: start, [1]: end
     switch (whichAlgo) {
         case "Dijkstra":
             table[0][startPos] = [0, null, "up", 0]; // 設定起始點
-            unvisited[0].Push(0, 0, startPos); // 設定目前最短路徑的queue
+            unvisited[0].push(startPos); // 設定目前最短路徑的queue
             end = [endPos];
             break;
         case "Astar":
             table[0][startPos] = [0, null, "up", 0]; // 設定起始點
-            unvisited[0].Push(0, 0, startPos); // 設定目前最短路徑的queue
+            unvisited[0].push(startPos); // 設定目前最短路徑的queue
             end = [endPos];
             break;
         case "Swarm":
             table[0][startPos] = [0, null, "right", 0]; // 設定起始點
-            unvisited[0].Push(0, 0, startPos); // 設定目前最短路徑的queue
+            unvisited[0].push(startPos); // 設定目前最短路徑的queue
             end = [endPos];
             break;
         case "GreedyBestFirstSearch":
             table[0][startPos] = [0, null, "up", 0]; // 設定起始點
-            unvisited[0].Push(0, 0, startPos); // 設定目前最短路徑的queue
+            unvisited[0].push(startPos); // 設定目前最短路徑的queue
             end = [endPos];
             break;
         case "ConvergentSwarm":
             table[0][startPos] = [0, null, "right", 0]; // 設定起始點
-            unvisited[0].Push(0, 0, startPos); // 設定目前最短路徑的queue
+            unvisited[0].push(startPos); // 設定目前最短路徑的queue
             end = [endPos];
             break;
         case "BidirectionSwarm":
             table[0][startPos] = [0, null, "right", 0]; // 設定起始點
             table[1][endPos] = [0, null, "left", 0]; // 設定起始點
-            unvisited[0].Push(0, 0, startPos); // 設定目前最短路徑的queue
-            unvisited[1].Push(0, 0, endPos); // 設定目前最短路徑的queue
+            unvisited[0].push(startPos); // 設定目前最短路徑的queue
+            unvisited[1].push(endPos); // 設定目前最短路徑的queue
             end = [endPos, startPos];
             break;
         default:
@@ -97,20 +96,20 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
     var isFoundEnd = false;
     var visited = [new Set(), new Set()]; // [0]: start, [1]: end
 
-    while (unvisited[0].Length() > 0 || unvisited[1].Length() > 0) {
+    while (unvisited[0].length > 0 || unvisited[1].length > 0) {
 
         // 選要走哪邊
-        if (unvisited[0].Length() > 0 && unvisited[1].Length() > 0) {
+        if (unvisited[0].length > 0 && unvisited[1].length > 0) {
             which = (which + 1) % 2;
-        } else if (unvisited[0].Length() > 0) {
+        } else if (unvisited[0].length > 0) {
             which = 0;
-        } else if (unvisited[1].Length() > 0) {
+        } else if (unvisited[1].length > 0) {
             which = 1;
         }
 
         // 1. 選出當前最小路徑的點
         var curPos = null;
-        curPos = GetClosestNode(unvisited[which]);
+        curPos = GetClosestNode(table[which], 3, unvisited[which], end[which]);
 
         if (curPos in position.wall) {
             continue; // 牆壁不走
@@ -208,7 +207,7 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
 
             // 加入尚未走過的點 
             if (!visited[which].has(curPos.toString())) {
-                unvisited[which].Push(table[which][nextPos][3], GetHeuristic(nextPos, endPos), nextPos);
+                unvisited[which].push(nextPos);
             }
 
             // 若找尋過程有對方搜尋到的，則更新actualEnd
@@ -300,8 +299,23 @@ function GetHeuristic(startPos, endPos) {
 }
 
 // 找出分數最小點，策略：考慮所有的分數 目前總分+權重+轉向分數+估值
-function GetClosestNode(unvisited) {
-    let retPos = unvisited.Pop();
+function GetClosestNode(table, strategy, unvisited, endPos) {
+    let retPos, retIndex;
+    for (var i = 0; i < unvisited.length; i++) {
+        if (!retPos || table[retPos][strategy] > table[unvisited[i]][strategy]) {
+            retPos = unvisited[i];
+            retIndex = i;
+
+            // 若相等則取得 估值小的（距離目標近的）
+        } else if (table[retPos][strategy] === table[unvisited[i]][strategy]) {
+            if (GetHeuristic(retPos, endPos) > GetHeuristic(unvisited[i], endPos)) {
+                retPos = unvisited[i];
+                retIndex = i;
+            }
+        }
+    }
+
+    unvisited.splice(retIndex, 1);
     return retPos;
 }
 
@@ -388,4 +402,4 @@ function GetScore(direction, index) {
     return score;
 }
 
-export default Dijkstra;
+export default Dijkstra_old;

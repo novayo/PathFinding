@@ -6,6 +6,7 @@ import { stopStatus } from '../TableHelper/Animation'
 import BFS from '../../Backend/Algorithms/BFS';
 import DFS from '../../Backend/Algorithms/DFS';
 import Dijkstra from '../../Backend/Algorithms/Dijkstra';
+import Dijkstra_old from '../../Backend/Algorithms/Dijkstra_old';
 
 const NavButton = () => {
 
@@ -47,6 +48,9 @@ const NavButton = () => {
             case "Algorithm_Depth_First":
                 algoName = "DFS";
                 break;
+            case "Algorithm_Dijkstra_old":
+                algoName = "Dijkstra's";
+                break;
             default:
                 algoName = "";
                 break;
@@ -65,9 +69,9 @@ const NavButton = () => {
 
 
     const handler = () => {
-        if (sysStatus.get === "RUNNING" || (sysStatus.get === "STOP" && algoContext.get === stopStatus.algorithm)){
+        if (sysStatus.get === "RUNNING" || (sysStatus.get === "STOP" && algoContext.get === stopStatus.algorithm)) {
             buttonEvent.Start()
-            return 
+            return
         }
 
         if (algoContext.get === "") {
@@ -80,29 +84,27 @@ const NavButton = () => {
                     break;
                 case 'Algorithm_AStar':
                     Dijkstra("Astar", buttonEvent.Start, speed.get[1]);
-                    // Astar(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Greedy_Best_First":
                     Dijkstra("GreedyBestFirstSearch", buttonEvent.Start, speed.get[1]);
-                    // GreedyBestFirstSearch(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Swarm":
                     Dijkstra("Swarm", buttonEvent.Start, speed.get[1]);
-                    // Swarm(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Convergent_Swarm":
                     Dijkstra("ConvergentSwarm", buttonEvent.Start, speed.get[1]);
-                    // ConvergentSwarm(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Bidrectional_Swarm":
                     Dijkstra("BidirectionSwarm", buttonEvent.Start, speed.get[1]);
-                    // BidirectionSwarm(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Breadth_First":
                     BFS(buttonEvent.Start, speed.get[1]);
                     break;
                 case "Algorithm_Depth_First":
                     DFS(buttonEvent.Start, speed.get[1]);
+                    break;
+                case "Algorithm_Dijkstra_old":
+                    Dijkstra_old("Dijkstra", buttonEvent.Start, speed.get[1]);
                     break;
                 default:
                     break;

@@ -44,6 +44,9 @@ function DropdownAlgorithm() {
                 buttonEvent.ClearWeights(false); // 按下去後要清空weight // false只是換演算法，不ClearPath
                 algoContext.set('Algorithm_Depth_First');
                 break;
+            case "Algorithm_Dijkstra_old":
+                algoContext.set('Algorithm_Dijkstra_old');
+                break;
             default:
                 break;
         }
@@ -62,6 +65,8 @@ function DropdownAlgorithm() {
                 <NavDropdown.Item eventKey="Algorithm_Bidrectional_Swarm">Bidirectional Swarm Algorithm</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Algorithm_Breadth_First">Breadth-First Search</NavDropdown.Item>
                 <NavDropdown.Item eventKey="Algorithm_Depth_First">Depth-First Search</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item eventKey="Algorithm_Dijkstra_old">(Old) Dijkstra's Algorithm</NavDropdown.Item>
             </NavDropdown>
         </Nav.Item>
     )

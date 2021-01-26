@@ -83,6 +83,8 @@ export const algorithmReducer = (state, action) => {
             return 'Algorithm_Breadth_First';
         case "Algorithm_Depth_First":
             return 'Algorithm_Depth_First';
+        case "Algorithm_Dijkstra_old":
+            return "Algorithm_Dijkstra_old";
         default:
             return initialAlgorithm;
     }
