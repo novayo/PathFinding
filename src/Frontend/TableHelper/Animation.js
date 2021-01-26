@@ -46,8 +46,6 @@ export function resetAnimation(){
     stopStatus.maze = 0
     stopStatus.isMaze = false
 
-    stopStatus.algorithm = ""
-
     stopStatus.animationStatus = false
     stopStatus.complete = true
 }
