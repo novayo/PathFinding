@@ -17,7 +17,7 @@ function TableUI() {
                 {col.map((colIndex, index) => {
                     // console.log(rowIndex + " " + colIndex)
                     return (
-                        <td id = {rowIndex * colSize + colIndex} key = {index} className = {componentKind.background} width={size} onMouseUp = {MouseUpHandler} onMouseDown = {MouseDownHandler} onMouseEnter = {OnMouseEnterHanlder}>
+                        <td id = {rowIndex * colSize + colIndex} key = {index} className = {componentKind.background} width = {size} onMouseUp = {MouseUpHandler} onMouseDown = {MouseDownHandler} onMouseEnter = {OnMouseEnterHanlder}>
                             {}
                         </td>)}
                     )}
@@ -29,11 +29,10 @@ function TableUI() {
         document.getElementById((originPos.origin_end[0] * tableVar.colSize + originPos.origin_end[1]).toString()).className = componentKind.end
     }, [])
     
-    
-      
+
     return (
         <div className = "tablePadding">
-            <table id = "board" align="center" border="1" cellSpacing="0">
+            <table id = "board" className = "board" align="center" border="1" cellSpacing="0">
                 <tbody>
                     {createTable}
                 </tbody>

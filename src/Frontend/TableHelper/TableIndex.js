@@ -2,12 +2,27 @@ import { createContext } from 'react'
 import { position } from '../../Core/index'
 
 
-const size = 23
+const size = () => {
+    console.log(navigator.userAgent)
+    if(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)){
+        return 10
+    }else{
+        return 23
+    }
+}
+
+const objectHeight = () => {
+    if(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)){
+        return 120 + 0
+    }else{
+        return 162 + 100
+    }
+}
 
 export const tableVar = {
-    rowSize: adjust(Math.floor((window.innerHeight - 162 - 100) / size)),
-    colSize: adjust(Math.floor(window.screen.availWidth / size)),
-    size: size,
+    rowSize: adjust(Math.floor((window.innerHeight - objectHeight()) / size())),
+    colSize: adjust(Math.floor(window.screen.availWidth / size())),
+    size: size(),
 
     id: 0,
     newId: 0
