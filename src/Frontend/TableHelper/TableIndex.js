@@ -37,7 +37,7 @@ export const originPos = {
 export const weightValueRange = {
     max: 20,
     min: 0,
-    init: 0,
+    init: 20,
     increase: 5,
     waiting: 2000
 }

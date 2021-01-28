@@ -20,7 +20,6 @@ export const stopStatus = {
     maze: 0,
     mazeResult: [],
 
-    isMaze: false,
     animationStatus: false,
     complete: true
 }
@@ -44,7 +43,6 @@ export function resetAnimation(){
     stopStatus.pathID = [-1, -1]
 
     stopStatus.maze = 0
-    stopStatus.isMaze = false
 
     stopStatus.animationStatus = false
     stopStatus.complete = true

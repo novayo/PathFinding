@@ -32,6 +32,20 @@ export const sysStatusReducer = (state, action) => {
     }
 }
 
+// 目前Animation狀態
+export const animationStatusContext = React.createContext();
+export const animationStatusInitial = "Algorithm";
+export const animationStatusReducer = (state, action) => {
+    switch (action) {
+        case 'Maze':
+            return 'Maze';
+        case 'Algorithm':
+            return 'Algorithm';
+        default:
+            return animationStatusInitial;
+    }
+}
+
 // Bomb status
 export const bombContext = React.createContext();
 export const bombInitial = false;

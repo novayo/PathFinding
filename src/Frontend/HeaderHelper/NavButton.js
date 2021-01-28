@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
-import { algorithmContext, sysStatusContext, speedContext } from '../../Core';
+import { algorithmContext, sysStatusContext, speedContext, animationStatusContext } from '../../Core';
 import ButtonEvent from '../TableHelper/ButtonEvent';
 import { stopStatus } from '../TableHelper/Animation'
 import BFS from '../../Backend/Algorithms/BFS';
@@ -15,6 +15,7 @@ const NavButton = () => {
     const algoContext = useContext(algorithmContext);
     const sysStatus = useContext(sysStatusContext);
     const speed = useContext(speedContext);
+    const animation = useContext(animationStatusContext)
     const buttonEvent = ButtonEvent();
 
     useEffect(() => {
@@ -74,8 +75,8 @@ const NavButton = () => {
             return
 
         } else if (sysStatus.get === "STOP"){
-            if (stopStatus.isMaze){
-                buttonEvent.CreateMaze(undefined, undefined, false)
+            if (animation.get === "Maze"){
+                buttonEvent.CreateMaze()
                 return
 
             } else if (algoContext.get === stopStatus.algorithm){

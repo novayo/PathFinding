@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind, synchronize, originPos } from './TableIndex'
 import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation, stopStatus, resetAnimation, setAnimation, setMazeAnimation } from './Animation'
-import { sysStatusContext, algorithmContext, bombContext, speedContext, position } from '../../Core'
+import { sysStatusContext, algorithmContext, bombContext, speedContext, animationStatusContext, position } from '../../Core'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
 import { WhichComponentSame } from './WhichComp'
@@ -9,7 +9,7 @@ import { WhichComponentSame } from './WhichComp'
 
 function ButtonEvent() {
     const [touch, update] = [useContext(touchContext), useContext(updateContext)]
-    const [algorithm, bomb, sysSpeed, sysStatus] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext)]
+    const [algorithm, bomb, sysSpeed, sysStatus, animation] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext), useContext(animationStatusContext)]
 
     const Start = (search = stopStatus.searchResult, path = stopStatus.pathResult, pathDirection = stopStatus.pathDirectionResult, speed = sysSpeed.get[1], bomb = stopStatus.bombResult) => {
         if(stopStatus.animationStatus){
@@ -19,7 +19,7 @@ function ButtonEvent() {
 
         if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && algorithm.get !== stopStatus.algorithm)){
             setAnimation(search, path, pathDirection, bomb, algorithm.get)
-            resetAnimation()
+            // resetAnimation()  // 執行start之前都會call ClearPath()
         }
 
         if (update.get && synchronize.update) {
@@ -27,7 +27,6 @@ function ButtonEvent() {
         } else {
             // console.log("Start")
             sysStatus.set("RUNNING")
-            stopStatus.isMaze = false
             stopStatus.animationStatus = true
             SearchBombAnimation(search, bomb, path, pathDirection, speed, SearchAnimation, 
                 () => sysStatus.set("STOP"), 
@@ -40,26 +39,27 @@ function ButtonEvent() {
         }
     }
 
-    const CreateMaze = (maze = stopStatus.mazeResult, speed = sysSpeed.get[1], reset = true) => {
-        if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && reset)){
+    const CreateMaze = (maze = stopStatus.mazeResult, speed = sysSpeed.get[1]) => {
+        if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && animation.get === "Algorithm")){
             setMazeAnimation(maze)
-            resetAnimation()
+            // resetAnimation()  // 執行start之前都會call ClearPath()
         }
 
         if (speed === 0) {
             FinalMazeAnimation(maze)
         } else {
             sysStatus.set("RUNNING")
-            stopStatus.isMaze = true
+            animation.set("Maze")
             stopStatus.animationStatus = true
-            MazeAnimation(maze, speed, () => sysStatus.set("STOP"), () => sysStatus.set("IDLE"))
+            MazeAnimation(maze, speed, () => sysStatus.set("STOP"), () => {sysStatus.set("IDLE"); animation.set("Algorithm")})
         }
     }
 
     const CheckStopStatus = () => {
         if (sysStatus.get === "STOP"){
-            if(stopStatus.isMaze){
+            if(animation.get === "Maze"){
                 ClearWalls(false)
+                animation.set("Algorithm")
             } else {
                 ClearPath()
             }
@@ -161,7 +161,7 @@ function ButtonEvent() {
             }
         }
 
-        if(stopStatus.isMaze === false){
+        if(animation.get === "Algorithm"){
             resetAnimation()
         }
     }

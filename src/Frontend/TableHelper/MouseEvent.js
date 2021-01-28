@@ -1,6 +1,5 @@
 import { useContext, useEffect } from 'react'
-import { sysStatusContext, algorithmContext, speedContext } from '../../Core/index'
-import { stopStatus } from './Animation'
+import { sysStatusContext, algorithmContext, speedContext, animationStatusContext } from '../../Core/index'
 import { tableVar, touchContext, moveContext, updateContext, weightValueContext, componentKind, keyboardSupport, synchronize } from './TableIndex'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
@@ -10,7 +9,7 @@ import ButtonEvent from './ButtonEvent'
 
 
 function MouseEvent() {
-    const [touch, move, update, weightValue] = [useContext(touchContext), useContext(moveContext), useContext(updateContext), useContext(weightValueContext)]
+    const [touch, move, update, weightValue, animation] = [useContext(touchContext), useContext(moveContext), useContext(updateContext), useContext(weightValueContext), useContext(animationStatusContext)]
     const [algorithm, speed, sysStatus] = [useContext(algorithmContext), useContext(speedContext), useContext(sysStatusContext)]
     const buttonEvent = ButtonEvent()
 
@@ -36,8 +35,9 @@ function MouseEvent() {
 
     const CheckStopStatus = () => {
         if (sysStatus.get === "STOP"){
-            if(stopStatus.isMaze){
+            if(animation.get === "Maze"){
                 buttonEvent.ClearWalls(false)
+                animation.set("Algorithm")
             } else {
                 buttonEvent.ClearPath()
             }
