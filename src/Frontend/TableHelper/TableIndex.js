@@ -5,7 +5,7 @@ import { position } from '../../Core/index'
 const size = () => {
     console.log(navigator.userAgent)
     if(navigator.userAgent.match(/Mobile/i)){
-        return 10
+        return 15
     }else{
         return 23
     }
