@@ -4,7 +4,7 @@ import { position } from '../../Core/index'
 
 const size = () => {
     console.log(navigator.userAgent)
-    if(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)){
+    if(navigator.userAgent.match(/Mobile/i)){
         return 10
     }else{
         return 23
@@ -12,7 +12,7 @@ const size = () => {
 }
 
 const objectHeight = () => {
-    if(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)){
+    if(navigator.userAgent.match(/Mobile/i)){
         return 120 + 0
     }else{
         return 162 + 100
