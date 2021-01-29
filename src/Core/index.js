@@ -68,9 +68,9 @@ export const speedReducer = (state, action) => {
         case 'Fast':
             return ["Fast", 20];
         case 'Average':
-            return ["Average", 50];
+            return ["Average", 100];
         case 'Slow':
-            return ["Slow", 100];
+            return ["Slow", 1000];
         default:
             return bombInitial
     }
