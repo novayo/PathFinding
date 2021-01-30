@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { NavDropdown, Nav } from 'react-bootstrap';
-import { sysStatusContext, speedContext, animationStatusContext, mazeContext } from '../../../Core';
+import { sysStatusContext, speedContext, mazeContext } from '../../../Core';
 import Colored from '../../../HOC/Colored';
 import ButtonEvent from '../../TableHelper/ButtonEvent';
 import Simple_Stair_Pattern from '../../../Backend/Maze/Simple_Stair_Pattern';
@@ -15,7 +15,6 @@ import Eller from '../../../Backend/Maze/Eller';
 function DropdownMaze() {
     const sysStatus = useContext(sysStatusContext);
     const speedStatus = useContext(speedContext);
-    const animationStatus = useContext(animationStatusContext);
     const mazeStatus = useContext(mazeContext);
     const [className, toggleHandler] = Colored();
     const buttonEvent = ButtonEvent();
@@ -71,8 +70,7 @@ function DropdownMaze() {
             default:
                 break;
         }
-
-        animationStatus.set("Maze");
+        
     }
 
     return (

@@ -46,8 +46,7 @@ function ButtonEvent() {
         }
 
         if (speed === 0) {
-            animation.set("Maze")
-            FinalMazeAnimation(maze, () => animation.set("Algorithm"))
+            FinalMazeAnimation(maze)
         } else {
             sysStatus.set("RUNNING")
             animation.set("Maze")
