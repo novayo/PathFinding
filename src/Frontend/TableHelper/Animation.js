@@ -235,13 +235,14 @@ export function MazeAnimation(maze, speed, sysStatusFunction, updateFunction) { 
     }, speed)
 }
 
-export function FinalMazeAnimation(maze){ // maze = [walls, weights]
+export function FinalMazeAnimation(maze, sysStatusFunction){ // maze = [walls, weights]
     for(var i = 0; i < maze[0].length; i++){
         setTable(maze[0][i], componentKind.wall, true)
     }
     for(i = 0; i < maze[1].length; i++){
         setTable(maze[1][i], componentKind.weight, true)
     }
+    sysStatusFunction()
 }
 
 

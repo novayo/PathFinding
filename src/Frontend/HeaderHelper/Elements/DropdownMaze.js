@@ -25,7 +25,7 @@ function DropdownMaze() {
         if (sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") {
             return;
         }
-        buttonEvent.ClearPath()
+        buttonEvent.ClearPath(undefined, true)
         buttonEvent.ClearWalls()
         switch (eventKey) {
             case "Maze_Recursive_Division":
