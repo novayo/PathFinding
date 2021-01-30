@@ -3,18 +3,18 @@ import { position } from '../../Core/index'
 
 
 const size = () => {
-    console.log(navigator.userAgent)
-    if(navigator.userAgent.match(/Mobile/i)){
+    // console.log(navigator.userAgent)
+    if (navigator.userAgent.match(/Mobile/i)) {
         return 15
-    }else{
+    } else {
         return 23
     }
 }
 
 const objectHeight = () => {
-    if(navigator.userAgent.match(/Mobile/i)){
+    if (navigator.userAgent.match(/Mobile/i)) {
         return 120 + 0
-    }else{
+    } else {
         return 162 + 100
     }
 }

@@ -1,16 +1,16 @@
 import React, { useContext } from 'react'
 import { NavDropdown, Nav } from 'react-bootstrap';
-import { sysStatusContext, speedContext } from '../../Core';
-import Colored from '../../HOC/Colored';
-import ButtonEvent from '../TableHelper/ButtonEvent';
-import Simple_Stair_Pattern from '../../Backend/Maze/Simple_Stair_Pattern';
-import Binary_Tree from '../../Backend/Maze/Binary_Tree';
-import RecursiveDivision from '../../Backend/Maze/RecursiveDivision';
-import Kruskal from '../../Backend/Maze/Kruskal';
-import Basic_Random_Maze from '../../Backend/Maze/Basic_Random_Maze';
-import Basic_Weight_Maze from '../../Backend/Maze/Basic_Weight_Maze';
-import Prim from '../../Backend/Maze/Prim';
-import Eller from '../../Backend/Maze/Eller';
+import { sysStatusContext, speedContext } from '../../../Core';
+import Colored from '../../../HOC/Colored';
+import ButtonEvent from '../../TableHelper/ButtonEvent';
+import Simple_Stair_Pattern from '../../../Backend/Maze/Simple_Stair_Pattern';
+import Binary_Tree from '../../../Backend/Maze/Binary_Tree';
+import RecursiveDivision from '../../../Backend/Maze/RecursiveDivision';
+import Kruskal from '../../../Backend/Maze/Kruskal';
+import Basic_Random_Maze from '../../../Backend/Maze/Basic_Random_Maze';
+import Basic_Weight_Maze from '../../../Backend/Maze/Basic_Weight_Maze';
+import Prim from '../../../Backend/Maze/Prim';
+import Eller from '../../../Backend/Maze/Eller';
 
 function DropdownMaze() {
     const sysStatus = useContext(sysStatusContext);

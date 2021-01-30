@@ -11,10 +11,6 @@ import { touchReducer, touchInitial, touchContext } from './Frontend/TableHelper
 import { moveReducer, moveInitial, moveContext } from './Frontend/TableHelper/TableIndex';
 import { weightValueReducer, weightValueInitial, weightValueContext } from './Frontend/TableHelper/TableIndex';
 import { updateReducer, updateInitial, updateContext } from './Frontend/TableHelper/TableIndex';
-import Info from './Frontend/HeaderHelper/Info';
-import AlgorithmDescriptor from './Frontend/HeaderHelper/AlgorithmDescriptor';
-import IntroductionModal from './Frontend/HeaderHelper/IntroductionModal';
-import Email from './Frontend/HeaderHelper/Email';
 
 function App() {
   const [curAlgorithm, setCurAlgorithm] = useReducer(algorithmReducer, initialAlgorithm);
@@ -29,7 +25,7 @@ function App() {
 
   return (
     <div className="App">
-      <IntroductionModal />
+      {/* <IntroductionModal /> */}
       <animationStatusContext.Provider value={{ get: animation, set: setAnimation }}>
         <weightValueContext.Provider value={{ get: weightValue, set: setWeightValue }}>
           <updateContext.Provider value={{ get: update, set: setUpdate }}>
@@ -40,10 +36,10 @@ function App() {
                     <sysStatusContext.Provider value={{ get: curSysStatus, set: setCurSysStatus }}>
                       <algorithmContext.Provider value={{ get: curAlgorithm, set: setCurAlgorithm }}>
                         <Header />
-                        <Info />
-                        <AlgorithmDescriptor />
+                        {/* <Info />
+                        <AlgorithmDescriptor /> */}
                         <Table />
-                        <Email />
+                        {/* <Email /> */}
                       </algorithmContext.Provider>
                     </sysStatusContext.Provider>
                   </bombContext.Provider>

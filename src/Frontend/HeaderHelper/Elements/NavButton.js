@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
-import { algorithmContext, sysStatusContext, speedContext, animationStatusContext } from '../../Core';
-import ButtonEvent from '../TableHelper/ButtonEvent';
-import { stopStatus } from '../TableHelper/Animation'
-import BFS from '../../Backend/Algorithms/BFS';
-import DFS from '../../Backend/Algorithms/DFS';
-import Dijkstra from '../../Backend/Algorithms/Dijkstra';
-import Dijkstra_old from '../../Backend/Algorithms/Dijkstra_old';
+import { algorithmContext, sysStatusContext, speedContext, animationStatusContext } from '../../../Core';
+import ButtonEvent from '../../TableHelper/ButtonEvent';
+import { stopStatus } from '../../TableHelper/Animation'
+import BFS from '../../../Backend/Algorithms/BFS';
+import DFS from '../../../Backend/Algorithms/DFS';
+import Dijkstra from '../../../Backend/Algorithms/Dijkstra';
+import Dijkstra_old from '../../../Backend/Algorithms/Dijkstra_old';
 
 const NavButton = () => {
 
@@ -74,12 +74,12 @@ const NavButton = () => {
             buttonEvent.Start()
             return
 
-        } else if (sysStatus.get === "STOP"){
-            if (animation.get === "Maze"){
+        } else if (sysStatus.get === "STOP") {
+            if (animation.get === "Maze") {
                 buttonEvent.CreateMaze()
                 return
 
-            } else if (algoContext.get === stopStatus.algorithm){
+            } else if (algoContext.get === stopStatus.algorithm) {
                 buttonEvent.Start()
                 return
 

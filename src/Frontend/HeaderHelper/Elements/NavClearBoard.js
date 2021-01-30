@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
-import { sysStatusContext } from '../../Core';
-import Colored from '../../HOC/Colored';
+import { sysStatusContext } from '../../../Core';
+import Colored from '../../../HOC/Colored';
 
 function NavClearBoard({ names, handlers }) {
     const [whichHandler, setWhichHandler] = useState(0);

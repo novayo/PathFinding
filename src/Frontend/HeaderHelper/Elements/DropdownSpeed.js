@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { sysStatusContext } from '../../Core';
-import { speedContext } from '../../Core';
-import Colored from '../../HOC/Colored';
+import { sysStatusContext } from '../../../Core';
+import { speedContext } from '../../../Core';
+import Colored from '../../../HOC/Colored';
 
 function DropdownSpeed() {
     const [title, setTitle] = useState('Average');

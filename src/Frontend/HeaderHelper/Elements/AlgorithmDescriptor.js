@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
-import { algorithmContext } from '../../Core';
+import { algorithmContext } from '../../../Core';
 
 function AlgorithmDescriptor() {
     const [algorithmName, setAlgorithmName] = useState('Pick an algorithm and visualize it!');

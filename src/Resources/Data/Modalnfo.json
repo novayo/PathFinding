@@ -29,21 +29,21 @@
     },
     {
         "Title": [
-            "How to manipulate? - Pick an algorithm",
+            "How? - Pick an algorithm",
             "如何使用? - 選擇一個演算法"
         ],
         "Dialog": [
-            "Click a algorithm to visualize.",
+            "Click an algorithm to visualize.",
             "點選執行演算法。"
         ],
         "Body": [
-            "Some algorithms are weighted, while the others are unwighted. By the way, not all algorithms guarantee shortest path.Introduction of algorithms locate at the top of grids.",
+            "Some algorithms are weighted, while the others are unwighted. By the way, not all of the algorithms guarantee shortest path.Introduction of algorithms locate at the top of grids.",
             "演算法分為weighted與unweighted，且不是所有演算法都保證最短路徑。演算法的介紹在網格上方。"
         ]
     },
     {
         "Title": [
-            "How to manipulate? - Create Maze",
+            "How? - Create Maze",
             "如何使用? - 建立迷宮"
         ],
         "Dialog": [
@@ -57,7 +57,7 @@
     },
     {
         "Title": [
-            "How to manipulate? - Add Walls or Weights",
+            "How? - Add Walls or Weights",
             "如何使用? - 建立牆壁或權重"
         ],
         "Dialog": [
@@ -71,21 +71,35 @@
     },
     {
         "Title": [
-            "How to manipulate? - Add Bomb",
-            "如何使用? - 建立Bomb"
+            "How? - Change Weights' Value",
+            "如何使用? - 控制權重"
         ],
         "Dialog": [
-            "After picking an algorithm, click \"Add Bomb\" to add bomb",
-            "選擇完演算法後，點擊按鈕加入Bomb。"
+            "Click on \"+\" \"-\" to change value of weights.",
+            "輸入 \"+\" \"-\" 控制權重 。"
         ],
         "Body": [
-            "Bomb：the algorithm will first look for the bomb and then look for target.",
-            "Bomb：演算法必須先找尋bomb才會找尋目標。"
+            "",
+            ""
         ]
     },
     {
         "Title": [
-            "How to manipulate? - Visualize & Drag Nodes",
+            "How? - Add Gas",
+            "如何使用? - 建立Gas"
+        ],
+        "Dialog": [
+            "After picking an algorithm, click \"Add Gas\" to add Gas",
+            "選擇完演算法後，點擊按鈕加入Gas。"
+        ],
+        "Body": [
+            "Bomb：the algorithm look for the Gas first then the target.",
+            "Bomb：演算法必須先找尋Gas才會找尋目標。"
+        ]
+    },
+    {
+        "Title": [
+            "How? - Visualize & Drag Nodes",
             "如何使用? - 開始視覺化 & 拖拉結果"
         ],
         "Dialog": [
@@ -99,7 +113,7 @@
     },
     {
         "Title": [
-            "How to manipulate? - Other Functional Buttons",
+            "How? - Other Functional Buttons",
             "如何使用? - 其他功能"
         ],
         "Dialog": [

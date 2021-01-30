@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
-import { bombContext, sysStatusContext, algorithmContext } from '../../Core';
-import Colored from '../../HOC/Colored_AddButton';
-import { IsMount } from '../../Core/IsMount.js'
+import { bombContext, sysStatusContext, algorithmContext } from '../../../Core';
+import Colored from '../../../HOC/Colored_AddButton';
+import { IsMount } from '../../../Core/IsMount.js'
 
 function NavAddBomb({ names, handlers }) {
     const [whichHandler, setWhichHandler] = useState(0);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import data from '../../Resources/Data/Modalnfo.json';
+import data from '../../../Resources/Data/Modalnfo.json';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 
 function IntroductionModal() {
@@ -36,10 +36,11 @@ function IntroductionModal() {
                 {pages === 3 ? <div className="Algorithm"></div> : null}
                 {pages === 4 ? <div className="Maze"></div> : null}
                 {pages === 5 ? <div className="WallWeight"></div> : null}
-                {pages === 6 ? <div className="AddBomb"></div> : null}
-                {pages === 7 ? <div className="StartDrag"></div> : null}
-                {pages === 8 ? <div className="Other"></div> : null}
-                {pages === 9 ? (language === 1 ? <p className="Modal-BodyText1">本專案由 <a href="https://github.com/novayo">novayo</a> 及 <a href="https://github.com/ChengTsungPao">ChengTsungPao</a> 共同製作</p> : <p className="Modal-BodyText1">This application made by <a href="https://github.com/novayo">novayo</a> and <a href="https://github.com/ChengTsungPao">ChengTsungPao</a>.</p>) : null}
+                {pages === 6 ? <div className="WeightValue"></div> : null}
+                {pages === 7 ? <div className="AddBomb"></div> : null}
+                {pages === 8 ? <div className="StartDrag"></div> : null}
+                {pages === 9 ? <div className="Other"></div> : null}
+                {pages === 10 ? (language === 1 ? <p className="Modal-BodyText1">本專案由 <a href="https://github.com/novayo">novayo</a> 及 <a href="https://github.com/ChengTsungPao">ChengTsungPao</a> 共同製作</p> : <p className="Modal-BodyText1">This application made by <a href="https://github.com/novayo">novayo</a> and <a href="https://github.com/ChengTsungPao">ChengTsungPao</a>.</p>) : null}
             </Modal.Body>
 
             <Modal.Footer>
