@@ -1,11 +1,15 @@
 import { useState, useContext, useEffect } from 'react';
-import { algorithmContext } from '../../../Core';
+import { algorithmContext, mazeContext, animationStatusContext } from '../../../Core';
 
 function AlgorithmDescriptor() {
     const [algorithmName, setAlgorithmName] = useState('Pick an algorithm and visualize it!');
     const [discription1, setDiscription1] = useState('');
     const [discription2, setDiscription2] = useState('');
     const algoContext = useContext(algorithmContext);
+    const animationContext = useContext(animationStatusContext);
+    const mContext = useContext(mazeContext);
+    const [mazeName, setMazeName] = useState("");
+    const [m_discription1, setMDiscription1] = useState('');
 
     useEffect(() => {
         var algoName = "";
@@ -62,21 +66,82 @@ function AlgorithmDescriptor() {
         setAlgorithmName(algoName);
         setDiscription1(d1);
         setDiscription2(d2);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [algoContext.get])
 
-    if (algoContext.get === "") {
+    useEffect(() => {
+        var mName = "";
+        var d1 = "";
+        switch (mContext.get) {
+            case "Maze_Recursive_Division":
+                mName = "Recursive Division Maze";
+                d1 = "";
+                break;
+            case "Maze_Recursive_Division_vertical":
+                mName = "Recursive Division(Vertical) Maze";
+                d1 = "";
+                break;
+            case "Maze_Recursive_Division_horizontal":
+                mName = "Recursive Division(Horizontal) Maze";
+                d1 = "";
+                break;
+            case "Maze_Basic_Random":
+                mName = "Basic Random Maze";
+                d1 = "does not";
+                break;
+            case "Maze_Basic_Weight_Maze":
+                mName = "Basic Weight Maze";
+                d1 = "does not";
+                break;
+            case "Maze_Simple_stair_pattern":
+                mName = "Simple Stait Pattern";
+                d1 = "does not";
+                break;
+            case "Maze_Binary_Tree":
+                mName = "Binary Tree Generator";
+                d1 = "";
+                break;
+            case "Maze_Kruskal":
+                mName = "Kruskal's Maze";
+                d1 = "does not";
+                break;
+            case "Maze_Prim":
+                mName = "Prim's Maze";
+                d1 = "does not";
+                break;
+            case "Maze_Eller":
+                mName = "Eller's Maze";
+                d1 = "";
+                break;
+            default:
+                break;
+        }
+
+        setMazeName(mName);
+        setMDiscription1(d1);
+    }, [mContext.get])
+
+    if (algoContext.get === "" && animationContext.get === "Algorithm") {
         return (
             <div id="algorithmDescriptor">
                 {algorithmName}
             </div>
         )
     } else {
-        return (
-            <div id="algorithmDescriptor">
-                <b>{algorithmName}</b> is <i>{discription1}</i> and <i>{discription2}</i> the shortest path!
-            </div>
-        )
+        if (animationContext.get === "Maze") {
+            return (
+                <div id="algorithmDescriptor">
+                    <b>{mazeName}</b> <i>{m_discription1} guarantees</i> perfect maze!
+                </div>
+            )
+        } else if (animationContext.get === "Algorithm") {
+            return (
+                <div id="algorithmDescriptor">
+                    <b>{algorithmName}</b> is <i>{discription1}</i> and <i>{discription2}</i> the shortest path!
+                </div>
+            )
+        }
     }
 
 }

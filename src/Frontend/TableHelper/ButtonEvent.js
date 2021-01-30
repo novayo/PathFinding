@@ -12,12 +12,12 @@ function ButtonEvent() {
     const [algorithm, bomb, sysSpeed, sysStatus, animation] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext), useContext(animationStatusContext)]
 
     const Start = (search = stopStatus.searchResult, path = stopStatus.pathResult, pathDirection = stopStatus.pathDirectionResult, speed = sysSpeed.get[1], bomb = stopStatus.bombResult) => {
-        if(stopStatus.animationStatus){
+        if (stopStatus.animationStatus) {
             stopStatus.animationStatus = false
             return
         }
 
-        if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && algorithm.get !== stopStatus.algorithm)){
+        if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && algorithm.get !== stopStatus.algorithm)) {
             setAnimation(search, path, pathDirection, bomb, algorithm.get)
             // resetAnimation()  // 執行start之前都會call ClearPath()
         }
@@ -28,8 +28,8 @@ function ButtonEvent() {
             // console.log("Start")
             sysStatus.set("RUNNING")
             stopStatus.animationStatus = true
-            SearchBombAnimation(search, bomb, path, pathDirection, speed, SearchAnimation, 
-                () => sysStatus.set("STOP"), 
+            SearchBombAnimation(search, bomb, path, pathDirection, speed, SearchAnimation,
+                () => sysStatus.set("STOP"),
                 () => {
                     update.set("True")
                     synchronize.update = true
@@ -40,7 +40,7 @@ function ButtonEvent() {
     }
 
     const CreateMaze = (maze = stopStatus.mazeResult, speed = sysSpeed.get[1]) => {
-        if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && animation.get === "Algorithm")){
+        if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && animation.get === "Algorithm")) {
             setMazeAnimation(maze)
             // resetAnimation()  // 執行start之前都會call ClearPath()
         }
@@ -51,13 +51,13 @@ function ButtonEvent() {
             sysStatus.set("RUNNING")
             animation.set("Maze")
             stopStatus.animationStatus = true
-            MazeAnimation(maze, speed, () => sysStatus.set("STOP"), () => {sysStatus.set("IDLE"); animation.set("Algorithm")})
+            MazeAnimation(maze, speed, () => sysStatus.set("STOP"), () => { sysStatus.set("IDLE"); animation.set("Algorithm") })
         }
     }
 
     const CheckStopStatus = () => {
-        if (sysStatus.get === "STOP"){
-            if(animation.get === "Maze"){
+        if (sysStatus.get === "STOP") {
+            if (animation.get === "Maze") {
                 ClearWalls(false)
                 animation.set("Algorithm")
             } else {
@@ -87,12 +87,12 @@ function ButtonEvent() {
 
     const RemoveBomb = (checkStopStatus = true) => {
         // console.log("RemoveBomb")
-        if(position.bomb !== false){
+        if (position.bomb !== false) {
             setTable(position.bomb, componentKind.background, true)
-        }  
+        }
         bomb.set("False")
 
-        if(checkStopStatus){
+        if (checkStopStatus) {
             CheckStopStatus()
         }
 
@@ -109,10 +109,10 @@ function ButtonEvent() {
         }
         ClearWeights(false)
         ClearPath()
-        
+
         touch.set("")
 
-        if (checkStopStatus === true){
+        if (checkStopStatus === true) {
             CheckStopStatus()
         }
     }
@@ -124,17 +124,17 @@ function ButtonEvent() {
         for (var i = 0; i < weight.length; i++) {
             setTable(weight[i].split(","), componentKind.background, true)
         }
-        if(touch.get.start !== componentKind.wall){
-            touch.set({componentKind: componentKind.start, under: componentKind.background})
+        if (touch.get.start !== componentKind.wall) {
+            touch.set({ componentKind: componentKind.start, under: componentKind.background })
         }
-        if(touch.get.end !== componentKind.wall){
-            touch.set({componentKind: componentKind.end, under: componentKind.background})
+        if (touch.get.end !== componentKind.wall) {
+            touch.set({ componentKind: componentKind.end, under: componentKind.background })
         }
-        if(touch.get.bomb !== componentKind.wall){
-            touch.set({componentKind: componentKind.bomb, under: componentKind.background})
+        if (touch.get.bomb !== componentKind.wall) {
+            touch.set({ componentKind: componentKind.bomb, under: componentKind.background })
         }
 
-        if(checkStopStatus){
+        if (checkStopStatus) {
             CheckStopStatus()
         }
     }
@@ -161,7 +161,7 @@ function ButtonEvent() {
             }
         }
 
-        if(animation.get === "Algorithm"){
+        if (animation.get === "Algorithm") {
             resetAnimation()
         }
     }

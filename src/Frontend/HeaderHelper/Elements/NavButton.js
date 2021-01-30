@@ -14,51 +14,56 @@ const NavButton = () => {
     const [myVariant, setMyVariant] = useState("");
     const algoContext = useContext(algorithmContext);
     const sysStatus = useContext(sysStatusContext);
+    const animationStatus = useContext(animationStatusContext);
     const speed = useContext(speedContext);
     const animation = useContext(animationStatusContext)
     const buttonEvent = ButtonEvent();
 
     useEffect(() => {
         setMyVariant('buttonEnable');
-    }, [])
+    }, []);
 
     useEffect(() => {
-        var algoName = "";
-        switch (algoContext.get) {
-            case "Algorithm_Dijkstra":
-                algoName = "Dijkstra's";
-                break;
-            case 'Algorithm_AStar':
-                algoName = "A*";
-                break;
-            case "Algorithm_Greedy_Best_First":
-                algoName = "Greedy";
-                break;
-            case "Algorithm_Swarm":
-                algoName = "Swarm";
-                break;
-            case "Algorithm_Convergent_Swarm":
-                algoName = "Convergent Swarm";
-                break;
-            case "Algorithm_Bidrectional_Swarm":
-                algoName = "Bidrectional Swarm";
-                break;
-            case "Algorithm_Breadth_First":
-                algoName = "BFS";
-                break;
-            case "Algorithm_Depth_First":
-                algoName = "DFS";
-                break;
-            case "Algorithm_Dijkstra_old":
-                algoName = "Dijkstra's";
-                break;
-            default:
-                algoName = "";
-                break;
+        if (animationStatus.get === "Algorithm") {
+            var name = "";
+            switch (algoContext.get) {
+                case "Algorithm_Dijkstra":
+                    name = "Dijkstra's";
+                    break;
+                case 'Algorithm_AStar':
+                    name = "A*";
+                    break;
+                case "Algorithm_Greedy_Best_First":
+                    name = "Greedy";
+                    break;
+                case "Algorithm_Swarm":
+                    name = "Swarm";
+                    break;
+                case "Algorithm_Convergent_Swarm":
+                    name = "Convergent Swarm";
+                    break;
+                case "Algorithm_Bidrectional_Swarm":
+                    name = "Bidrectional Swarm";
+                    break;
+                case "Algorithm_Breadth_First":
+                    name = "BFS";
+                    break;
+                case "Algorithm_Depth_First":
+                    name = "DFS";
+                    break;
+                case "Algorithm_Dijkstra_old":
+                    name = "Dijkstra's";
+                    break;
+                default:
+                    name = "";
+                    break;
+            }
+        } else if (animationStatus.get === "Maze") {
+            name = "Maze";
         }
-        setButtonName(`Visualize ${algoName}!`);
+        setButtonName(`Visualize ${name}!`);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [algoContext.get])
+    }, [algoContext.get, animationStatus.get])
 
     useEffect(() => {
         if (sysStatus.get === 'RUNNING') {

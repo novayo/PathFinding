@@ -103,3 +103,33 @@ export const algorithmReducer = (state, action) => {
             return initialAlgorithm;
     }
 }
+
+// 目前系統是哪種Maze
+export const mazeContext = React.createContext();
+export const initialMaze = "";
+export const mazeReducer = (state, action) => {
+    switch (action) {
+        case 'Maze_Recursive_Division':
+            return 'Maze_Recursive_Division';
+        case 'Maze_Recursive_Division_vertical':
+            return 'Maze_Recursive_Division_vertical';
+        case "Maze_Recursive_Division_horizontal":
+            return 'Maze_Recursive_Division_horizontal';
+        case "Maze_Basic_Random":
+            return 'Maze_Basic_Random';
+        case "Maze_Basic_Weight_Maze":
+            return 'Maze_Basic_Weight_Maze';
+        case "Maze_Simple_stair_pattern":
+            return 'Maze_Simple_stair_pattern';
+        case "Maze_Binary_Tree":
+            return 'Maze_Binary_Tree';
+        case "Maze_Kruskal":
+            return 'Maze_Kruskal';
+        case "Maze_Prim":
+            return "Maze_Prim";
+        case "Maze_Eller":
+            return "Maze_Eller";
+        default:
+            return initialAlgorithm;
+    }
+}

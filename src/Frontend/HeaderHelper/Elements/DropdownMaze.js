@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { NavDropdown, Nav } from 'react-bootstrap';
-import { sysStatusContext, speedContext } from '../../../Core';
+import { sysStatusContext, speedContext, animationStatusContext, mazeContext } from '../../../Core';
 import Colored from '../../../HOC/Colored';
 import ButtonEvent from '../../TableHelper/ButtonEvent';
 import Simple_Stair_Pattern from '../../../Backend/Maze/Simple_Stair_Pattern';
@@ -15,6 +15,8 @@ import Eller from '../../../Backend/Maze/Eller';
 function DropdownMaze() {
     const sysStatus = useContext(sysStatusContext);
     const speedStatus = useContext(speedContext);
+    const animationStatus = useContext(animationStatusContext);
+    const mazeStatus = useContext(mazeContext);
     const [className, toggleHandler] = Colored();
     const buttonEvent = ButtonEvent();
     const speed = speedStatus.get[1];
@@ -27,38 +29,50 @@ function DropdownMaze() {
         buttonEvent.ClearWalls()
         switch (eventKey) {
             case "Maze_Recursive_Division":
+                mazeStatus.set("Maze_Recursive_Division");
                 buttonEvent.CreateMaze(RecursiveDivision("RecursiveDivision"), speed);
                 break;
             case "Maze_Recursive_Division_vertical":
+                mazeStatus.set("Maze_Recursive_Division_vertical");
                 buttonEvent.CreateMaze(RecursiveDivision("RecursiveDivision_Vertical"), speed);
                 break;
             case "Maze_Recursive_Division_horizontal":
+                mazeStatus.set("Maze_Recursive_Division_horizontal");
                 buttonEvent.CreateMaze(RecursiveDivision("RecursiveDivision_Horizontal"), speed);
                 break;
             case "Maze_Basic_Random":
+                mazeStatus.set("Maze_Basic_Random");
                 buttonEvent.CreateMaze(Basic_Random_Maze(), 0)
                 break;
             case "Maze_Basic_Weight_Maze":
+                mazeStatus.set("Maze_Basic_Weight_Maze");
                 buttonEvent.CreateMaze(Basic_Weight_Maze(), 0)
                 break;
             case "Maze_Simple_stair_pattern":
+                mazeStatus.set("Maze_Simple_stair_pattern");
                 buttonEvent.CreateMaze(Simple_Stair_Pattern(), speed);
                 break;
             case "Maze_Binary_Tree":
+                mazeStatus.set("Maze_Binary_Tree");
                 buttonEvent.CreateMaze(Binary_Tree(), speed);
                 break;
             case "Maze_Kruskal":
+                mazeStatus.set("Maze_Kruskal");
                 buttonEvent.CreateMaze(Kruskal(), speed);
                 break;
             case "Maze_Prim":
+                mazeStatus.set("Maze_Prim");
                 buttonEvent.CreateMaze(Prim(), speed);
                 break;
             case "Maze_Eller":
+                mazeStatus.set("Maze_Eller");
                 buttonEvent.CreateMaze(Eller(), speed);
                 break;
             default:
                 break;
         }
+
+        animationStatus.set("Maze");
     }
 
     return (
