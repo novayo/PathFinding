@@ -71,7 +71,7 @@ function ButtonEvent() {
 
     const Addbomb = () => {
         // console.log("AddBomb")
-        const index = Math.floor(tableVar.rowSize / 2) * tableVar.colSize + Math.floor(tableVar.colSize / 2)
+        const index = originPos.origin_bomb[0] * tableVar.colSize + originPos.origin_bomb[1]
 
         if (WhichComponentSame(index) <= 2) {
             return
@@ -114,7 +114,7 @@ function ButtonEvent() {
         
         touch.set("")
 
-        if (checkStopStatus === true){
+        if (checkStopStatus){
             CheckStopStatus()
         }
     }
