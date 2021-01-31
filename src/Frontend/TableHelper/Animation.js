@@ -4,7 +4,7 @@ import { WhichComponentSame, StartEndBombWeight } from './WhichComp'
 import { position } from '../../Core/index'
 
 
-export const stopStatus = {
+export const stopStatus = { // 暫停時的狀態
     searchBomb: [0, 0],
     search: [0, 0],
     path: 0,

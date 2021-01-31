@@ -11,7 +11,7 @@ function addComponentKind(kind) {
     }
 }
 
-export function WhichComponent(id, touch){ // MouseEvent
+export function WhichComponent(id, touch){ // MouseEvent 分類
 
     var pos = id
 
@@ -36,7 +36,7 @@ export function WhichComponent(id, touch){ // MouseEvent
 }
 
 
-export function WhichComponentSame(id){
+export function WhichComponentSame(id){ // component 分類
 
     var pos = id
 
@@ -60,7 +60,7 @@ export function WhichComponentSame(id){
 
 }
 
-export function StartEndBombWeight(type, start, end, bomb, weight){
+export function StartEndBombWeight(type, start, end, bomb, weight){ // 回傳該type為start end bomb weight何者
 
     switch (type) {
         case 0:

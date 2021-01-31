@@ -17,8 +17,8 @@ function WeightModal() {
     const buttonEvent = ButtonEvent()
     
     useEffect(() => {
-        if(initShow){
-            setShow(show => show + 1)
+        if(initShow){ // 一開始不能show weightModal
+            setShow(show => show + 1) // show為waiting的人數
             setTimeout(() => {
                 setShow(show => {
                     if(show === 0){

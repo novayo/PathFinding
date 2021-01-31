@@ -3,7 +3,7 @@ import DFS from '../../Backend/Algorithms/DFS';
 import Dijkstra from '../../Backend/Algorithms/Dijkstra';
 import Dijkstra_old from '../../Backend/Algorithms/Dijkstra_old';
 
-export function UpdateTable(Start, ClearPath, algorithm, speed) {
+export function UpdateTable(Start, ClearPath, algorithm, speed) { // 即時更新Algorithm結果
     ClearPath(false)
     switch (algorithm.get) {
         case "Algorithm_Dijkstra":

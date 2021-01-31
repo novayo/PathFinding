@@ -13,17 +13,17 @@ function MouseEvent() {
     const [algorithm, speed, sysStatus] = [useContext(algorithmContext), useContext(speedContext), useContext(sysStatusContext)]
     const buttonEvent = ButtonEvent()
 
-    useEffect(() => {
+    useEffect(() => { // 因為第一次 addEventListener algorithm.get sysStatus.get 會是空白
         synchronize.algorithm = algorithm
         synchronize.sysStatus = sysStatus
         // eslint-disable-next-line
     }, [algorithm.get, sysStatus.get])
 
     document.addEventListener('keydown', function(event) {
-        if(synchronize.sysStatus.get !== "IDLE" && synchronize.sysStatus.get !== "STOP"){
+        if(synchronize.sysStatus.get !== "IDLE" && synchronize.sysStatus.get !== "STOP"){ // sysStatus = "IDLE" & "STOP" lock keyboard
             return
         }
-        if(keyboardSupport.down){
+        if(keyboardSupport.down){ // 避免連續觸發
             KeyboardEvent(event, synchronize.algorithm, weightValue)
         }
     })
@@ -33,10 +33,10 @@ function MouseEvent() {
         }
     })
 
-    const CheckStopStatus = () => {
+    const CheckStopStatus = () => { // 當 sysStatus = "STOP" 時，Algorithm ==> ClearWalls & Maze ==> ClearPath
         if (sysStatus.get === "STOP"){
             if(animation.get === "Maze"){
-                buttonEvent.ClearWalls(false)
+                buttonEvent.ClearWalls(false) // false 避免形成遞迴
                 animation.set("Algorithm")
             } else {
                 buttonEvent.ClearPath()
@@ -48,7 +48,7 @@ function MouseEvent() {
     const MouseDownHandler = (e) => {
         // console.log("MouseDownHandler " + e.target.id)
 
-        if ((sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") || componentKind.add === false) {
+        if ((sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") || componentKind.add === false) { // sysStatus = "IDLE" & "STOP" lock Mouse
             return
         }
 
@@ -57,7 +57,7 @@ function MouseEvent() {
         tableVar.id = parseInt(e.target.id)
         const whichComponent = WhichComponent(tableVar.id, touch)
 
-        if(whichComponent.type){
+        if(whichComponent.type){ // 若是新增 wall weight 須立即新增
             CheckStopStatus()
             setTable(tableVar.id, whichComponent.rKind, true)
             move.set(componentKind.add)
@@ -70,13 +70,13 @@ function MouseEvent() {
     const MouseUpHandler = (e) => {
         // console.log("MouseUpHandler " + e.target.id)
 
-        if ((sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") || componentKind.add === false) {
+        if ((sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") || componentKind.add === false) { // sysStatus = "IDLE" & "STOP" lock Mouse
             return
         }
 
         move.set("")
 
-        if(update.get && move.get !== ""){
+        if(update.get && move.get !== ""){ // 若 update = true 直接重新 UpdateTable
             UpdateTable(buttonEvent.Start, buttonEvent.ClearPath, algorithm, speed)
         }
     }
@@ -84,7 +84,7 @@ function MouseEvent() {
     const OnMouseEnterHanlder = (e) => {
         // console.log("OnMouseEnterHanlder " + e.target.id)
 
-        if ((sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") || componentKind.add === false) {
+        if ((sysStatus.get !== "IDLE" && sysStatus.get !== "STOP") || componentKind.add === false) { // sysStatus = "IDLE" & "STOP" lock Mouse
             return
         }
 
@@ -92,7 +92,7 @@ function MouseEvent() {
         const whichOldComponent = WhichComponent(tableVar.id, touch)
         const whichNewComponent = WhichComponent(tableVar.newId, touch)
 
-        if(move.get === componentKind.add && whichNewComponent.type){
+        if(move.get === componentKind.add && whichNewComponent.type){ // 若是新增 wall weight，不須清除舊id的物件
             setTable(tableVar.newId, whichNewComponent.rKind, true)
             tableVar.id = parseInt(tableVar.newId)
             CheckStopStatus()
@@ -105,7 +105,7 @@ function MouseEvent() {
             CheckStopStatus()
         }
 
-        if(update.get && move.get !== ""){
+        if(update.get && move.get !== ""){ // 若 update = true 直接重新 UpdateTable
             UpdateTable(buttonEvent.Start, buttonEvent.ClearPath, algorithm, speed)
         }
     }

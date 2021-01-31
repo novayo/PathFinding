@@ -4,7 +4,7 @@ import { position } from '../../Core/index'
 
 export function setTable(index, kind, setPosition = false){
 
-    if(typeof index !== "number"){
+    if(typeof index !== "number"){ // 讓 [posx, posy] 和 ID 都能作為此function的input
         index = parseInt(index[0]) * tableVar.colSize + parseInt(index[1])
     }
 
@@ -14,7 +14,7 @@ export function setTable(index, kind, setPosition = false){
 
     document.getElementById(index.toString()).className = kind
 
-    if(setPosition){
+    if(setPosition){ // 有些場景調用setTable只是換CSS不須更新position
 
         const pos = [Math.floor(index / tableVar.colSize), index % tableVar.colSize]
 

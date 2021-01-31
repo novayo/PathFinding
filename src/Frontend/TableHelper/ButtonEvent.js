@@ -12,7 +12,7 @@ function ButtonEvent() {
     const [algorithm, bomb, sysSpeed, sysStatus, animation] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext), useContext(animationStatusContext)]
 
     const Start = (search = stopStatus.searchResult, path = stopStatus.pathResult, pathDirection = stopStatus.pathDirectionResult, speed = sysSpeed.get[1], bomb = stopStatus.bombResult) => {
-        if(stopStatus.animationStatus){
+        if(stopStatus.animationStatus){ // 若 animation 正在執行就暫停並直接 return
             stopStatus.animationStatus = false
             return
         }
@@ -56,12 +56,12 @@ function ButtonEvent() {
         }
     }
 
-    const CheckStopStatus = () => {
+    const CheckStopStatus = () => { // 當 sysStatus = "STOP" 時，Algorithm ==> ClearWalls & Maze ==> ClearPath
         if (sysStatus.get === "STOP"){
             if(animation.get === "Maze"){
-                ClearWalls(false)
+                ClearWalls(false) // false 避免形成遞迴
                 animation.set("Algorithm")
-                synchronize.animation = "Algorithm"
+                synchronize.animation = "Algorithm" // 因為reducer會不同步，因此需要及時處理
             } else {
                 ClearPath()
             }
@@ -69,20 +69,22 @@ function ButtonEvent() {
         }
     }
 
-    const Addbomb = () => {
+    const Addbomb = (checkStopStatus = true) => {
         // console.log("AddBomb")
         const index = originPos.origin_bomb[0] * tableVar.colSize + originPos.origin_bomb[1]
 
-        if (WhichComponentSame(index) <= 2) {
+        if (WhichComponentSame(index) <= 2) { // 若 AddBomb 的位置有 start end 不新增
             return
         }
 
         bomb.set("True")
         setTable(index, componentKind.bomb, true)
 
-        CheckStopStatus()
+        if(checkStopStatus){
+            CheckStopStatus()
+        }
 
-        if (update.get) {
+        if (update.get) { // 若 update = true 直接重新 UpdateTable
             UpdateTable(Start, ClearPath, algorithm, sysSpeed)
         }
     }
@@ -98,7 +100,7 @@ function ButtonEvent() {
             CheckStopStatus()
         }
 
-        if (update.get) {
+        if (update.get) { // 若 update = true 直接重新 UpdateTable
             UpdateTable(Start, ClearPath, algorithm, sysSpeed)
         }
     }
@@ -146,7 +148,7 @@ function ButtonEvent() {
 
         if (event) {
             update.set("False")
-            synchronize.update = false
+            synchronize.update = false // 因為reducer會不同步，因此需要及時處理
         }
 
         for (var i = 0; i < tableVar.rowSize * tableVar.colSize; i++) {

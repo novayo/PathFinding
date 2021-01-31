@@ -1,5 +1,5 @@
 
-export function RestrictComp(algorithm){
+export function RestrictComp(algorithm){ // 各種algorithm在wall、weight、bomb的限制
 
     switch (algorithm.get) {
         case "Algorithm_Dijkstra":
