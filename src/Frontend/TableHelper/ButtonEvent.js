@@ -40,7 +40,7 @@ function ButtonEvent() {
     }
 
     const CreateMaze = (maze = stopStatus.mazeResult, speed = sysSpeed.get[1]) => {
-        if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && animation.get === "Algorithm")){
+        if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && (animation.get === "Algorithm" || synchronize.animation === "Algorithm"))){
             setMazeAnimation(maze)
             // resetAnimation()  // 執行start之前都會call ClearPath()
         }
@@ -50,8 +50,9 @@ function ButtonEvent() {
         } else {
             sysStatus.set("RUNNING")
             animation.set("Maze")
+            synchronize.animation = "Maze"
             stopStatus.animationStatus = true
-            MazeAnimation(maze, speed, () => sysStatus.set("STOP"), () => {sysStatus.set("IDLE"); animation.set("Algorithm")})
+            MazeAnimation(maze, speed, () => sysStatus.set("STOP"), () => {sysStatus.set("IDLE"); animation.set("Algorithm"); synchronize.animation = "Algorithm"})
         }
     }
 
@@ -60,6 +61,7 @@ function ButtonEvent() {
             if(animation.get === "Maze"){
                 ClearWalls(false)
                 animation.set("Algorithm")
+                synchronize.animation = "Algorithm"
             } else {
                 ClearPath()
             }

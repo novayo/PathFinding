@@ -104,6 +104,8 @@ export const keyboardSupport = {
 
 export const synchronize = {
     update: true,
+    animation: "Algorithm",
+
     algorithm: "",
     sysStatus: "IDLE"
 }
