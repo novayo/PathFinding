@@ -1,8 +1,7 @@
 # PathFinding(進行中)
 ###### tags: `Side Projects`
 
-目標：https://clementmihailescu.github.io/Pathfinding-Visualizer/
-我們：https://novayo.github.io/PathFinding/
+Project Link：https://novayo.github.io/PathFinding/
 
 ## 待開發
 > Headers
@@ -18,7 +17,7 @@
 - [x] ClearPath()
 - [x] Start(speed, indexlist)
     * 停止條件：在algorithm函數實現
-- [ ] 畫面風格統一
+- [x] 畫面風格統一
 - [ ] Code Review
     - [ ] 來看是否有不必要的render，並將其解決？ （？
     - [ ] 教對方自己的部分
@@ -27,11 +26,13 @@
     - [ ] 加入Email
     - [ ] 圖片去背
     - [ ] 手機大小 登入的時候要調小
+    - [ ] 整理A* Greedy Swarm Convergent_Swarm 策略、整理每個演算法的優點與缺點，或是前後相關性如何...
+    - [ ] 程式架構
 
 ## 時程表
 - [x] 2021/1/9 reactjs + bootstrap4 學習
 - [x] 2021/1/17 加入演算法、maze動畫，以及修改部分內容
-- [ ] 2021/01/24 完成第一版
+- [x] 2021/01/24 完成第一版
 - [ ] 2021/2/9 預定完成此專案
 
 ## 程式架構
@@ -73,33 +74,56 @@
 
 ## 討論
 ### 尚未解決
-* 選到 BFS DFS 
-    * 起始點圖片要改變
-    * 不能加weight node
 
+
+### 2021/01/24
+#### 下次討論時間 2021/01/31
+* 目標
+    * 點visual要中斷，再點一次就繼續 (完成)
+    * 最短路徑，改火焰顏色
+    * 按加減的時候，不要先render，modal消失後再render (完成)
+    * modal 圖片要修改成新增的
+    * board size(手機適配) 
+    * 偷算(weight 0~20 step=5) (不用)
+    * 每過幾秒要再跑一次最短路徑 （不用）
+    * 優化演算法（完成）
+* 已完成
+    * bfs dfs不能加上weight（之類的要調整）(完成)
+    * 速度調整
+        * fast 真的很快 (完成)
+        * average 可以用眼睛去追，也不會太慢 (完成)
+        * slow 不用改 (完成)
+    * start end bomb 背景最短路徑要黃色且要有動畫 (完成)
+    * 加上weight的提示和動畫，weight可以調整 (完成)
+    * random maze & weight (完成)
+    * 剩下的三個演算法（完成）
+    * Kruskal，Prim，Eller （完成）
+    * 配色討論，圖片修改（完成）
+    * maze 速度 要吃speed變數（完成）
+    * A* 跟 Greedy 找法待討論（完成）
+    * 連結weights（完成）
 ### 2021/01/17
 #### 下次討論時間 2021/01/24
 * 目標：
     * 阿寶
-        * bfs dfs不能加上weight（之類的要調整）
+        * bfs dfs不能加上weight（之類的要調整）(完成)
         * 速度調整
-            * fast 真的很快
-            * average 可以用眼睛去追，也不會太慢
-            * slow 不用改
-        * start end bomb 背景最短路徑要黃色且要有動畫
-        * 加上weight的提示和動畫，weight可以調整
-        * random maze & weight
-        * board size(手機適配)
+            * fast 真的很快 (完成)
+            * average 可以用眼睛去追，也不會太慢 (完成)
+            * slow 不用改 (完成)
+        * start end bomb 背景最短路徑要黃色且要有動畫 (完成)
+        * 加上weight的提示和動畫，weight可以調整 (完成)
+        * random maze & weight (完成)
+        * board size(手機適配)（2021/01/24）
 
     * 施崇祐
-        * 剩下的三個演算法
-        * Kruskal，Prim，Eller （展延）
-        * 配色討論，圖片修改（圖片要去背）
+        * 剩下的三個演算法（完成）
+        * Kruskal，Prim，Eller （完成）
+        * 配色討論，圖片修改（完成）
         * maze 速度 要吃speed變數（完成）
-        * modal 圖片要修改成新增的
+        * modal 圖片要修改成新增的 （2021/01/24）
         * A* 跟 Greedy 找法待討論（完成）
-    * 共同
-        * A* 跟 Greedy 策略（完成）
+        * 連結weights（完成）
 * 之後的Code Review
     * 統一css的顏色變數
     * 配色
@@ -296,6 +320,7 @@
 牆壁 不能重疊
 
 #### 分工
+
 reactjs + bootstrap4
 
 
@@ -305,6 +330,59 @@ reactjs + bootstrap4
 
 ## 進度報告
 ### 鄭琮寶
+
+* 1/28
+    * 討論
+        * speed
+            * 已完成
+        * isMaze reducer
+            * 已完成
+        * weight default
+            * 已完成
+
+* 1/27
+    * mobile support
+        * 判斷是否為android或ios，調整大小
+
+* 1/26
+    * 點visual要中斷，再點一次就繼續
+        * "Maze Support"
+
+* 1/25
+    * 點visual要中斷，再點一次就繼續
+        * 加上"STOP" status
+        * NAV的狀態以及color
+
+* 1/24
+    * 按加減的時候，不要先render，modal消失後再render
+
+* 1/22
+    * 確保start end position奇數
+    * 調整速度大小
+    * 將maze output改成[walls, weight]
+    * 記得等可以修改CSS以後要刪除start end bomb static
+        * 未刪除 !!!
+
+* 1/21
+    * 加入random maze wall和weight的兩個alg
+    * 整理CSS顏色變數
+    * 適時的禁只加入weight
+        * bfs dfs不能加上weight
+
+* 1/20
+    * 加入weight的modal(用+-調整weight大小並顯示)
+
+* 1/19
+    * 重大更新
+        * 全面剔除className判斷物件，改成利用位置判斷物件
+        * 全面剔除style的方法改成利用CSS(className)修改任何特效
+
+* 1/18
+    * start end bomb weight在search的時候的動畫
+    * 利用style修改靜態時的背景顏色(動畫執行完後拖動,start end bomb)
+
+
+
 * 1/15
     * ![](https://i.imgur.com/bDQxg7l.png)
         * 怪怪的(解決)
@@ -369,9 +447,37 @@ reactjs + bootstrap4
 
 
 ### 施崇祐
-* 做完之後，加入 Maze: Kruskal’s, and Prim’s, sollin's
-* 整理A* Greedy Swarm Convergent_Swarm 策略
-* 整理每個演算法的優點與缺點，或是前後相關性如何
+* 1/28
+    * 介面適配手機
+    * 發現bug
+        * [bug1](https://drive.google.com/file/d/1TVXowvOTy4KO1uGQwOmulxmn0i9C0Qg1/view?usp=sharing)
+        * [bug2](https://drive.google.com/file/d/1MEMhos7rlPQJNMVJxl67jRqIx72MZQMR/view?usp=sharing)
+        * [bug3](https://drive.google.com/file/d/1HddDkYZ8J5qnwPK0FWum3h4Lb3gNrtjr/view?usp=sharing)
+    * 修改最短路徑css
+* 1/26
+    * 優化Dijkstra，並保留舊版本
+        * [優化前後比較](https://drive.google.com/file/d/1rXzTXJauz9CCu6jGYbgXgwhDJkrnrHjR/view?usp=sharing)
+            * 優化前：20秒 (n^2)
+            * 優化後：<1秒 (nlogn)
+* 1/24
+    * 解決 演算法回傳方向資訊 錯誤
+        * 轉彎方向改為上一個點的方向（看起來更順暢）
+    * 加入Email button
+* 1/23
+    * 適配畫面調整
+    * 演算法回傳方向資訊
+    * 畫面優化
+    * 連結weights共同變數
+    * 精簡maze find程式碼
+    * 去除bugs
+        * recursive division 可能還是會有死路 
+            * ![](https://i.imgur.com/r6gYt39.png)
+        * dfs 不應該要找到真正的最短路徑，不能用distance去計算最短路徑，而是要用bottom up 回來的路徑來紀錄最短路徑
+* 1/22
+    * 加入krusal's maze, Prim, Eller Maze
+    * 請阿寶調整最小棋盤為5*5
+    * 發現bug，已通知阿寶:
+        * [影片](https://www.facebook.com/messenger_media/?thread_id=100002218680907&attachment_id=2008578285960357&message_id=mid.%24cAAAABiTJyNt9W4j-s13KkOHx4dGW)
 * 1/21
     * 發現bug: recursive division 如果切到start，因為不是活路，所以可能會在start周圍都加上牆壁，就變成死路了
     * 完成 bidirecionSwarm
@@ -549,7 +655,7 @@ reactjs + bootstrap4
 2. [架構圖](https://app.diagrams.net/#G1ZLHxsq6sbfuxETyfznjmnUTIrbVHGIsS)
 3. [取得public 資料夾路徑](https://create-react-app.dev/docs/using-the-public-folder/)
 4. [JS CSS 教學](https://www.w3schools.com/)
-
+5. [顏色調配](https://hackmd.io/@novayo/B1J1Yor1u)
 
 
 
