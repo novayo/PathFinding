@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
-import { sysStatusContext } from '../Core';
-import '../App.scss';
+import { sysStatusContext } from '../../../Core';
+import '../../../App.scss';
 
 const Colored = () => {
     const sysStatus = useContext(sysStatusContext);

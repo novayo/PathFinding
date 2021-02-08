@@ -108,12 +108,12 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
             which = 1;
         }
 
-        // 1. 選出當前最小路徑的點
+        // 1. 選出當前最小值的點
         var curPos = null;
         curPos = GetClosestNode(unvisited[which]);
 
-        if (curPos in position.wall) {
-            continue; // 牆壁不走
+        if (curPos in position.wall || visited[which].has(curPos.toString())) {
+            continue; // 牆壁不走，已經走過的點不走，可能會有同一點但值不同的情況，用prioity queue就可以先抓到最小的同一點，下次抓到同一點就去除
         }
 
         // 2. 計算相鄰且尚未走過的點
@@ -124,9 +124,9 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
 
         // eslint-disable-next-line
         [up, right, down, left].forEach((nextPos, idx) => {
-            if (!nextPos || nextPos in position.wall) return; // 若超過邊界 or 是牆壁
+            if (!nextPos || nextPos in position.wall || isFoundEnd) return; // 若超過邊界 or 是牆壁 or 已找到終點
 
-            // 走過的也要更新，只是不會加入unvisited，因此不會在上面continue
+            // 走過的也要更新
             var total = null;
             var weight = (nextPos in position.weight ? position.weightValue : 0);
             switch (whichAlgo) {
@@ -143,7 +143,7 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
                     total = table[which][curPos][0] + weight + GetScore(table[which][curPos][2], idx) + Math.pow(GetHeuristic(nextPos, end[which]), 2);
                     break;
                 case "GreedyBestFirstSearch":
-                    // 策略為：只考慮 估值+轉向分數
+                    // 策略為：只考慮 轉向分數
                     total = table[which][curPos][0] + GetScore(table[which][nextPos][2], idx);
                     break;
                 case "ConvergentSwarm":
@@ -214,29 +214,31 @@ function DoDijkstra(whichAlgo, startPos, endPos, searchPath, retDirection) {
             // 若找尋過程有對方搜尋到的，則更新actualEnd
             if (whichAlgo === "BidirectionSwarm") {
                 if (visited[(which + 1) % 2].has(curPos.toString())) {
-                    if (actualEnd === null) {
-                        actualEnd = curPos;
-                        var tmp = actualEnd;
-                        while (tmp) { // 因為找到start時的previous vertex為null
-                            if (which === 0) {
-                                curShortestPath.unshift(tmp); // bidirection 左右兩邊要插入的方式相反
-                                retDirection.unshift(table[which][tmp][2]);
-                            } else {
-                                curShortestPath.push(tmp);
-                                retDirection.push(table[which][tmp][2]);
-                            }
-                            tmp = table[which][tmp][1];
-                        }
-                        if (which === 1) {
-                            // end 奇數個: actualEnd下面會在計算一次，而因為要保證「過彎處為上一個的方向」，故下面不計算actualEnd
+                    // Code Review 時覺得不需要，先註解，有問題再修
+                    // if (actualEnd === null) {
+                    actualEnd = curPos;
+                    var tmp = actualEnd;
+                    while (tmp) { // 因為找到start時的previous vertex為null
+                        if (which === 0) {
+                            curShortestPath.unshift(tmp); // bidirection 左右兩邊要插入的方式相反
+                            retDirection.unshift(table[which][tmp][2]);
                         } else {
-                            // start 偶數個: actualEnd下面會在計算一次，因此去除
-                            curShortestPath.splice(curShortestPath.length - 1, 1);
-                            retDirection.splice(retDirection.length - 1, 1);
+                            curShortestPath.push(tmp);
+                            retDirection.push(table[which][tmp][2]);
                         }
-                    } else {
-                        isFoundEnd = true;
+                        tmp = table[which][tmp][1];
                     }
+                    if (which === 1) {
+                        // end 奇數個: actualEnd下面會在計算一次，而因為要保證「過彎處為上一個的方向」，故下面不計算actualEnd
+                    } else {
+                        // start 偶數個: actualEnd下面會在計算一次，因此去除
+                        curShortestPath.splice(curShortestPath.length - 1, 1);
+                        retDirection.splice(retDirection.length - 1, 1);
+                    }
+                    isFoundEnd = true;
+                    // } else {
+                    //     isFoundEnd = true;
+                    // }
                 }
             } else {
                 if (nextPos.toString() === endPos.toString()) { // 看是否找到終點了
@@ -299,13 +301,15 @@ function GetHeuristic(startPos, endPos) {
     return Math.abs(endPos[0] - startPos[0]) + Math.abs(endPos[1] - startPos[1]);
 }
 
-// 找出分數最小點，策略：考慮所有的分數 目前總分+權重+轉向分數+估值
+// 找出分數最小點，策略：考慮所有的分數 目前總分：之前總分+權重+轉向分數+估值
 function GetClosestNode(unvisited) {
     let retPos = unvisited.Pop();
     return retPos;
 }
 
 // 取得轉向分數
+// 要讓搜尋從最靠近起點開始，因為轉向分數會累加
+// 控制找尋方向
 // 考慮轉向分數是為了只搜尋一條線，如果沒有這個分數，則搜尋會變成三條線，因為１點的前下上 距離終點 的估值可能相同，所以會走三條路
 function GetScore(direction, index) {
     var score = 0;

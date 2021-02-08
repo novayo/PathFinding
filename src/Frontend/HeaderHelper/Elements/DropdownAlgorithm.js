@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { NavDropdown, Nav } from 'react-bootstrap';
 import { algorithmContext, sysStatusContext } from '../../../Core';
-import Colored from '../../../HOC/Colored';
+import Colored from '../HeaderHepler/Colored';
 import ButtonEvent from '../../TableHelper/ButtonEvent';
 
 function DropdownAlgorithm() {
@@ -37,10 +37,12 @@ function DropdownAlgorithm() {
                 algoContext.set('Algorithm_Bidrectional_Swarm');
                 break;
             case "Algorithm_Breadth_First":
+                buttonEvent.ClearPath(false);
                 buttonEvent.ClearWeights(false); // 按下去後要清空weight // false只是換演算法，不ClearPath
                 algoContext.set('Algorithm_Breadth_First');
                 break;
             case "Algorithm_Depth_First":
+                buttonEvent.ClearPath(false);
                 buttonEvent.ClearWeights(false); // 按下去後要清空weight // false只是換演算法，不ClearPath
                 algoContext.set('Algorithm_Depth_First');
                 break;

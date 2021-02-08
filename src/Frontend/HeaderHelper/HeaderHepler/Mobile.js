@@ -7,7 +7,6 @@ import DropdownMaze from '../Elements/DropdownMaze';
 import NavLink from '../Elements/NavLink';
 import NavAddBomb from '../Elements/NavAddBomb';
 import NavButton from '../Elements/NavButton';
-import NavClearBoard from '../Elements/NavClearBoard';
 import DropdownSpeed from '../Elements/DropdownSpeed';
 import ButtonEvent from '../../TableHelper/ButtonEvent';
 import AlgorithmDescriptor from '../Elements/AlgorithmDescriptor';
@@ -28,7 +27,7 @@ function Mobile() {
                         <DropdownAlgorithm />
                         <DropdownMaze />
                         <NavAddBomb names={["Add Gas", "Remove Gas"]} handlers={[buttonEvent.Addbomb, buttonEvent.RemoveBomb]} />
-                        <NavClearBoard names={["Clear Board"]} handlers={[buttonEvent.ClearBoard]} />
+                        <NavLink names={["Clear Board"]} handlers={[buttonEvent.ClearBoard]} />
                         <NavLink names={["Clear Walls & Weights"]} handlers={[buttonEvent.ClearWalls]} />
                         <NavLink names={["Clear Path"]} handlers={[buttonEvent.ClearPath]} />
                         <DropdownSpeed />

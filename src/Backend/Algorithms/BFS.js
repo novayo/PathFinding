@@ -66,7 +66,7 @@ function BFS(startCallback, speed) {
 
         }
 
-        // 去除多找的一圈
+        // 去除多找的一圈：https://i.imgur.com/5dS6ylt.png
         while (distance.get(endPos) !== -1 && searchPath.length > distance.get(endPos)) {
             searchPath.pop();
         }

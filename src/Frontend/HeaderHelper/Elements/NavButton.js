@@ -73,10 +73,15 @@ const NavButton = () => {
         }
     }, [sysStatus.get])
 
+    const callback = (func1, func2) => {
+        func1();
+        func2();
+    }
 
     const handler = () => {
+        // 改變系統狀態
         if (sysStatus.get === "RUNNING") {
-            buttonEvent.Start()
+            buttonEvent.Start() // 暫停狀態改變在此function內
             return
 
         } else if (sysStatus.get === "STOP") {
@@ -94,38 +99,42 @@ const NavButton = () => {
         if (algoContext.get === "") {
             setButtonName("Pick an Algorithm");
         } else {
-            buttonEvent.ClearPath();
-            switch (algoContext.get) {
-                case "Algorithm_Dijkstra":
-                    Dijkstra("Dijkstra", buttonEvent.Start, speed.get[1]);
-                    break;
-                case 'Algorithm_AStar':
-                    Dijkstra("Astar", buttonEvent.Start, speed.get[1]);
-                    break;
-                case "Algorithm_Greedy_Best_First":
-                    Dijkstra("GreedyBestFirstSearch", buttonEvent.Start, speed.get[1]);
-                    break;
-                case "Algorithm_Swarm":
-                    Dijkstra("Swarm", buttonEvent.Start, speed.get[1]);
-                    break;
-                case "Algorithm_Convergent_Swarm":
-                    Dijkstra("ConvergentSwarm", buttonEvent.Start, speed.get[1]);
-                    break;
-                case "Algorithm_Bidrectional_Swarm":
-                    Dijkstra("BidirectionSwarm", buttonEvent.Start, speed.get[1]);
-                    break;
-                case "Algorithm_Breadth_First":
-                    BFS(buttonEvent.Start, speed.get[1]);
-                    break;
-                case "Algorithm_Depth_First":
-                    DFS(buttonEvent.Start, speed.get[1]);
-                    break;
-                case "Algorithm_Dijkstra_old":
-                    Dijkstra_old("Dijkstra", buttonEvent.Start, speed.get[1]);
-                    break;
-                default:
-                    break;
-            }
+            callback(
+                () => buttonEvent.ClearPath(),
+                () => {
+                    switch (algoContext.get) {
+                        case "Algorithm_Dijkstra":
+                            Dijkstra("Dijkstra", buttonEvent.Start, speed.get[1]);
+                            break;
+                        case 'Algorithm_AStar':
+                            Dijkstra("Astar", buttonEvent.Start, speed.get[1]);
+                            break;
+                        case "Algorithm_Greedy_Best_First":
+                            Dijkstra("GreedyBestFirstSearch", buttonEvent.Start, speed.get[1]);
+                            break;
+                        case "Algorithm_Swarm":
+                            Dijkstra("Swarm", buttonEvent.Start, speed.get[1]);
+                            break;
+                        case "Algorithm_Convergent_Swarm":
+                            Dijkstra("ConvergentSwarm", buttonEvent.Start, speed.get[1]);
+                            break;
+                        case "Algorithm_Bidrectional_Swarm":
+                            Dijkstra("BidirectionSwarm", buttonEvent.Start, speed.get[1]);
+                            break;
+                        case "Algorithm_Breadth_First":
+                            BFS(buttonEvent.Start, speed.get[1]);
+                            break;
+                        case "Algorithm_Depth_First":
+                            DFS(buttonEvent.Start, speed.get[1]);
+                            break;
+                        case "Algorithm_Dijkstra_old":
+                            Dijkstra_old("Dijkstra", buttonEvent.Start, speed.get[1]);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            )
         }
     }
 

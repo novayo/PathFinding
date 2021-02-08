@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { sysStatusContext } from '../../../Core';
-import Colored from '../../../HOC/Colored';
+import Colored from '../HeaderHepler/Colored';
 
 function NavLink({ names, handlers }) {
     const [whichHandler, setWhichHandler] = useState(0);
@@ -18,7 +18,7 @@ function NavLink({ names, handlers }) {
     }
 
     return (
-        <Nav.Item xs={1}>
+        <Nav.Item>
             <Nav.Link onClick={localHandler} className={className} onMouseEnter={toggleHandler} onMouseLeave={toggleHandler}>{names[whichHandler]}</Nav.Link>
         </Nav.Item>
     )

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { NavDropdown, Nav } from 'react-bootstrap';
 import { sysStatusContext, speedContext, mazeContext } from '../../../Core';
-import Colored from '../../../HOC/Colored';
+import Colored from '../HeaderHepler/Colored';
 import ButtonEvent from '../../TableHelper/ButtonEvent';
 import Simple_Stair_Pattern from '../../../Backend/Maze/Simple_Stair_Pattern';
 import Binary_Tree from '../../../Backend/Maze/Binary_Tree';
@@ -70,7 +70,7 @@ function DropdownMaze() {
             default:
                 break;
         }
-        
+
     }
 
     return (

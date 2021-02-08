@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { bombContext, sysStatusContext, algorithmContext } from '../../../Core';
-import Colored from '../../../HOC/Colored_AddButton';
+import Colored from '../HeaderHepler/Colored_AddButton';
 import { IsMount } from '../../../Core/IsMount.js'
 
 function NavAddBomb({ names, handlers }) {
@@ -22,7 +22,7 @@ function NavAddBomb({ names, handlers }) {
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [bomb])
+    }, [bomb.get])
 
     useEffect(() => {
         if (isMount) return;
@@ -42,7 +42,7 @@ function NavAddBomb({ names, handlers }) {
 
 
     return (
-        <Nav.Item xs={1}>
+        <Nav.Item>
             <Nav.Link onClick={localHandler} className={className} onMouseEnter={toggleHandler} onMouseLeave={toggleHandler}>{names[whichHandler]}</Nav.Link>
         </Nav.Item>
     )
