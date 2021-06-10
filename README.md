@@ -1,4 +1,4 @@
-# PathFinding(進行中)
+# PathFinding(完成)
 ###### tags: `Side Projects`
 
 Project Link：https://novayo.github.io/PathFinding/
@@ -18,26 +18,37 @@ Project Link：https://novayo.github.io/PathFinding/
 - [x] Start(speed, indexlist)
     * 停止條件：在algorithm函數實現
 - [x] 畫面風格統一
-- [ ] Code Review
-    - [ ] 來看是否有不必要的render，並將其解決？ （？
-    - [ ] 教對方自己的部分
-    - [ ] 統一css的顏色變數
-    - [ ] 配色
-    - [ ] 加入Email
-    - [ ] 圖片去背
-    - [ ] 手機大小 登入的時候要調小
-    - [ ] 整理A* Greedy Swarm Convergent_Swarm 策略、整理每個演算法的優點與缺點，或是前後相關性如何...
-    - [ ] 程式架構
+- [x] Code Review
+    - [x] 教對方自己的部分
+    - [x] 統一css的顏色變數
+    - [x] 配色
+    - [x] 加入Email
+    - [x] 圖片去背
+    - [x] 手機大小 登入的時候要調小
+    - [x] [最短路徑演算法](/S-RwTqxuRU6GPzPVKRECYw)
+    - [x] 整理轉向邏輯
+        * > 為了動畫的流暢，所以在過彎處時，要維持上一個狀態，不能先轉彎，每個算法算出來的結果不一樣，有的需要位移算出來的結果
+    - [x] [迷宮演算法 & 單數偶數牆壁設計邏輯](/Bt2dZXfuRo6AAYDtEvFzRQ)
+    - [x] 程式架構
 
 ## 時程表
 - [x] 2021/1/9 reactjs + bootstrap4 學習
 - [x] 2021/1/17 加入演算法、maze動畫，以及修改部分內容
 - [x] 2021/01/24 完成第一版
-- [ ] 2021/2/9 預定完成此專案
+- [x] 2021/2/9 預定完成此專案
 
 ## 程式架構
 
-### Board架構
+### Backend 架構
+![](https://i.imgur.com/XKCTPAv.png)
+
+### Board 架構
+
+![](https://i.imgur.com/cvz1VO3.png)
+
+
+### Board 架構 (Old)
+
 ![](https://i.imgur.com/etSd7aK.jpg)
 
 
@@ -75,8 +86,44 @@ Project Link：https://novayo.github.io/PathFinding/
 ## 討論
 ### 尚未解決
 
+### 2021/02/08
+* Code Review
+    * 缺失
+        * 後來有新增stop狀態，狀態的更改會很複雜，因此應該要想一個方法去handle狀態的改變，之後維護或是新增狀態會增加更多if
+            * 是要按下button之後改變狀態，再去執行動畫之類的
+            * 還是要按下button之後，執行動畫button自己改變狀態
+            * 解決方案：？
+    * 問題
+        * Priority Que是不是舊pos的會留下而不更新
+            * 只是因為舊的比較大所以會被往後排(no)
+            * 因為有紀錄已走過的點，所以如果有更新已走過的位置的話，同一位置的不同大小值雖然都會在Priority Que內，但會選擇最小值來走，之後找尋重複點則會避開
+        * NavButton call ClearPath(update 更新成 False) and start會造成Start所讀取的update是舊的update(並非ClearPath 更新後的值)
+            * clear
+            * ![](https://i.imgur.com/wvApa09.png)
+        * 手機start button 動畫怪怪的
 
+        * 用一維陣列來記錄table有什麼好處？
+            * 無
+        * 為何需要componentKind.add？
+            * 因為weights的行為跟wall是一樣的
+            * 因為weights是後來補上，所以用add來等於wall或weight的class字串
+        * setTable 需要一個變數來控制要不要改變位置？
+            * 像是跑動畫時，不需要更新其他位置，只需要改變css而已
+            * 但若是要改變位置則可以用
+            * 如此一來就可以用一個func去控制設定table
+        * 為何weightmodal需要show？
+            * 因為要讓動畫順滑，所以設定成讓show值+1，兩秒之後-1，等到show==0時，關閉modal
+            * 但是 當達到最大值時，繼續+，但值不會變，所以useEffect失效，因此加入另外一個狀態為true or false，如果達到最大值就讓true false互換而達到useEffect有變化
+            * 比較好的解法：讓useEffect抓show的值。
+        * bfs or dfs按住w不能新增任何東西
+            * 作法：
+                * 如果目前狀態不能新增weight，讓componentKind.add = false
+                * 判斷keydown keyup若componentKind.add = false則return
+                ![](https://i.imgur.com/m7pnf44.png)
+        * css 寫成繼承
+* 按下dfs, bfs時，也要clear path，否則會有以下情況[連結](https://drive.google.com/file/d/1Lf-AnB1_I6PTu40ff40M3cidVCk4Lk1l/view?usp=sharing)
 ### 2021/01/24
+
 #### 下次討論時間 2021/01/31
 * 目標
     * 點visual要中斷，再點一次就繼續 (完成)
