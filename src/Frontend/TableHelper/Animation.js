@@ -5,11 +5,6 @@ import { position } from '../../Core/index'
 
 
 export const stopStatus = { // 暫停時的狀態
-    searchBomb: [0, 0],
-    search: [0, 0],
-    path: 0,
-    pathID: [-1, -1],
-
     searchResult: [],
     bombResult: [],
     pathResult: [],
@@ -37,10 +32,10 @@ export function setMazeAnimation(maze){
 }
 
 export function resetAnimation(){
-    stopStatus.searchBomb = [0, 0]
-    stopStatus.search = [0, 0]
-    stopStatus.path = 0
-    stopStatus.pathID = [-1, -1]
+    stopStatus.searchResult = []
+    stopStatus.pathResult = []
+    stopStatus.pathDirectionResult = []
+    stopStatus.bombResult = []
 
     stopStatus.maze = 0
 
@@ -48,157 +43,140 @@ export function resetAnimation(){
     stopStatus.complete = true
 }
 
-
 /* Search */
 
-export function SearchBombAnimation(search, bomb, path, pathDirection, speed, searchFunction, sysStatusFunction, updateFunction) {
+export function popitems(search, bomb, path, pathDirection) {
+    var ret
+    if(search.length > 0){
+        ret = [search[0].shift(), 0]
+        if(ret[0] === undefined) {search.shift()}
+    } else if (bomb.length > 0){
+        ret = [bomb[0].shift(), 1]
+        if(ret[0] === undefined) {bomb.shift()}
+    } else if (path.length > 0){
+        ret = [path.shift(), pathDirection.shift(), 2]
+    } else {
+        ret = [undefined]
+    }
+    return ret
+}
+
+export function getClassName(id, type, d = undefined){
+    var className1, className2
+    if (WhichComponentSame(id) > 3) {
+        switch (type) {
+            case 0:
+                className1 = componentKind.search
+                className2 = componentKind.searchBomb
+                return (position.bomb === false) ? className1 : className2
+            case 1:
+                className1 = componentKind.search
+                return className1
+            case 2:
+                className1 = componentKind.path
+                className2 = direction(d)
+                return [className1, className2]
+            default:
+                return undefined
+        }
+    }else{
+        switch (type) {
+            case 0:
+                className1 = StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch)
+                className2 = StartEndBombWeight(WhichComponentSame(id), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearch, componentKind.weightSearchBomb)
+                return (position.bomb === false) ? className1 : className2
+            case 1:
+                className1 = StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch)
+                return className1
+            case 2:
+                className1 = componentKind.path
+                className2 = StartEndBombWeight(WhichComponentSame(id), direction(d), direction(d), componentKind.bombPath, componentKind.weightPath)
+                return [className1, className2]
+            default:
+                return undefined
+        }
+    }
+
+}
+
+export function SearchAnimation(search, bomb, path, pathDirection, speed, sysStatusFunction, updateFunction) {
+    if(stopStatus.complete){
+        path.unshift(-1)
+        pathDirection.unshift("")
+    }
+
+    var id, newid, d, type 
+    var className1, className2
+    
     stopStatus.complete = false
-    var count = stopStatus.searchBomb[0]
 
-    const searchBombAnimation = setInterval(() => {
-        if (count === search.length) {
-            stopStatus.searchBomb = [search.length, 0]
-            searchFunction(bomb, path, pathDirection, speed, PathAnimation, sysStatusFunction, updateFunction)
-            clearInterval(searchBombAnimation)
-
-        }else{
-            for(var i = (count === stopStatus.searchBomb[0]) * stopStatus.searchBomb[1];i < search[count].length;i++){
-
-                if(stopStatus.animationStatus === false){
-                    stopStatus.searchBomb = [count, i]
-                    sysStatusFunction()
-                    clearInterval(searchBombAnimation)
-                    return
-
-                }else{
-                    if (WhichComponentSame(search[count][i]) > 3) {
-                        if(position.bomb === false){
-                            setTable(search[count][i], componentKind.search)
-                        }else{
-                            setTable(search[count][i], componentKind.searchBomb)
-                        }
-                    }else{
-                        if(position.bomb === false){
-                            setTable(search[count][i], StartEndBombWeight(WhichComponentSame(search[count][i]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
-                        }else{
-                            setTable(search[count][i], StartEndBombWeight(WhichComponentSame(search[count][i]), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearch, componentKind.weightSearchBomb))
-                        }
-                    }
-
-                }
-
-            }
-        }
-        count += 1
-    }, speed)
-}
-
-export function SearchAnimation(bomb, path, pathDirection, speed, pathFunction, sysStatusFunction, updateFunction) {
-    var count = stopStatus.search[0]
-
-    const searchAnimation = setInterval(() => {
-        if (count === bomb.length) {
-            stopStatus.search = [bomb.length, 0]
-            pathFunction(path, speed, pathDirection, sysStatusFunction, updateFunction)
-            clearInterval(searchAnimation)
-
-        }else{
-            for(var i = (count === stopStatus.search[0]) * stopStatus.search[1];i < bomb[count].length;i++){
-
-                if(stopStatus.animationStatus === false){
-                    stopStatus.search = [count, i]
-                    sysStatusFunction()
-                    clearInterval(searchAnimation)
-                    return
-
-                }else{
-                    if (WhichComponentSame(bomb[count][i]) > 3) {
-                        setTable(bomb[count][i], componentKind.search)
-                    }else{
-                        setTable(bomb[count][i], StartEndBombWeight(WhichComponentSame(bomb[count][i]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch))
-                    }
-
-                }
-
-            }
-        }
-        count += 1
-    }, speed)
-}
-
-export function PathAnimation(path, speed, pathDirection, sysStatusFunction, updateFunction) {
-    var [id, newid] = [stopStatus.pathID[0], stopStatus.pathID[1]]
-    var count = stopStatus.path
-
-    const pathAnimation = setInterval(() => {
-        if (count === path.length) {
+    const searchAnimationNew = setInterval(() => {
+        if (path.length === 0) {
+            sysStatusFunction()
             resetAnimation()
             updateFunction()
-            clearInterval(pathAnimation)
+            clearInterval(searchAnimationNew)
 
-        }else {
-            if(stopStatus.animationStatus === false){
-                stopStatus.path = count
-                stopStatus.pathID = [id, newid]
-                sysStatusFunction()
-                clearInterval(pathAnimation)
-                return
-
-            }else{
-                if (WhichComponentSame(path[count]) > 3) {
-                    newid = path[count]
-                    setTable(id, componentKind.path)
-                    setTable(newid, direction(pathDirection[count]))
-                    id = newid
-                }else{
-                    setTable(id, componentKind.path)
-                    setTable(path[count], StartEndBombWeight(WhichComponentSame(path[count]), direction(pathDirection[count]), direction(pathDirection[count]), componentKind.bombPath, componentKind.weightPath))
+        }else{
+            while(true){
+                var items = popitems(search, bomb, path, pathDirection)
+                if(items[0] === undefined || path.length === 0){
+                    break
                 }
+                
+                if(stopStatus.animationStatus === false){
+                    setAnimation(search, path, pathDirection, bomb, "")
+                    clearInterval(searchAnimationNew)
+                    return
 
+                }else{
+                    type = items[items.length - 1]
+                    if(type <= 1){
+                        [id, type] = items
+                        className1 = getClassName(id, type)
+                        setTable(id, className1)
+                    } else {
+                        [id, d, type] = items
+                        // eslint-disable-next-line
+                        [newid, d] = [path[0], pathDirection[0]]
+                        // eslint-disable-next-line
+                        [className1, className2] = getClassName(newid, type, d)
+                        setTable(id, className1)
+                        setTable(newid, className2)
+                        break
+                    }
+                }
             }
-
         }
-        count += 1
     }, speed)
-
 }
 
 export function FinalAnimation(search, path, pathDirection, bomb){
-    for (var i = 0; i < search.length; i++) {
-        for (var j = 0; j < search[i].length; j++) {
-            if (WhichComponentSame(search[i][j]) > 3) {
-                if(position.bomb === false){
-                    setTable(search[i][j], componentKind.searchStatic)
-                }else{
-                    setTable(search[i][j], componentKind.searchBombStatic)
-                }
-            }else{
-                if(position.bomb === false){
-                    setTable(search[i][j], StartEndBombWeight(WhichComponentSame(search[i][j]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearchStatic))
-                }else{
-                    setTable(search[i][j], StartEndBombWeight(WhichComponentSame(search[i][j]), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearchBomb, componentKind.weightSearchBombStatic))
-                }
-            }
+    var id, newid, d, type 
+    var className1, className2
+
+    while(true){
+        var items = popitems(search, bomb, path, pathDirection)
+        if(items[0] === undefined || path.length === 0){
+            continue
         }
-    }
-    for (i = 0; i < bomb.length; i++) {
-        for (j = 0; j < bomb[i].length; j++) {
-            if (WhichComponentSame(bomb[i][j]) > 3) {
-                setTable(bomb[i][j], componentKind.searchStatic)
-            }else{
-                setTable(bomb[i][j], StartEndBombWeight(WhichComponentSame(bomb[i][j]), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearchStatic))
-            }
-        }
-    }
-    for (i = 0; i < path.length; i++) {
-        if (WhichComponentSame(path[i]) > 3) {
-            setTable(path[i], componentKind.pathStatic)
-        }else{
-            setTable(path[i], StartEndBombWeight(WhichComponentSame(path[i]), direction(pathDirection[i]), direction(pathDirection[i]), componentKind.bombPath, componentKind.weightPathStatic))
+        
+        type = items[items.length - 1]
+        if(type <= 1){
+            [id, type] = items
+            className1 = getClassName(id, type)
+            setTable(id, className1)
+        } else {
+            [id, d, type] = items
+            // eslint-disable-next-line
+            [newid, d] = [path[0], pathDirection[0]]
+            // eslint-disable-next-line
+            [className1, className2] = getClassName(newid, type, d)
+            setTable(id, className1)
+            setTable(newid, className2)
         }
     }
 }
-
 
 /* Maze */
 
@@ -243,7 +221,6 @@ export function FinalMazeAnimation(maze){ // maze = [walls, weights]
         setTable(maze[1][i], componentKind.weight, true)
     }
 }
-
 
 /* Rocket left right up down */
 

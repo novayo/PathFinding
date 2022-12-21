@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind, synchronize, originPos } from './TableIndex'
-import { SearchAnimation, SearchBombAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation, stopStatus, resetAnimation, setAnimation, setMazeAnimation } from './Animation'
+import { SearchAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation, stopStatus, resetAnimation, setAnimation, setMazeAnimation } from './Animation'
 import { sysStatusContext, algorithmContext, bombContext, speedContext, animationStatusContext, position } from '../../Core'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
@@ -28,7 +28,7 @@ function ButtonEvent() {
             // console.log("Start")
             sysStatus.set("RUNNING")
             stopStatus.animationStatus = true
-            SearchBombAnimation(search, bomb, path, pathDirection, speed, SearchAnimation,
+            SearchAnimation(search, bomb, path, pathDirection, speed,
                 () => sysStatus.set("STOP"),
                 () => {
                     update.set("True")
@@ -36,6 +36,7 @@ function ButtonEvent() {
                     sysStatus.set("IDLE")
                 }
             )
+
         }
     }
 
