@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind, synchronize, originPos } from './TableIndex'
-import { SearchAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation, stopStatus, resetAnimation, setAnimation, setMazeAnimation } from './Animation'
+import { SearchAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation, stopStatus, resetAnimation, setSearchAnimation, setMazeAnimation } from './Animation'
 import { sysStatusContext, algorithmContext, bombContext, speedContext, animationStatusContext, position } from '../../Core'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
@@ -18,7 +18,7 @@ function ButtonEvent() {
         }
 
         if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && algorithm.get !== stopStatus.algorithm)) {
-            setAnimation(search, path, pathDirection, bomb, algorithm.get)
+            setSearchAnimation(search, path, pathDirection, bomb, algorithm.get)
             // resetAnimation()  // 執行start之前都會call ClearPath()
         }
 

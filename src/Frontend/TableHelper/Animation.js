@@ -19,7 +19,7 @@ export const stopStatus = { // 暫停時的狀態
     complete: true
 }
 
-export function setAnimation(search, path, pathDirection, bomb, algorithm){
+export function setSearchAnimation(search, path, pathDirection, bomb, algorithm){
     stopStatus.searchResult = search
     stopStatus.pathResult = path
     stopStatus.pathDirectionResult = pathDirection
@@ -104,77 +104,80 @@ export function SearchAnimation(search, bomb, path, pathDirection, speed, sysSta
         path.unshift(-1)
         pathDirection.unshift("")
     }
-
-    var id, newid, d, type 
-    var className1, className2
     
     stopStatus.complete = false
 
-    const searchAnimationNew = setInterval(() => {
+    const searchAnimation = setInterval(() => {
+        var id, newid, d, type, items
+        var className1, className2, className
+
         if (path.length === 0) {
-            sysStatusFunction()
             resetAnimation()
             updateFunction()
-            clearInterval(searchAnimationNew)
+            clearInterval(searchAnimation)
 
         }else{
             while(true){
-                var items = popitems(search, bomb, path, pathDirection)
-                if(items[0] === undefined || path.length === 0){
+                if(stopStatus.animationStatus === false){
+                    // I don't know why ???
+                    // setSearchAnimation(search, path, pathDirection, bomb, "")
+                    stopStatus.searchResult = search
+                    stopStatus.pathResult = path
+                    stopStatus.pathDirectionResult = pathDirection
+                    stopStatus.bombResult = bomb
+                    sysStatusFunction()
+                    clearInterval(searchAnimation)
+                    return
+                }
+
+                items = popitems(search, bomb, path, pathDirection)
+
+                id = items[0]; type = items[items.length - 1];
+                if(id === undefined || path.length === 0){
                     break
                 }
                 
-                if(stopStatus.animationStatus === false){
-                    setAnimation(search, path, pathDirection, bomb, "")
-                    clearInterval(searchAnimationNew)
-                    return
+                if(type <= 1){
+                    className1 = getClassName(id, type)
+                    setTable(id, className1)
+                } else {
+                    newid = path[0]
+                    d = pathDirection[0]
 
-                }else{
-                    type = items[items.length - 1]
-                    if(type <= 1){
-                        [id, type] = items
-                        className1 = getClassName(id, type)
-                        setTable(id, className1)
-                    } else {
-                        [id, d, type] = items
-                        // eslint-disable-next-line
-                        [newid, d] = [path[0], pathDirection[0]]
-                        // eslint-disable-next-line
-                        [className1, className2] = getClassName(newid, type, d)
-                        setTable(id, className1)
-                        setTable(newid, className2)
-                        break
-                    }
+                    className = getClassName(newid, type, d)
+                    className1 = className[0]; className2 = className[1];
+                    setTable((WhichComponentSame(id) >= 3) ? id : -1, className1)
+                    setTable(newid, className2)
+                    break
                 }
+                
             }
         }
     }, speed)
 }
 
 export function FinalAnimation(search, path, pathDirection, bomb){
-    var id, newid, d, type 
+    var id, d, type;
     var className1, className2
-
-    while(true){
-        var items = popitems(search, bomb, path, pathDirection)
-        if(items[0] === undefined || path.length === 0){
-            continue
+    for (var i = 0; i < search.length; i++) {
+        for (var j = 0; j < search[i].length; j++) {
+            id = search[i][j]; type = WhichComponentSame(id);
+            className1 = (type > 3) ? componentKind.searchStatic : StartEndBombWeight(type, componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearchStatic);
+            className2 = (type > 3) ? componentKind.searchBombStatic : StartEndBombWeight(type, componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearchBomb, componentKind.weightSearchBombStatic);
+            (position.bomb === false) ? setTable(id, className1) : setTable(id, className2);
         }
-        
-        type = items[items.length - 1]
-        if(type <= 1){
-            [id, type] = items
-            className1 = getClassName(id, type)
-            setTable(id, className1)
-        } else {
-            [id, d, type] = items
-            // eslint-disable-next-line
-            [newid, d] = [path[0], pathDirection[0]]
-            // eslint-disable-next-line
-            [className1, className2] = getClassName(newid, type, d)
-            setTable(id, className1)
-            setTable(newid, className2)
+    }
+    for (i = 0; i < bomb.length; i++) {
+        for (j = 0; j < bomb[i].length; j++) {
+            id = bomb[i][j]; type = WhichComponentSame(id);
+            className1 = (type > 3) ? componentKind.searchStatic : StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearchStatic);
+            setTable(id, className1);
         }
+    }
+    for (i = 0; i < path.length; i++) {
+        id = path[i]; d = pathDirection[i]; type = WhichComponentSame(id);
+        className1 = (type > 3) ? componentKind.pathStatic : StartEndBombWeight(WhichComponentSame(id), direction(d), direction(d), componentKind.bombPath, componentKind.weightPathStatic);
+        setTable(id, className1);
     }
 }
 
@@ -183,42 +186,41 @@ export function FinalAnimation(search, path, pathDirection, bomb){
 export function MazeAnimation(maze, speed, sysStatusFunction, updateFunction) { // maze = [walls, weights]
     stopStatus.complete = false
 
-    maze = maze[0]
+    var id = -1;
     speed = speed / 2
-
-    var count = stopStatus.maze
     
     const mazeAnimation = setInterval(() => {
-        if (count === maze.length) {
+        
+        if (id === undefined) {
             resetAnimation()
             updateFunction()
             clearInterval(mazeAnimation)
 
         }else {
             if (stopStatus.animationStatus === false){
-                stopStatus.maze = count
+                setMazeAnimation(maze)
                 sysStatusFunction()
                 clearInterval(mazeAnimation)
                 return
-
-            }else{
-                if (WhichComponentSame(maze[count]) > 4) {
-                    setTable(maze[count], componentKind.wall, true)
-                }
-
             }
 
+            id = maze[0].shift()
+            if (WhichComponentSame(id) > 4) {
+                setTable(id, componentKind.wall, true)
+            }
         }
-        count += 1
     }, speed)
 }
 
 export function FinalMazeAnimation(maze){ // maze = [walls, weights]
+    var id;
     for(var i = 0; i < maze[0].length; i++){
-        setTable(maze[0][i], componentKind.wall, true)
+        id = maze[0][i];
+        setTable(id, componentKind.wall, true)
     }
     for(i = 0; i < maze[1].length; i++){
-        setTable(maze[1][i], componentKind.weight, true)
+        id = maze[1][i];
+        setTable(id, componentKind.weight, true)
     }
 }
 
