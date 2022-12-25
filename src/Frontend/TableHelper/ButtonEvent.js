@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { tableVar, touchContext, updateContext, componentKind, synchronize, originPos } from './TableIndex'
-import { SearchAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation, stopStatus, resetAnimation, setSearchAnimation, setMazeAnimation } from './Animation'
+import { SearchAnimation, MazeAnimation, FinalAnimation, FinalMazeAnimation, stopStatus, resetAnimation } from './Animation'
 import { sysStatusContext, algorithmContext, bombContext, speedContext, animationStatusContext, position } from '../../Core'
 import { setTable } from './SetTable'
 import { UpdateTable } from './UpdateTable'
@@ -11,14 +11,14 @@ function ButtonEvent() {
     const [touch, update] = [useContext(touchContext), useContext(updateContext)]
     const [algorithm, bomb, sysSpeed, sysStatus, animation] = [useContext(algorithmContext), useContext(bombContext), useContext(speedContext), useContext(sysStatusContext), useContext(animationStatusContext)]
 
-    const Start = (search = stopStatus.searchResult, path = stopStatus.pathResult, pathDirection = stopStatus.pathDirectionResult, speed = sysSpeed.get[1], bomb = stopStatus.bombResult) => {
+    const Start = (search = stopStatus.search, path = stopStatus.path, pathDirection = stopStatus.pathDirection, speed = sysSpeed.get[1], bomb = stopStatus.bomb) => {
         if (stopStatus.animationStatus) { // 若 animation 正在執行就暫停並直接 return
             stopStatus.animationStatus = false
             return
         }
 
         if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && algorithm.get !== stopStatus.algorithm)) {
-            setSearchAnimation(search, path, pathDirection, bomb, algorithm.get)
+            stopStatus.algorithm = algorithm.get
             // resetAnimation()  // 執行start之前都會call ClearPath()
         }
 
@@ -40,9 +40,8 @@ function ButtonEvent() {
         }
     }
 
-    const CreateMaze = (maze = stopStatus.mazeResult, speed = sysSpeed.get[1]) => {
+    const CreateMaze = (maze = stopStatus.maze, speed = sysSpeed.get[1]) => {
         if (sysStatus.get === "IDLE" || (sysStatus.get === "STOP" && (animation.get === "Algorithm" || synchronize.animation === "Algorithm"))) {
-            setMazeAnimation(maze)
             // resetAnimation()  // 執行start之前都會call ClearPath()
         }
 
