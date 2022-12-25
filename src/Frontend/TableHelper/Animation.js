@@ -19,18 +19,6 @@ export const stopStatus = { // 暫停時的狀態
     complete: true
 }
 
-export function setSearchAnimation(search, path, pathDirection, bomb, algorithm){
-    stopStatus.search = search
-    stopStatus.path = path
-    stopStatus.pathDirection = pathDirection
-    stopStatus.bomb = bomb
-    stopStatus.algorithm = algorithm
-}
-
-export function setMazeAnimation(maze){
-    stopStatus.maze = maze
-}
-
 export function resetAnimation(){
     stopStatus.search = []
     stopStatus.bomb = []
