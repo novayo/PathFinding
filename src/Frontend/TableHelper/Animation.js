@@ -32,131 +32,114 @@ export function resetAnimation(){
 
 /* Search */
 
-class searchAnimation{
-    getItems(){};
+class searchAnimation_pos{
+    constructor(){
+        this.className = undefined;
+        this.className1 = undefined;
+        this.className2 = undefined;
+
+        this.id = undefined;
+        this.newid = undefined;
+        this.d = undefined;
+        this.items = undefined;
+    }
+
+    getItems(container){
+        if(container.length > 0){
+            this.items = [container[0].shift()]
+            if(this.items[0] === undefined) {container.shift()}
+        } else {
+            this.items = [undefined]
+        }
+    }
+
     getClassName(){};
     runAnimation(){};
 }
 
-class searchAnimation_search extends searchAnimation{
-    getItems(container){
-        var ret;
-        if(container.length > 0){
-            ret = [container[0].shift(), 0]
-            if(ret[0] === undefined) {container.shift()}
-        } else {
-            ret = [undefined]
-        }
-        return ret
-    }
-
+class searchAnimation_search extends searchAnimation_pos{
     getClassName(id){
-        var className1, className2
         if (WhichComponentSame(id) > 3){
-            className1 = componentKind.search
-            className2 = componentKind.searchBomb
+            this.className1 = componentKind.search
+            this.className2 = componentKind.searchBomb
         } else {
-            className1 = StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch)
-            className2 = StartEndBombWeight(WhichComponentSame(id), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearch, componentKind.weightSearchBomb)
+            this.className1 = StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch)
+            this.className2 = StartEndBombWeight(WhichComponentSame(id), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearch, componentKind.weightSearchBomb)
         }
-        return (position.bomb === false) ? className1 : className2
+        return this.className = (position.bomb === false) ? this.className1 : this.className2
     }
 
     runAnimation(container){
-        var id, items
-        var className1
+        this.getItems(container)
 
-        items = this.getItems(container)
-
-        id = items[0]
-        if(id === undefined || container.length === 0){
+        this.id = this.items[0]
+        if(this.id === undefined || container.length === 0){
             return false
         }
         
-        className1 = this.getClassName(id)
-        setTable(id, className1)
+        this.getClassName(this.id)
+        setTable(this.id, this.className)
         return true
     }
     
 }
 
-class searchAnimation_bomb extends searchAnimation{
-    getItems(container){
-        var ret;
-        if(container.length > 0){
-            ret = [container[0].shift(), 0]
-            if(ret[0] === undefined) {container.shift()}
-        } else {
-            ret = [undefined]
-        }
-        return ret
-    }
-
+class searchAnimation_bomb extends searchAnimation_pos{
     getClassName(id){
-        var className1
         if (WhichComponentSame(id) > 3){
-            className1 = componentKind.search
+            this.className = componentKind.search
         } else {
-            className1 = StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch)
+            this.className = StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch)
         }
-        return className1
     }
 
     runAnimation(container){
-        var id, items
-        var className1
+        this.getItems(container)
 
-        items = this.getItems(container)
-
-        id = items[0]
-        if(id === undefined || container.length === 0){
+        this.id = this.items[0]
+        if(this.id === undefined || container.length === 0){
             return false
         }
         
-        className1 = this.getClassName(id)
-        setTable(id, className1)
+        this.getClassName(this.id)
+        setTable(this.id, this.className)
         return true
     }
     
 }
 
-class searchAnimation_path extends searchAnimation{
+class searchAnimation_path extends searchAnimation_pos{
     getItems(path, pathDirection){
-        return (path.length > 0) ? [path.shift(), pathDirection.shift()] : [undefined]
+        this.items =  (path.length > 0) ? [path.shift(), pathDirection.shift()] : [undefined]
     }
 
     getClassName(id, d){
-        var className1, className2
         if (WhichComponentSame(id) > 3){
-            className1 = componentKind.path
-            className2 = direction(d)
+            this.className1 = componentKind.path
+            this.className2 = direction(d)
         } else {
-            className1 = componentKind.path
-            className2 = StartEndBombWeight(WhichComponentSame(id), direction(d), direction(d), componentKind.bombPath, componentKind.weightPath)
+            this.className1 = componentKind.path
+            this.className2 = StartEndBombWeight(WhichComponentSame(id), direction(d), direction(d), componentKind.bombPath, componentKind.weightPath)
         }
-        return [className1, className2]
     }
 
     runAnimation(container){
-        var newid, id, items, d
-        var className1, className2, className
         var path = container[0];
         var pathDirection = container[1];
 
-        items = this.getItems(path, pathDirection)
+        this.getItems(path, pathDirection)
 
-        id = items[0]
-        if(id === undefined || path.length === 0){
+        this.id = this.items[0]
+        if(this.id === undefined || path.length === 0){
             return false
         }
         
-        newid = path[0]
-        d = pathDirection[0]
+        this.newid = path[0]
+        this.d = pathDirection[0]
 
-        className = this.getClassName(newid, d)
-        className1 = className[0]; className2 = className[1];
-        setTable((WhichComponentSame(id) >= 3) ? id : -1, className1)
-        setTable(newid, className2)
+        this.getClassName(this.newid, this.d)
+        setTable((WhichComponentSame(this.id) >= 3) ? this.id : -1, this.className1)
+        setTable(this.newid, this.className2)
         return false
     }
     
