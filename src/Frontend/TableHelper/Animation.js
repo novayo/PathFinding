@@ -170,9 +170,8 @@ export function SearchAnimation(search, bomb, path, pathDirection, speed, sysSta
         stopStatus.path = path
         stopStatus.pathDirection = pathDirection
         stopStatus.bomb = bomb
-    } else {
         stopStatus.complete = false
-    }
+    } 
 
     var items, animationObj, positions;
 

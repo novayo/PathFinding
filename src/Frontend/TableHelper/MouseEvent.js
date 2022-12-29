@@ -88,7 +88,9 @@ function MouseEvent() {
             return
         }
 
-        document.addEventListener('mouseup', MouseUpHandler);
+        document.addEventListener('mouseup', function(event){
+            move.set("")
+        });
 
         tableVar.newId = parseInt(e.target.id)
         const whichOldComponent = WhichComponent(tableVar.id, touch)
