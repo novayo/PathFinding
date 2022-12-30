@@ -146,6 +146,10 @@ function ButtonEvent() {
     const ClearPath = (event = true, reset = false) => {
         // console.log("ClearPath")
 
+        if (animation.get !== "Maze"){
+            sysStatus.set("IDLE")
+        }
+
         if (event) {
             update.set("False")
             synchronize.update = false // 因為reducer會不同步，因此需要及時處理
