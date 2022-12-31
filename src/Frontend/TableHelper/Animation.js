@@ -59,13 +59,8 @@ class searchAnimation_pos{
 
 class searchAnimation_search extends searchAnimation_pos{
     getClassName(id){
-        if (WhichComponentSame(id) > 3){
-            this.className1 = componentKind.search
-            this.className2 = componentKind.searchBomb
-        } else {
-            this.className1 = StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch)
-            this.className2 = StartEndBombWeight(WhichComponentSame(id), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearch, componentKind.weightSearchBomb)
-        }
+        this.className1 = (isWall(id) || isPath(id)) ? componentKind.search : StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch)
+        this.className2 = (isWall(id) || isPath(id)) ? componentKind.searchBomb : StartEndBombWeight(WhichComponentSame(id), componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearch, componentKind.weightSearchBomb)
         return this.className = (position.bomb === false) ? this.className1 : this.className2
     }
 
@@ -86,11 +81,7 @@ class searchAnimation_search extends searchAnimation_pos{
 
 class searchAnimation_bomb extends searchAnimation_pos{
     getClassName(id){
-        if (WhichComponentSame(id) > 3){
-            this.className = componentKind.search
-        } else {
-            this.className = StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch)
-        }
+        this.className = (isWall(id) || isPath(id)) ? componentKind.search : StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearch)
     }
 
     runAnimation(container){
@@ -114,13 +105,8 @@ class searchAnimation_path extends searchAnimation_pos{
     }
 
     getClassName(id, d){
-        if (WhichComponentSame(id) > 3){
-            this.className1 = componentKind.path
-            this.className2 = direction(d)
-        } else {
-            this.className1 = componentKind.path
-            this.className2 = StartEndBombWeight(WhichComponentSame(id), direction(d), direction(d), componentKind.bombPath, componentKind.weightPath)
-        }
+        this.className1 = componentKind.path
+        this.className2 = (isWall(id) || isPath(id)) ? direction(d) : StartEndBombWeight(WhichComponentSame(id), direction(d), direction(d), componentKind.bombPath, componentKind.weightPath)
     }
 
     runAnimation(container){
@@ -138,7 +124,7 @@ class searchAnimation_path extends searchAnimation_pos{
         this.d = pathDirection[0]
 
         this.getClassName(this.newid, this.d)
-        setTable((WhichComponentSame(this.id) >= 3) ? this.id : -1, this.className1)
+        setTable((isWeight(this.id) || isWall(this.id) || isPath(this.id)) ? this.id : -1, this.className1)
         setTable(this.newid, this.className2)
         return false
     }
@@ -164,8 +150,6 @@ export function SearchAnimation(search, bomb, path, pathDirection, speed, sysSta
         path.unshift(-1)
         pathDirection.unshift("")
     
-        // I don't know why ???
-        // setSearchAnimation(search, path, pathDirection, bomb, "")
         stopStatus.search = search
         stopStatus.path = path
         stopStatus.pathDirection = pathDirection
@@ -208,21 +192,21 @@ export function FinalAnimation(search, path, pathDirection, bomb){
     for (var i = 0; i < search.length; i++) {
         for (var j = 0; j < search[i].length; j++) {
             id = search[i][j]; type = WhichComponentSame(id);
-            className1 = (type > 3) ? componentKind.searchStatic : StartEndBombWeight(type, componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearchStatic);
-            className2 = (type > 3) ? componentKind.searchBombStatic : StartEndBombWeight(type, componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearchBomb, componentKind.weightSearchBombStatic);
+            className1 = (isWall(id) || isPath(id)) ? componentKind.searchStatic : StartEndBombWeight(type, componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearchStatic);
+            className2 = (isWall(id) || isPath(id)) ? componentKind.searchBombStatic : StartEndBombWeight(type, componentKind.startSearchBomb, componentKind.endSearchBomb, componentKind.bombSearchBomb, componentKind.weightSearchBombStatic);
             (position.bomb === false) ? setTable(id, className1) : setTable(id, className2);
         }
     }
     for (i = 0; i < bomb.length; i++) {
         for (j = 0; j < bomb[i].length; j++) {
             id = bomb[i][j]; type = WhichComponentSame(id);
-            className1 = (type > 3) ? componentKind.searchStatic : StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearchStatic);
+            className1 = (isWall(id) || isPath(id)) ? componentKind.searchStatic : StartEndBombWeight(WhichComponentSame(id), componentKind.startSearch, componentKind.endSearch, componentKind.bombSearch, componentKind.weightSearchStatic);
             setTable(id, className1);
         }
     }
     for (i = 0; i < path.length; i++) {
         id = path[i]; d = pathDirection[i]; type = WhichComponentSame(id);
-        className1 = (type > 3) ? componentKind.pathStatic : StartEndBombWeight(WhichComponentSame(id), direction(d), direction(d), componentKind.bombPath, componentKind.weightPathStatic);
+        className1 = (isWall(id) || isPath(id)) ? componentKind.pathStatic : StartEndBombWeight(WhichComponentSame(id), direction(d), direction(d), componentKind.bombPath, componentKind.weightPathStatic);
         setTable(id, className1);
     }
 }
@@ -252,7 +236,7 @@ export function MazeAnimation(maze, speed, sysStatusFunction, updateFunction) { 
             }
 
             id = stopStatus.maze[0].shift()
-            if (id !== undefined && WhichComponentSame(id) > 4) {
+            if (id !== undefined && isPath(id)) {
                 setTable(id, componentKind.wall, true)
             }
         }
@@ -288,4 +272,16 @@ function direction(kind){
             return componentKind.path
     }
 
+}
+
+function isWeight(id) {
+    return WhichComponentSame(id) === 3;
+}
+
+function isWall(id) {
+    return WhichComponentSame(id) === 4;
+}
+
+function isPath(id) {
+    return WhichComponentSame(id) === 5;
 }
