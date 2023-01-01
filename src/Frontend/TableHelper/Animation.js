@@ -164,7 +164,7 @@ export function SearchAnimation(search, bomb, path, pathDirection, speed, sysSta
         animationObj = items[0]
         positions = items[1]
 
-        if (animationObj === undefined) {
+        if (animationObj === undefined || positions === undefined) {
             updateFunction()
             clearInterval(searchAnimation)
 
