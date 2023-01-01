@@ -35,7 +35,7 @@ export function WhichComponent(id, touch){ // MouseEvent 分類
 
 }
 
-
+// meaning of return value: 0 => start, 1 => end, 2 => bomb (gas), 3 => weight, 4 => wall, 5 => other (empty)
 export function WhichComponentSame(id){ // component 分類
 
     var pos = id

@@ -32,6 +32,7 @@ function MouseEvent() {
             KeyboardEvent(event, synchronize.algorithm)
         }
     })
+    document.addEventListener('mouseup', () => move.set(""));
 
     const CheckStopStatus = () => { // 當 sysStatus = "STOP" 時，Algorithm ==> ClearWalls & Maze ==> ClearPath
         if (sysStatus.get === "STOP"){
@@ -65,6 +66,10 @@ function MouseEvent() {
         }else{
             move.set(whichComponent.kind)
         }
+        
+        if(update.get){
+            UpdateTable(buttonEvent.Start, buttonEvent.ClearPath, algorithm, speed)
+        }
     }
 
     const MouseUpHandler = (e) => {
@@ -75,10 +80,6 @@ function MouseEvent() {
         }
 
         move.set("")
-
-        if(update.get && move.get !== ""){ // 若 update = true 直接重新 UpdateTable
-            UpdateTable(buttonEvent.Start, buttonEvent.ClearPath, algorithm, speed)
-        }
     }
 
     const OnMouseEnterHanlder = (e) => {
@@ -92,7 +93,7 @@ function MouseEvent() {
         const whichOldComponent = WhichComponent(tableVar.id, touch)
         const whichNewComponent = WhichComponent(tableVar.newId, touch)
 
-        if(move.get === componentKind.add && whichNewComponent.type){ // 若是新增 wall weight，不須清除舊id的物件
+        if(move.get === componentKind.add && whichNewComponent.type && tableVar.id !== tableVar.newId){ // 若是新增 wall weight，不須清除舊id的物件
             setTable(tableVar.newId, whichNewComponent.rKind, true)
             tableVar.id = parseInt(tableVar.newId)
             CheckStopStatus()
